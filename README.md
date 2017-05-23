@@ -4,10 +4,10 @@ The project description
 
 ## Team
 
-- teamMember
-- teamMember
-- teamMember
-- teamMember
+- Edwin (Bill) Beedle
+- Airyque Ervin
+- Jon Eric Escobedo
+- Jeffrey Chen
 
 ## Roadmap
 
