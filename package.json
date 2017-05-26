@@ -2,8 +2,7 @@
   "name": "course.thesis",
   "version": "1.0.0",
   "scripts": {
-    "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
-    "start": "nodemon server",
+    "start": "concurrently \"nodemon server\" \"npm run heroku-postbuild\"",
     "test": "NODE_ENV=test grunt test",
     "build": "webpack --watch"
   },
