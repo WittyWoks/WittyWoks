@@ -5,7 +5,7 @@
     "start": "nodemon server",
     "test": "NODE_ENV=test grunt test",
     "build": "webpack --watch",
-    "heroku-postbuild": "webpack -p"
+    "heroku-postbuild": "webpack -p --config ./webpack.config.babel.js --progress"
   },
   "author": "Hack Reactor",
   "license": "MIT",
@@ -23,11 +23,13 @@
     "ejs": "^2.5.6",
     "express": "^4.15.2",
     "express-session": "^1.15.1",
+    "grunt": "~0.4.5",
     "grunt-pg": "https://github.com/watsoncj/grunt-pg.git",
     "jquery": "^3.2.1",
     "knex": "^0.12.9",
     "material-ui": "^0.18.1",
     "morgan": "^1.8.1",
+    "next": "^2.4.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
@@ -41,7 +43,13 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "redis": "^2.7.1",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "webpack": "^2.3.2",
+    "webpack-dev-server": "^2.4.2",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
+    "babel-preset-latest": "^6.24.0",
+    "babel-preset-react": "^6.23.0"
   },
   "devDependencies": {
     "babel-loader": "^7.0.0",
