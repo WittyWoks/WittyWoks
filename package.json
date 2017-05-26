@@ -5,7 +5,7 @@
     "start": "nodemon server",
     "test": "NODE_ENV=test grunt test",
     "build": "webpack --watch",
-    "heroku-postbuild": "webpack -p"
+    "heroku-postbuild": "webpack -p --config ./webpack.config.babel.js --progress"
   },
   "author": "Hack Reactor",
   "license": "MIT",
