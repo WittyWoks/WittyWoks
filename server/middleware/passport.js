@@ -111,7 +111,7 @@ passport.use('local-login', new LocalStrategy({
       });
   }));
 
-passport.use('google', new GoogleStrategy({
+/* passport.use('google', new GoogleStrategy({
   clientID: config.Google.clientID,
   clientSecret: config.Google.clientSecret,
   callbackURL: config.Google.callbackURL
@@ -136,7 +136,7 @@ passport.use('twitter', new TwitterStrategy({
   userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true'
 },
   (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('twitter', profile, done))
-);
+); */
 
 const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
   return models.Auth.where({ type, oauth_id: oauthProfile.id }).fetch({
