@@ -11,8 +11,8 @@
 
 // ----- Basic Server For React-----
 'use strict';
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 const path = require('path');
 const PORT = process.env.port || 3000;
 
@@ -23,5 +23,5 @@ app.get('/*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}!`);
+  console.log(`BestFit is listening on port ${PORT}!`);
 });
