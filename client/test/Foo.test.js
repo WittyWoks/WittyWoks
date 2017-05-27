@@ -20,4 +20,3 @@ describe('A suite', () => {
     expect(render(<Foo />).text()).toEqual('Bar');
   });
 });
-  

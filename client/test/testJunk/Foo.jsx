@@ -22,3 +22,4 @@ class Foo extends React.Component {
 // Foo.defaultProps = defaultProps;
 
 export default Foo;
+

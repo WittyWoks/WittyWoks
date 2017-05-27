@@ -1,42 +1,24 @@
-// Link.react.js
+// Link.react-test.js
 import React from 'react';
+import Link from './testJunk/Link.react';
+import renderer from 'react-test-renderer';
 
-const STATUS = {
-  HOVERED: 'hovered',
-  NORMAL: 'normal',
-};
+test('Link changes the class when hovered', () => {
+  const component = renderer.create(
+    <Link page="http://www.facebook.com">Facebook</Link>
+  );
+  let tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
 
-export default class Link extends React.Component {
+  // manually trigger the callback
+  tree.props.onMouseEnter();
+  // re-rendering
+  tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
 
-  constructor(props) {
-    super(props);
-
-    this._onMouseEnter = this._onMouseEnter.bind(this);
-    this._onMouseLeave = this._onMouseLeave.bind(this);
-
-    this.state = {
-      class: STATUS.NORMAL,
-    };
-  }
-
-  _onMouseEnter() {
-    this.setState({class: STATUS.HOVERED});
-  }
-
-  _onMouseLeave() {
-    this.setState({class: STATUS.NORMAL});
-  }
-
-  render() {
-    return (
-      <a
-        className={this.state.class}
-        href={this.props.page || '#'}
-        onMouseEnter={this._onMouseEnter}
-        onMouseLeave={this._onMouseLeave}>
-        {this.props.children}
-      </a>
-    );
-  }
-
-}
+  // manually trigger the callback
+  tree.props.onMouseLeave();
+  // re-rendering
+  tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
+});
