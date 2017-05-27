@@ -17,10 +17,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
+<<<<<<< HEAD
         <div>
           <Navbar className="nav" />
         </div>
         <Route exact path='/home' component={Home} />
+=======
+        <Route exact path='/' component={Home} />
+>>>>>>> (frontend) dashboard menu made
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/dashboard" component={Dashboard} />
