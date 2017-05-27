@@ -27,13 +27,13 @@ class Navbar extends React.Component {
                         <li className="nav-item">
                             <Link className="nav-link" to="/companyInfo"> Company Info </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/auth/google"> Log In </Link>
-                        </li>
                     </ul>
-                    <ul className="navbar-nav ml-auto">
-                      <li>
-                        <button className="btn btn-primary" type="button">Signup</button>
+                    <ul className="navbar-nav ml-auto align-self-center">
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/auth/google"> Log In </Link>
+                      </li>
+                      <li className="nav-item">
+                        <button className="btn btn-primary btn-sm" type="button">Sign up</button>
                       </li>
                     </ul>
                 </div>
