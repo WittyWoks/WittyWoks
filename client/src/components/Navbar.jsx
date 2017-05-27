@@ -6,22 +6,38 @@ class Navbar extends React.Component {
     super(props);
   }
 
+
   render() {
     return (
        <div className="Navigation">
-        <nav className="navbar navbar-default navbar-fixed-top ">
-          <div className="navbar-header">
-            <a className="navbar-brand navbar-left" href="/"> BestFit </a>
-          </div>
-          <div className="container-fluid navbar-right">
-            <ul className="nav navbar-nav">
-              <li> <Link to="/dashboard"> Dashboard </Link> </li>   
-              <li> <Link to="/data"> Analyitcs </Link> </li>   
-              <li> <Link to="/companyInfo"> Company Info </Link> </li>   
-              <li> <Link to="/login"> Log In </Link> </li>      
-              <li> <Link to="/signup"> Sign Up </Link> </li>
-            </ul>
-          </div>
+        <nav className="navbar navbar-toggleable-sm navbar-light fixed-top">
+            <div className="container">
+                <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <a className="navbar-brand align-self-center" href="/"><strong>BestFit</strong></a>
+                <div className="collapse navbar-collapse" id="navbarNav1">
+                    <ul className="navbar-nav mr-auto align-self-center">
+                        <li className="nav-item active">
+                            <Link className="nav-link" to="/dashboard"> Dashboard </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/data"> Analyitcs </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/companyInfo"> Company Info </Link>
+                        </li>
+                    </ul>
+                    <ul className="navbar-nav ml-auto align-self-center">
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/auth/google"> Log In </Link>
+                      </li>
+                      <li className="nav-item">
+                        <button className="btn btn-primary btn-sm" type="button">Sign up</button>
+                      </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
       </div>
     );

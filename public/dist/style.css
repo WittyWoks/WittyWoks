@@ -1,0 +1,33 @@
+body {
+  padding-top: 4.5rem;
+}
+
+.vert-center{
+  height: 80vh;
+}
+
+/*Adds background to splash page*/
+.content-home {
+  content:"";
+  position:fixed; /* stretch a fixed position to the whole screen */
+  top:0;
+  height:100vh; /* fix for mobile browser address bar appearing disappearing */
+  left:0;
+  right:0;
+  z-index:-1; /* needed to keep in the background */
+  background: url(https://res.cloudinary.com/jescobedo/image/upload/v1495868219/markus-spiske-37930-compressor_cikyyd.jpg) center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.navbar {
+  background-color: rgba(255,255,255,0.1)
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar {
+      background-color: whitesmoke;
+  }
+}
