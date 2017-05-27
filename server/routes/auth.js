@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.route('/')
   .get(middleware.auth.verify, (req, res) => {
-    res.redirect('/dashboard');
+    res.redirect('/home');
   });
 
 router.route('/logout')
