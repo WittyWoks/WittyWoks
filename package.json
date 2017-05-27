@@ -4,6 +4,7 @@
   "scripts": {
     "start": "nodemon server",
     "test": "NODE_ENV=test grunt test",
+    "jest": "jest",
     "build": "webpack --watch",
     "heroku-postbuild": "webpack -p --config ./webpack.config.babel.js --progress"
   },
@@ -36,7 +37,7 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "pg": "^6.1.5",
-    "react": "^15.4.2",
+    "react": "^15.5.4",
     "react-addons-css-transition-group": "^15.5.2",
     "react-addons-transition-group": "^15.5.2",
     "react-dom": "^15.4.2",
@@ -52,25 +53,47 @@
     "babel-preset-react": "^6.23.0"
   },
   "devDependencies": {
+    "@types/jest": "^19.2.3",
+    "babel-jest": "^20.0.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
     "babel-preset-latest": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "chai": "^3.5.0",
+    "enzyme": "^2.8.2",
     "eslint-plugin-react": "^7.0.1",
     "grunt": "~0.4.5",
     "grunt-eslint": "^19.0.0",
     "grunt-mocha-test": "^0.13.2",
     "jest": "^20.0.4",
+    "jest-cli": "^20.0.4",
     "mocha": "^3.2.0",
     "node-mocks-http": "^1.6.1",
+    "react-addons-test-utils": "^15.5.1",
+    "react-scripts": "^1.0.6",
+    "react-test-renderer": "^15.5.4",
+    "regenerator-runtime": "^0.10.5",
     "supertest": "^3.0.0",
+    "ts-jest": "^20.0.4",
+    "typescript": "^2.3.3",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2"
   },
   "babel": {
     "plugins": [
       "transform-es2015-modules-commonjs"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
     ]
   }
 }
