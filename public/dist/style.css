@@ -1,5 +1,5 @@
 body {
-  padding-top: 4.5rem;
+  /*padding-top: 4.5rem;*/
 }
 
 .vert-center{
@@ -22,6 +22,10 @@ body {
   background-size: cover;
 }
 
+.router-link-color {
+  color: white;
+}
+
 .navbar {
   background-color: rgba(255,255,255,0.1)
 }
@@ -30,4 +34,8 @@ body {
   .navbar {
       background-color: whitesmoke;
   }
+  .sticky-header {
+      padding:0; /* Extend your menu really full width without padding of container-fluid */
+  }
+
 }
