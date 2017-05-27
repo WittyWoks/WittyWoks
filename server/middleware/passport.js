@@ -1,7 +1,7 @@
 'use strict';
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const config = require('../../config/development.json')['passport'];
+// const config = require('../../config/development.json')['passport'];
 const models = require('../../db/models');
 
 passport.serializeUser((profile, done) => {
@@ -24,13 +24,13 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-passport.use('google', new GoogleStrategy({
-  clientID: config.Google.clientID,
-  clientSecret: config.Google.clientSecret,
-  callbackURL: config.Google.callbackURL
-},
-  (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('google', profile, done))
-);
+// passport.use('google', new GoogleStrategy({
+//   clientID: config.Google.clientID,
+//   clientSecret: config.Google.clientSecret,
+//   callbackURL: config.Google.callbackURL
+// },
+//   (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('google', profile, done))
+// );
 
 const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
   console.log(oauthProfile);
