@@ -10,7 +10,7 @@ class Login extends React.Component {
 
     return (
       <div>
-        Hello from Login
+        Hello from Login Component
       </div>
     );
   }
