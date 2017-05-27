@@ -20,7 +20,7 @@ class App extends React.Component {
         <div>
           <Navbar className="nav" />
         </div>
-        <Route exact path='/' component={Home} />
+        <Route exact path='/home' component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/dashboard" component={Dashboard} />
