@@ -20,7 +20,6 @@ class App extends React.Component {
         <div>
           <Navbar className="nav" />
         </div>
-        <h2> Hello from App. This is the landing page index route</h2>
         <Route exact path='/' component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
