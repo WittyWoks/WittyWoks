@@ -20,7 +20,7 @@ router.get('/auth/google', middleware.passport.authenticate('google', {
 
 router.get('/auth/google/callback', middleware.passport.authenticate('google', {
   successRedirect: '/dashboard',
-  failureRedirect: '/login'
+  failureRedirect: '/'
 }));
 
 module.exports = router;
