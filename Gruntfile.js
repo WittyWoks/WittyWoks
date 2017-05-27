@@ -20,15 +20,17 @@ module.exports = function(grunt) {
 
     pgcreatedb: {
       default: {
-        connection: {
-          user: config.connection.user,
-          password: config.connection.password,
-          host: config.connection.host,
-          port: config.connection.port,
-          database: 'template1'
-        },
-        name: config.connection.database
-      }
+        connection: process.env.DATABASE_URL
+        // connection: {
+        //   user: config.connection.user,
+        //   password: config.connection.password,
+        //   host: config.connection.host,
+        //   port: config.connection.port,
+        //   database: 'template1'
+        // },
+        // name: config.connection.database
+      },
+        
     }
 
   });
