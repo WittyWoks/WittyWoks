@@ -28,7 +28,8 @@ coverage
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
-dist/*.js
+public/dist/*.js
+yarn.lock
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
