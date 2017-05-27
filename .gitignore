@@ -29,7 +29,10 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 public/dist/*.js
+<<<<<<< HEAD
 yarn.lock
+=======
+>>>>>>> Fixed OAuth
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
