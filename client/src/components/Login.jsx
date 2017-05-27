@@ -7,19 +7,10 @@ class Login extends React.Component {
   }
 
   render() {
-    const styles = {
 
-        googleSignInStyle: {
-          textDecoration: 'none',
-        }
-    }
     return (
       <div>
         Hello from Login
-        <a href="/auth/google"
-        style = {styles.googleSignInStyle}>
-        <GoogleButton />
-        </a>
       </div>
     );
   }

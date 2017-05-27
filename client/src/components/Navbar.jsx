@@ -30,7 +30,7 @@ class Navbar extends React.Component {
                     </ul>
                     <ul className="navbar-nav ml-auto align-self-center">
                       <li className="nav-item">
-                        <Link className="nav-link" to="/auth/google"> Log In </Link>
+                        <a className="nav-link" href="/auth/google"> Log In </a>
                       </li>
                       <li className="nav-item">
                         <button className="btn btn-primary btn-sm" type="button">Sign up</button>

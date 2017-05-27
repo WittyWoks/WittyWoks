@@ -5,12 +5,12 @@ const redisClient = require('redis').createClient(process.env.REDISTOGO_URL);
 
 if (process.env.REDISTOGO_URL) {
     // TODO: redistogo connection
-    var rtg   = require("url").parse(process.env.REDISTOGO_URL);
-    var redis = require("redis").createClient(rtg.port, rtg.hostname);
+    let rtg   = require("url").parse(process.env.REDISTOGO_URL);
+    let redis = require("redis").createClient(rtg.port, rtg.hostname);
 
 redis.auth(rtg.auth.split(":")[1]);
 } else {
-    var redis = require("redis").createClient();
+    let redis = require("redis").createClient();
 }
 
 module.exports.verify = (req, res, next) => {
