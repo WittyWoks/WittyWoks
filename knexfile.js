@@ -5,3 +5,4 @@ if (process.env.DATABASE_URL) {
 };
 
 module.exports = config['knex'];
+console.log(config['knex']);
