@@ -33,9 +33,9 @@ module.exports = function(grunt) {
          client: 'postgresql',
          connection: {
            database: config.connection.database,
-    },
-
-    }
+          },
+        }
+      }
 
   });
 
