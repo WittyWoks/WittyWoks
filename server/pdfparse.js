@@ -68,10 +68,10 @@ pdfParser.on('pdfParser_dataReady', pdfData => {
         if (skill === word) {
           if (!matchingSkills.includes(skill)) {
             matchingSkills.push(skill);
-              return;
+            return;
           }
         }
-      })
+      });
     }
   });
   console.log(matchingSkills);
