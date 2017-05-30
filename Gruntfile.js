@@ -46,8 +46,18 @@ module.exports = function(grunt) {
         },
         name: config.connection.database,
       },
+<<<<<<< HEAD
     },
 
+=======
+       production: {
+         client: 'postgresql',
+         connection: {
+           database: config.connection.database,
+          },
+        }
+      }
+>>>>>>> Adjustments to DB deployment
 
   });
 
