@@ -1,5 +1,5 @@
-let fs = require('fs'),
-  PDFParser = require('pdf2json');
+let fs = require('fs');
+let PDFParser = require('pdf2json');
 
 let technicalskills = {
   a: [],
@@ -27,7 +27,7 @@ let technicalskills = {
   w: [],
   x: [],
   y: [],
-  z: [],
+  z: []
 };
 
 let skills = `algorithm, algorithms, angular, angular.js, angularjs, backbone, backbone, backbone.js, bluebird, \
@@ -68,13 +68,13 @@ pdfParser.on('pdfParser_dataReady', pdfData => {
         if (skill === word) {
           if (!matchingSkills.includes(skill)) {
             matchingSkills.push(skill);
-            return;
+              return;
           }
         }
-      });
+      })
     }
   });
   console.log(matchingSkills);
 });
 
-pdfParser.loadPDF('./steve.pdf');
+pdfParser.loadPDF(/*insert pdf here*/);
