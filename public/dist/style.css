@@ -30,12 +30,16 @@ body {
   background-color: rgba(255,255,255,0.1)
 }
 
+#job-search{
+  font-size: 2.5em;
+}
+
 @media only screen and (max-width: 768px) {
   .navbar {
       background-color: whitesmoke;
   }
-  .sticky-header {
-      padding:0; /* Extend your menu really full width without padding of container-fluid */
+  #job-search{
+    font-size: 1.5em;
   }
 
 }

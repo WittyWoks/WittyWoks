@@ -8,7 +8,7 @@ class Resume extends React.Component {
   render() {
     return (
       <div>
-        Hello from Resume
+        <h1>Hello from Resume Component</h1>
       </div>
     );
   }

@@ -1,5 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+
+
+const style = {
+  margin: 12,
+};
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -15,25 +22,25 @@ class Navbar extends React.Component {
                 <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <a className="navbar-brand align-self-center" href="/"><strong>BestFit</strong></a>
+                <a className="navbar-brand" href="/"><strong>BestFit</strong></a>
                 <div className="collapse navbar-collapse" id="navbarNav1">
-                    <ul className="navbar-nav mr-auto align-self-center">
+                    <ul className="navbar-nav mr-auto">
                         <li className="nav-item active">
-                            <Link className="nav-link" to="/dashboard"> Dashboard </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/data"> Analyitcs </Link>
-                        </li>
-                        <li className="nav-item">
                             <Link className="nav-link" to="/companyInfo"> Company Info </Link>
                         </li>
                     </ul>
-                    <ul className="navbar-nav ml-auto align-self-center">
+                    <ul className="navbar-nav ml-auto">
                       <li className="nav-item">
-                        <a className="nav-link" href="/auth/google"> Log In </a>
+                        <FlatButton 
+                          label="Log in" 
+                          href="/auth/google"
+                        />
                       </li>
                       <li className="nav-item">
-                        <button className="btn btn-primary btn-sm" type="button">Sign up</button>
+                        <RaisedButton 
+                          label="Sign up" 
+                          primary={true} 
+                        />
                       </li>
                     </ul>
                 </div>
