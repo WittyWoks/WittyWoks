@@ -28,7 +28,13 @@ module.exports = function(grunt) {
           database: 'template1'
         },
         name: config.connection.database
-      }
+      },
+       production: {
+         client: 'postgresql',
+         connection: {
+           database: config.connection.database,
+    },
+
     }
 
   });
