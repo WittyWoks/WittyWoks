@@ -30,9 +30,9 @@ module.exports = function(grunt) {
     pgcreatedb: {
       default: {
         connection: {
-          url: url
+          url: process.env.DATABASE_URL
         },
-        name: name
+        name: process.env.DATABASE_DB
       },
       staging: {
         connection: {
