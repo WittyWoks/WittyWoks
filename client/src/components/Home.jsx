@@ -24,11 +24,11 @@ const HomePage = () => (
             style={styles.button}
             icon={<i className="fa fa-google" aria-hidden="true"></i>}
           />
-          <RaisedButton 
-            label="Guest" 
-            primary={true} 
-            style={styles.button} 
-            containerElement={<Link to="/dashboard" className="router-link-color"> Guest </Link>} 
+          <RaisedButton
+            label="Guest"
+            primary={true}
+            style={styles.button}
+            containerElement={<Link to="/dashboard" className="router-link-color"> Guest </Link>}
           />
         </div>
       </div>

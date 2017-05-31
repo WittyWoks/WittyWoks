@@ -2,6 +2,7 @@ const express = require('express');
 const middleware = require('../middleware');
 const router = express.Router();
 const app = express();
+const profiles = require('../middleware/passport.js');
 
 router.route('/')
   .get(middleware.auth.verify, (req, res) => {
@@ -10,9 +11,11 @@ router.route('/')
 
 router.route('/logout')
   .get((req, res) => {
-    req.logout();
+    req.session.destroy(function (err) {
+    profiles.userInfo = null;
     res.redirect('/');
   });
+});
 
 router.get('/auth/google', middleware.passport.authenticate('google', {
   scope: ['email', 'profile']
