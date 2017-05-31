@@ -7,6 +7,9 @@ const G_ID = process.env.G_ID || require('../../config/development.json')['passp
 const G_SECRET = process.env.G_SECRET || require('../../config/development.json')['passport'].Google.clientSecret
 const G_URL = process.env.G_URL || 'http://localhost:3000/auth/google/callback';
 
+
+passport.userInfo = null;
+
 passport.serializeUser((profile, done) => {
   done(null, profile.id);
 });
@@ -28,8 +31,8 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use('google', new GoogleStrategy({
-  clientID: "525200090976-rg2d76bkc7ffvm7j6rba9bbq1jhg3qjd.apps.googleusercontent.com",
-  clientSecret: "cIN6H48UCjLnPeLMPFeJHIIt",
+  clientID: G_ID,
+  clientSecret: G_SECRET,
   callbackURL: G_URL
 },
   (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('google', profile, done))
@@ -37,6 +40,7 @@ passport.use('google', new GoogleStrategy({
 
 const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
   console.log(oauthProfile);
+  passport.userInfo = oauthProfile;
   return models.Auth.where({ type, oauth_id: oauthProfile.id }).fetch({
     withRelated: ['profile']
   })
