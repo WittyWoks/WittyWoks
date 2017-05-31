@@ -1,6 +1,3 @@
-const key = require('../config/development.json').postgresql.DATABASE_URL;
-console.log('hi',key);
-
 const config = {
   knex: {
     client: 'postgresql',
