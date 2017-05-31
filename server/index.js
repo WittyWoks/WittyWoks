@@ -8,7 +8,6 @@ const formidable = require('formidable'); // JEE ADDED
 const fs = require('fs'); // JEE ADDED
 const pg = require('pg');
 
-
 const client = new pg.Client({
   database: process.env.DATABASE_DB || require('../config/development.json').postgresql.DATABASE_DB,
   user: process.env.DATABASE_USER || require('../config/development.json').postgresql.DATABASE_USER,

@@ -1,7 +1,7 @@
 const config = require('config')['knex'];
 
 
-<<<<<<< HEAD
+
 if (process.env.DATABASE_URL) {
   let url = process.env.DATABASE_URL;
   let name = postgresql.DATABASE_DB;
@@ -10,8 +10,6 @@ if (process.env.DATABASE_URL) {
   let name = require('./config/development.json').postgresql.DATABASE_DB;
 }
 
-=======
->>>>>>> Fixed OAUTH and google login, fixed database save of users
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -33,9 +31,9 @@ module.exports = function(grunt) {
     pgcreatedb: {
       default: {
         connection: {
-          url: require('../../config/development.json')postgresql.DATABASE_URL || process.env.DATABASE_URL
+          url: require('./config/development.json').postgresql.DATABASE_URL || process.env.DATABASE_URL
         },
-        name: require('../../config/development.json').postgresql.DATABASE_DB || process.env.DATABASE_DB
+        name: require('./config/development.json').postgresql.DATABASE_DB || process.env.DATABASE_DB
       },
       staging: {
         connection: {
