@@ -1,13 +1,17 @@
+const key = require('../config/development.json').postgresql.DATABASE_URL;
+console.log('hi',key);
+
 const config = {
   knex: {
     client: 'postgresql',
     connection: {
-      database: process.env.DB || 'thesis',
-      user: process.env.DB_USER || 'postgres',
-      password: process.env.DB_PASSWORD || 'postgres',
-      host: process.env.DB_HOST || 'localhost',
-      port: process.env.DB_PORT || 5432,
-      url: process.env.DATABASE_URL || '',
+      database: process.env.DATABASE_DB || require('../config/development.json').postgresql.DATABASE_DB,
+      user: process.env.DATABASE_USER || require('../config/development.json').postgresql.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD || require('../config/development.json').postgresql.DATABASE_PASSWORD,
+      host: process.env.DATABASE_HOST || require('../config/development.json').postgresql.DATABASE_HOST,
+      port: 5432,
+      ssl: true,
+      url: process.env.DATABASE_URL || require('../config/development.json').postgresql.DATABASE_URL
     },
     pool: {
       min: 1,
