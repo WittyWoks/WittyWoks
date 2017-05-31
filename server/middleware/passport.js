@@ -28,8 +28,8 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use('google', new GoogleStrategy({
-  clientID: "525200090976-rg2d76bkc7ffvm7j6rba9bbq1jhg3qjd.apps.googleusercontent.com",
-  clientSecret: "cIN6H48UCjLnPeLMPFeJHIIt",
+  clientID: G_ID,
+  clientSecret: G_SECRET,
   callbackURL: G_URL
 },
   (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('google', profile, done))
