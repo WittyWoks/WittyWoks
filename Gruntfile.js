@@ -45,13 +45,8 @@ module.exports = function(grunt) {
         },
         name: config.connection.database,
       },
-<<<<<<< HEAD
-
-
     }
-=======
-    },
->>>>>>> fffb660124d25c5cc100e599a89bb52396ab15cc
+
 
 
 
