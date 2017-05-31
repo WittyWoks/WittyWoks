@@ -1,5 +1,8 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
+import LinearProgress from 'material-ui/LinearProgress';
+
 
 const styles = {
   button: {
@@ -14,14 +17,35 @@ const styles = {
     left: 0,
     width: '100%',
     opacity: 0,
-  },
+  }
 };
 
 class Resume extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      completed: 0,
+    };
+    this.progress = this.progress.bind(this);
   }
 
+  componentDidMount() {
+    this.timer = setTimeout(() => this.progress(5), 1000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
+  progress(completed) {
+    if (completed > 100) {
+      this.setState({completed: 100});
+    } else {
+      this.setState({completed});
+      const diff = Math.random() * 10;
+      this.timer = setTimeout(() => this.progress(completed + diff), 1000);
+    }
+  }
 
   fileUpload(e) {
     // Get file info
@@ -45,15 +69,23 @@ class Resume extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello from Resume Component</h1>
-        <RaisedButton
-          label="Upload Résumé"
-          labelPosition="before"
-          style={styles.button}
-          containerElement="label"
-        >
-          <input type="file" name="upload" style={styles.exampleImageInput} onChange={(e) => this.fileUpload(e)} />
-        </RaisedButton>
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-12">
+              <h1 className="display-4">Resume options</h1>
+              <RaisedButton
+                label="Upload Résumé"
+                labelPosition="before"
+                style={styles.button}
+                containerElement="label"
+              >
+                <input type="file" name="upload" style={styles.exampleImageInput} onChange={(e) => this.fileUpload(e)} />
+              </RaisedButton>
+              <LinearProgress className="progress-bar" mode="determinate" value={this.state.completed} />
+
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

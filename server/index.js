@@ -46,6 +46,11 @@ app.post('/fileUpload', (req, res) => {
     fs.rename(file.path, path.join(form.uploadDir, file.name));
   });
 
+  form.on('progress', function(bytesReceived, bytesExpected) {
+    var percent_complete = (bytesReceived / bytesExpected) * 100;
+    console.log(percent_complete.toFixed(2));
+  });
+
   // log any errors that occur
   form.on('error', function(err) {
     console.log('An error has occured: \n' + err);
