@@ -8,7 +8,7 @@ class Signup extends React.Component {
   render() {
     return (
       <div>
-        Hello from Signup
+        Hello from Signup Component
       </div>
     );
   }

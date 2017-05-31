@@ -9,7 +9,7 @@ class JobList extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello from JobList</h1>
+        <h1>Hello from JobList Component</h1>
         <JobListEntry />
       </div>
     );

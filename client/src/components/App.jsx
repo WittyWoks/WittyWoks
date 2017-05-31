@@ -8,6 +8,10 @@ import Dashboard from './Dashboard.jsx';
 import Home from './Home.jsx';
 import Analytics from './Analytics.jsx';
 import CompanyInfo from './CompanyInfo.jsx';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
 
 class App extends React.Component {
   constructor(props) {
@@ -16,17 +20,15 @@ class App extends React.Component {
 
   render() {
     return (
+    <MuiThemeProvider>
       <div>
-        <div>
-          <Navbar className="nav" />
-        </div>
-        <Route exact path='/home' component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/data" component={Analytics} />
-        <Route path="/companyInfo" component={CompanyInfo} />
+        <Route exact path='/home' component={(props) => <Home /> } />
+        <Route path="/login" component={(props) => <Login /> } />
+        <Route path="/signup" component={(props) => <Signup /> } />
+        <Route path="/dashboard" component={(props) => <Dashboard /> } />
+        <Route path="/companyInfo" component={(props) => <CompanyInfo /> } />
       </div>
+      </MuiThemeProvider>
     );
   }
 }

@@ -1,4 +1,3 @@
-
 'use strict';
 const app = require('./app');
 const db = require('../db');
@@ -27,4 +26,5 @@ app.get('/companyInfo', (req, res) => {
 
 app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
+
 });

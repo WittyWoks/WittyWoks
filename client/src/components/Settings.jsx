@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Analytics extends React.Component {
+class Settings extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -8,10 +8,10 @@ class Analytics extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello from Analytics Component</h1>
+        <h1>Hello from Settings Component</h1>
       </div>
     );
   }
 }
 
-export default Analytics;
+export default Settings;
