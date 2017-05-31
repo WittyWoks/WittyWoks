@@ -1,6 +1,14 @@
 const config = require('config')['knex'];
 
 
+if (process.env.DATABASE_URL) {
+  let url = process.env.DATABASE_URL;
+  let name = postgresql.DATABASE_DB;
+} else {
+  let url = require('./config/development.json').postgresql.DATABASE_URL;
+  let name = require('./config/development.json').postgresql.DATABASE_DB;
+}
+
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -22,9 +30,9 @@ module.exports = function(grunt) {
     pgcreatedb: {
       default: {
         connection: {
-          url: require('./config/development.json').postgresql.DATABASE_URL || process.env.DATABASE_URL
+          url: url
         },
-        name: require('./config/development.json').postgresql.DATABASE_DB || process.env.DATABASE_DB
+        name: name
       },
       staging: {
         connection: {
