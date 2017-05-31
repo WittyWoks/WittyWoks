@@ -13,7 +13,7 @@ class Drawers extends React.Component {
     super(props);
     this.state = {
       openPrimary: false,
-      openSecondary: false,
+      openSecondary: false
     };
     this.handleTogglePrimary = this.handleTogglePrimary.bind(this);
     this.handleToggleSecondary = this.handleToggleSecondary.bind(this);

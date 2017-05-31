@@ -29,8 +29,5 @@ export default class CheckboxWithLabel extends React.Component {
       </label>
     );
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> wrote some tests for tests
+

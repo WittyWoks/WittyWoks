@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 
 const style = {
-  margin: 12,
+  margin: 12
 };
 
 class Navbar extends React.Component {
