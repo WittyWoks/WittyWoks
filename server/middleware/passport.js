@@ -3,9 +3,9 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const models = require('../../db/models');
 
-const G_ID = process.env.G_ID || require('../../config/development.json')['passport'].Google.clientID;
-const G_SECRET = process.env.G_SECRET || require('../../config/development.json')['passport'].Google.clientSecret;
-const G_URL = process.env.G_URL || 'http://localhost:3000/auth/google/callback';
+// const G_ID = process.env.G_ID || require('../../config/development.json')['passport'].Google.clientID;
+// const G_SECRET = process.env.G_SECRET || require('../../config/development.json')['passport'].Google.clientSecret
+//G_URL = process.env.G_URL || 'http://localhost:3000/auth/google/callback';
 
 passport.serializeUser((profile, done) => {
   done(null, profile.id);
@@ -28,9 +28,9 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use('google', new GoogleStrategy({
-  clientID: G_ID,
-  clientSecret: G_SECRET,
-  callbackURL: G_URL
+  clientID: "525200090976-rg2d76bkc7ffvm7j6rba9bbq1jhg3qjd.apps.googleusercontent.com",
+  clientSecret: "cIN6H48UCjLnPeLMPFeJHIIt",
+  callbackURL: "http://localhost:3000/auth/google/callback"
 },
   (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('google', profile, done))
 );
