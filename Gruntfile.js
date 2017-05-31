@@ -1,6 +1,5 @@
 const config = require('config')['knex'];
 
-
 // if (process.env.DATABASE_URL) {
 //   const url = process.env.DATABASE_URL;
 //   const name = process.env.DATABASE_DB;
@@ -46,9 +45,13 @@ module.exports = function(grunt) {
         },
         name: config.connection.database,
       },
+<<<<<<< HEAD
 
 
     }
+=======
+    },
+>>>>>>> fffb660124d25c5cc100e599a89bb52396ab15cc
 
 
 
