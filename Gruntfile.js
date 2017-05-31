@@ -3,7 +3,7 @@ const config = require('config')['knex'];
 
 if (process.env.DATABASE_URL) {
   let url = process.env.DATABASE_URL;
-  let name = postgresql.DATABASE_DB;
+  let name = process.env.DATABASE_DB;
 } else {
   let url = require('./config/development.json').postgresql.DATABASE_URL;
   let name = require('./config/development.json').postgresql.DATABASE_DB;
