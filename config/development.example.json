@@ -1,7 +1,8 @@
 {
   "knex": {
     "connection": {
-      "database": "thesis_devel"
+      "database": "thesis_devel",
+      "url": ""
     }
   },
 
