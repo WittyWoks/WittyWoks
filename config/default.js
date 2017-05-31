@@ -9,7 +9,7 @@ const config = {
       port: 5432,
       ssl: true,
       url: process.env.DATABASE_URL || require('../config/development.json').postgresql.DATABASE_URL
-    },
+     },
     pool: {
       min: 1,
       max: 2,

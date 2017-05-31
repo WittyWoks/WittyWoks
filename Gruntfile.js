@@ -33,6 +33,13 @@ module.exports = function(grunt) {
           url: url
         },
         name: name
+          user: config.connection.user,
+          password: config.connection.password,
+          host: config.connection.host,
+          port: config.connection.port,
+          database: config.connection.database,
+        },
+        name: config.connection.database,
       },
       staging: {
         connection: {
@@ -47,7 +54,9 @@ module.exports = function(grunt) {
         name: config.connection.database,
       },
 
+
     }
+
 
 
   });
