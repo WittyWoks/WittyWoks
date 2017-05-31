@@ -3,8 +3,8 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const models = require('../../db/models');
 
-// const G_ID = process.env.G_ID || require('../../config/development.json')['passport'].Google.clientID;
-// const G_SECRET = process.env.G_SECRET || require('../../config/development.json')['passport'].Google.clientSecret
+const G_ID = process.env.G_ID || require('../../config/development.json')['passport'].Google.clientID;
+const G_SECRET = process.env.G_SECRET || require('../../config/development.json')['passport'].Google.clientSecret
 const G_URL = process.env.G_URL || 'http://localhost:3000/auth/google/callback';
 
 passport.serializeUser((profile, done) => {
