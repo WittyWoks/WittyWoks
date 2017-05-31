@@ -6,7 +6,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 
 const styles = {
   button: {
-    margin: 12,
+    margin: 12
   },
   exampleImageInput: {
     cursor: 'pointer',
@@ -16,7 +16,7 @@ const styles = {
     right: 0,
     left: 0,
     width: '100%',
-    opacity: 0,
+    opacity: 0
   }
 };
 
@@ -24,7 +24,7 @@ class Resume extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      completed: 0,
+      completed: 0
     };
     this.progress = this.progress.bind(this);
   }
