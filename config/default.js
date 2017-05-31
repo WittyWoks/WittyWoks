@@ -1,3 +1,6 @@
+const key = require('../config/development.json').postgresql.DATABASE_URL;
+console.log('hi',key);
+
 const config = {
   knex: {
     client: 'postgresql',
@@ -9,7 +12,11 @@ const config = {
       port: 5432,
       ssl: true,
       url: process.env.DATABASE_URL || require('../config/development.json').postgresql.DATABASE_URL
+<<<<<<< HEAD
      },
+=======
+    },
+>>>>>>> Fixed OAUTH and google login, fixed database save of users
     pool: {
       min: 1,
       max: 2,
