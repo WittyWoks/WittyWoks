@@ -22,9 +22,9 @@ module.exports = function(grunt) {
     pgcreatedb: {
       default: {
         connection: {
-          url: require('../../config/development.json')postgresql.DATABASE_URL || process.env.DATABASE_URL
+          url: require('./config/development.json').postgresql.DATABASE_URL || process.env.DATABASE_URL
         },
-        name: require('../../config/development.json').postgresql.DATABASE_DB || process.env.DATABASE_DB
+        name: require('./config/development.json').postgresql.DATABASE_DB || process.env.DATABASE_DB
       },
       staging: {
         connection: {
