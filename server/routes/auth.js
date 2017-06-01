@@ -14,11 +14,13 @@ router.route('/logout')
     req.session.destroy(function (err) {
     profiles.userInfo = null;
     res.redirect('/');
+
   });
 });
 
+
 router.get('/auth/google', middleware.passport.authenticate('google', {
-  scope: ['email', 'profile']
+  scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/gmail.modify','https://www.googleapis.com/auth/calendar']
 }));
 
 router.get('/auth/google/callback', middleware.passport.authenticate('google', {
