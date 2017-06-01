@@ -2,21 +2,45 @@ import React from 'react';
 import {List, ListItem} from 'material-ui/List';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
+import $ from 'jquery';
 
 class DashboardHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
+      jobs: []
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.searchIndeed = this.searchIndeed.bind(this);
   }
 
   handleChange(e) {
     this.setState({
       value: e.target.value,
     });
-    console.log(e.target.value);
+    // console.log(e.target.value);
+  }
+
+  handleSubmit(e) {
+    this.searchIndeed(this.state.value);
+    e.preventDefault();
+  }
+
+  searchIndeed(search) {
+    $.get('/indeed', {
+      search: search
+    })
+    .done((data) => {
+      console.log('Job DATA', data);      
+      this.setState({
+        jobs: data
+      });
+    })
+    .fail(err => {
+      console.error('Error occured ', err);
+    });
   }
 
   render() {
@@ -29,8 +53,10 @@ class DashboardHome extends React.Component {
             <div className="col-sm-12">
               <div className="md-form">
                 <i className="fa fa-search prefix" aria-hidden="true"></i>
-                <input type="text" id="job-search" className="form-control" value={this.state.value} onChange={this.handleChange}/>
-                <label htmlFor="job-search">Search jobs</label>
+                <form onSubmit={this.handleSubmit}>
+                  <input type="text" id="job-search" className="form-control" value={this.state.value} onChange={this.handleChange}/>
+                  <label htmlFor="job-search">Search jobs</label>
+                </form>
               </div>
             </div>
           </div>
@@ -41,16 +67,13 @@ class DashboardHome extends React.Component {
           <div className="row">
             <div className="col-sm-12">
               <List>
-                <ListItem primaryText="Cool Job 1" />
-                <ListItem primaryText="Cool Job 2" />
-                <ListItem primaryText="Cool Job 3" />
-                <ListItem primaryText="Cool Job 4" />
-                <ListItem primaryText="Cool Job 5" />
-                <ListItem primaryText="Cool Job 6" />
-                <ListItem primaryText="Cool Job 7" />
-                <ListItem primaryText="Cool Job 8" />
-                <ListItem primaryText="Cool Job 9" />
-                <ListItem primaryText="Cool Job 10" />
+              <ul className="list-group">
+                {this.state.jobs.length ? this.state.jobs.map(job => {
+                  return <ListItem className="list-group-item" key={Math.random() * 1000}>
+                    {job.company} <br/>
+                    {job.jobtitle} - {job.city} </ListItem>;
+                }) : null}
+              </ul>
               </List>
             </div>
           </div>
