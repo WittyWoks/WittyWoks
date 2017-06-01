@@ -2,6 +2,15 @@ body {
   /*padding-top: 4.5rem;*/
 }
 
+canvas{
+  width: 100% !important;
+  height: auto !important;
+  border: 1px solid #E0E0E0;
+  -webkit-box-shadow: 10px 10px 47px -10px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 47px -10px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 47px -10px rgba(0,0,0,0.75);
+}
+
 .vert-center{
   height: 80vh;
 }
@@ -41,5 +50,11 @@ body {
   #job-search{
     font-size: 1.5em;
   }
+  .card {
+    margin-bottom: 20px;
+  }
+}
 
+.shade {
+  background: rgba(0,0,0,0.5);
 }
