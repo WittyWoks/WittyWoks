@@ -52,8 +52,8 @@ class DashboardHome extends React.Component {
           <div className="row">
             <div className="col-sm-12">
               <div className="md-form">
-                <i className="fa fa-search prefix" aria-hidden="true"></i>
                 <form onSubmit={this.handleSubmit}>
+                  <i className="fa fa-search prefix" aria-hidden="true"></i>
                   <input type="text" id="job-search" className="form-control" value={this.state.value} onChange={this.handleChange}/>
                   <label htmlFor="job-search">Search jobs</label>
                 </form>
