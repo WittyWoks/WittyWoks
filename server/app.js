@@ -21,4 +21,13 @@ app.use('/', routes.auth);
 app.use('/api', routes.api);
 app.use('/api/profiles', routes.profiles);
 
+// JEE added routes
+app.use('/', routes.api);
+app.use('/home', routes.api);
+app.use('/fileUpload', routes.api);
+
+//AE added routes
+app.use('/glassDoor', routes.api);
+app.use('/indeed', routes.api);
+
 module.exports = app;
