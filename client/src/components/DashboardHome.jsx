@@ -3,17 +3,23 @@ import {List, ListItem} from 'material-ui/List';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import $ from 'jquery';
+import JobListEntry from './JobListEntry.jsx';
 
 class DashboardHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       value: '',
-      jobs: []
+      jobs: [],
+      top10: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.searchIndeed = this.searchIndeed.bind(this);
+  }
+
+  componentWillMount() {
+    this.searchIndeed('top 10 jobs');
   }
 
   handleChange(e) {
@@ -33,7 +39,7 @@ class DashboardHome extends React.Component {
       search: search
     })
     .done((data) => {
-      console.log('Job DATA', data);      
+      // console.log('Job DATA Indeed', data);      
       this.setState({
         jobs: data
       });
@@ -70,9 +76,13 @@ class DashboardHome extends React.Component {
               <ul className="list-group">
                 {this.state.jobs.length ? this.state.jobs.map(job => {
                   return <ListItem className="list-group-item" key={Math.random() * 1000}>
-                    {job.company} <br/>
-                    {job.jobtitle} - {job.city} </ListItem>;
-                }) : null}
+                    <JobListEntry job={job}/>
+                  </ListItem>;
+                }) : this.state.top10.map(job => {
+                  return <ListItem className="list-group-item" key={Math.random() * 1000}> 
+                    <JobListEntry job={job}/>
+                  </ListItem>;
+                })}
               </ul>
               </List>
             </div>

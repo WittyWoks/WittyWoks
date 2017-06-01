@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import DashboardHome from './DashboardHome.jsx';
 import Home from './Home.jsx';
 import JobList from './JobList.jsx';
+import CompanyInfo from './CompanyInfo.jsx';
 import Analytics from './Analytics.jsx';
 import Resume from './Resume.jsx';
 import Settings from './Settings.jsx';
@@ -32,6 +33,7 @@ class Dashboard extends React.Component {
           {/* React Router Routes */}
           <Route exact path='/dashboard' component={DashboardHome} />
           <Route path="/jobs" component={JobList} />
+          <Route path="/companyInfo" component={CompanyInfo} />
           <Route path="/analytics" component={Analytics} />
           <Route path="/resume" component={Resume} />
           <Route path="/settings" component={Settings} />
