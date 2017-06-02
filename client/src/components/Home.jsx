@@ -20,7 +20,6 @@ const HomePage = () => (
           <p className="text-muted">Your one stop autoshop for your job search</p>
           <RaisedButton
             href="/auth/google"
-            target="_blank"
             label="Google Sign-In"
             style={styles.button}
             icon={<i className="fa fa-google" aria-hidden="true"></i>}
