@@ -43,7 +43,7 @@ passport.use('google', new GoogleStrategy({
     getOrCreateOAuthProfile('google', profile, done);
     const gmail = new Gmail(accessToken);
     const message = gmail.messages('label:inbox', {max: 3});
-    
+
     message.on('data', function (index) {
 
       if (index.payload.parts[0].body.data) {

@@ -1,10 +1,10 @@
 const db = require('../');
 
-const resume = db.Model.extend({
-  tableName: 'resume',
+const Profile = db.Model.extend({
+  tableName: 'profiles',
   auths: function() {
     return this.hasMany('Auth');
   }
 });
 
-module.exports = db.model('resume', resume);
+module.exports = db.model('Profile', Profile);

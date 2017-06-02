@@ -46,7 +46,7 @@ router.route('/fileUpload')
     var form = new formidable.IncomingForm();
 
     form.parse(req);
-      
+
     form.uploadDir = path.join(__dirname, '../../uploads');
 
     form.on('file', function(field, file) {
@@ -58,7 +58,7 @@ router.route('/fileUpload')
 
     form.on('error', function(err) {
       console.log('An error has occured: \n' + err);
-    });  
+    });
   });
 
 router.route('/glassDoor')
