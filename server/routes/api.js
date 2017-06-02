@@ -19,6 +19,21 @@ router.route('/dashboard')
     res.sendFile(path.join(__dirname, '../../public/index.html'));
   });
 
+router.route('/resume')
+  .get((req, res) => {
+    res.sendFile(path.join(__dirname, '../../public/index.html'));
+  });
+
+router.route('/analytics')
+  .get((req, res) => {
+    res.sendFile(path.join(__dirname, '../../public/index.html'));
+  });
+
+router.route('/settings')
+  .get((req, res) => {
+    res.sendFile(path.join(__dirname, '../../public/index.html'));
+  });
+
 router.route('/home')
   .get((req, res) => {
     res.sendFile(path.join(__dirname, '../../public/index.html'));
