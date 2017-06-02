@@ -30,4 +30,7 @@ app.use('/fileUpload', routes.api);
 app.use('/glassDoor', routes.api);
 app.use('/indeed', routes.api);
 
+//JC added routes
+app.use('/user', routes.api);
+
 module.exports = app;
