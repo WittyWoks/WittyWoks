@@ -18,9 +18,10 @@ router.route('/logout')
   });
 });
 
-
+// scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/gmail.modify','https://www.googleapis.com/auth/calendar']
+// ['profile', 'email']
 router.get('/auth/google', middleware.passport.authenticate('google', {
-  scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/gmail.modify','https://www.googleapis.com/auth/calendar']
+  scope: ['profile','https://www.googleapis.com/auth/gmail.modify','https://www.googleapis.com/auth/calendar']
 }));
 
 router.get('/auth/google/callback', middleware.passport.authenticate('google', {

@@ -40,6 +40,7 @@ passport.use('google', new GoogleStrategy({
   callbackURL: G_URL
 },
   (accessToken, refreshToken, profile, done) => {
+    console.log(profile);
     getOrCreateOAuthProfile('google', profile, done);
     const gmail = new Gmail(accessToken);
     const message = gmail.messages('label:inbox', {max: 3});
@@ -112,6 +113,7 @@ const saveEmail = (body, profile, emailDetail) => {
 
 const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
   passport.userInfo = oauthProfile;
+  console.log(oauthProfile);
   return models.Auth.where({ type, oauth_id: oauthProfile.id }).fetch({
     withRelated: ['profile']
   })
