@@ -55,7 +55,7 @@ passport.use('google', new GoogleStrategy({
   })
 );
 
-//
+
 const searchEmailsForApplies = (decodedBodyMessage, oauthProfile, email) => {
   let spacing = decodedBodyMessage.trim();
   let d = [];
