@@ -11,7 +11,7 @@ const request = require('request'); // AE ADDED
 const aws = require('aws-sdk'); // BB ADDED
 const S3_BUCKET = 'resumeswittywoks'; //BB ADDED
 const userInfo = require('../middleware/passport');
-
+const userInfo = require('../middleware/passport')
 
 
 router.route('/')
@@ -135,6 +135,5 @@ router.route('/user')
   .get((req,res) => {
     res.end(userInfo.userInfo.displayName);
   })
-
 
 module.exports = router;

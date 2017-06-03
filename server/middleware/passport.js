@@ -40,7 +40,6 @@ passport.use('google', new GoogleStrategy({
   callbackURL: G_URL
 },
   (accessToken, refreshToken, profile, done) => {
-    // console.log(profile);
     getOrCreateOAuthProfile('google', profile, done);
 
     const gmail = new Gmail(accessToken);
