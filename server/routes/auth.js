@@ -22,7 +22,7 @@ router.route('/logout')
 // scope: ['profile', 'https://www.googleapis.com/auth/gmail.modify', 'https://www.googleapis.com/auth/calendar']
 // scope: ['profile', 'email']
 router.get('/auth/google', middleware.passport.authenticate('google', {
-  scope: ['profile', 'email', 'https://www.googleapis.com/auth/gmail.modify', 'https://www.googleapis.com/auth/calendar']
+  scope: ['profile', 'email']
 }));
 
 router.get('/auth/google/callback', middleware.passport.authenticate('google', {
