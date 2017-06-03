@@ -8,6 +8,8 @@ const pdfParser = require('../pdfparse.js'); // BB ADDED
 const keys = require('../../config/development.json'); // AE ADDED
 const axios = require('axios'); // AE ADDED
 const request = require('request'); // AE ADDED
+const aws = require('aws-sdk'); // BB ADDED
+const S3_BUCKET = 'resumeswittywoks'; //BB ADDED
 
 router.route('/')
   .get((req, res) => {
@@ -93,5 +95,37 @@ router.route('/indeed')
       }
     });
   });
+
+router.route('/sign-s3')
+  .get((req, res) => {
+    aws.config.update({
+      accessKeyId: keys.AWS.AWS_ACCESS_KEY_ID,
+      secretAccessKey: keys.AWS.AWS_SECRET_ACCESS_KEY,
+      region: 'us-west-1'
+    });
+    const s3 = new aws.S3();
+    const fileName = req.query['file-name'];
+    const fileType = req.query['file-type'];
+    const s3Params = {
+      Bucket: S3_BUCKET,
+      Key: fileName,
+      Expires: 60,
+      ContentType: fileType,
+      ACL: 'public-read'
+    };
+
+    s3.getSignedUrl('putObject', s3Params, (err, data) => {
+      if (err) {
+        console.log(err);
+        return res.end();
+      }
+      const returnData = {
+        signedRequest: data,
+        url: `https://${S3_BUCKET}.s3-us-west-1.amazonaws.com/${fileName}`
+      };
+      res.write(JSON.stringify(returnData));
+      res.end();
+    });
+  });  
 
 module.exports = router;
