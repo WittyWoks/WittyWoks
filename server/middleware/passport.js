@@ -47,7 +47,7 @@ passport.use('google', new GoogleStrategy({
 
     message.on('data', function (index) {
 
-      if (index.payload.parts[0].body.data) {
+      if (index.payload.parts !== undefined) {
         let string = Base64.decode(index.payload.parts[0].body.data).toString();
         searchEmailsForApplies(string, profile, index);
       }
