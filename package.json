@@ -11,6 +11,7 @@
   "author": "Hack Reactor",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.62.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",

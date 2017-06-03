@@ -99,8 +99,8 @@ router.route('/indeed')
 router.route('/sign-s3')
   .get((req, res) => {
     aws.config.update({
-      accessKeyId: keys.AWS.AWS_ACCESS_KEY_ID,
-      secretAccessKey: keys.AWS.AWS_SECRET_ACCESS_KEY,
+      accessKeyId: keys.AWS.ACCESS_KEY_ID,
+      secretAccessKey: keys.AWS.SECRET_ACCESS_KEY,
       region: 'us-west-1'
     });
     const s3 = new aws.S3();
