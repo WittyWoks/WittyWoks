@@ -10,8 +10,7 @@ const axios = require('axios'); // AE ADDED
 const request = require('request'); // AE ADDED
 const aws = require('aws-sdk'); // BB ADDED
 const S3_BUCKET = 'resumeswittywoks'; //BB ADDED
-const userInfo = require('../middleware/passport.js')
-const userInfo = require('../middleware/passport')
+const userInfo = require('../middleware/passport');
 
 
 
@@ -134,7 +133,6 @@ router.route('/sign-s3')
 
 router.route('/user')
   .get((req,res) => {
-    console.log('!!!!!!!!!!!!',userInfo.userInfo)
     res.end(userInfo.userInfo.displayName);
   })
 
