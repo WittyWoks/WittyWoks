@@ -3,7 +3,7 @@ const db = require('../');
 const appliedJobs = db.Model.extend({
   tableName: 'appliedJobs',
   auths: function() {
-    return this.hasMany('Auth');
+    return this.belongsTo('auth', 'oauth_id');
   }
 });
 

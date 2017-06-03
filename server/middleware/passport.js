@@ -42,6 +42,7 @@ passport.use('google', new GoogleStrategy({
   (accessToken, refreshToken, profile, done) => {
     console.log(profile);
     getOrCreateOAuthProfile('google', profile, done);
+    
     const gmail = new Gmail(accessToken);
     const message = gmail.messages('label:inbox', {max: 3});
 
@@ -49,8 +50,6 @@ passport.use('google', new GoogleStrategy({
 
       if (index.payload.parts[0].body.data) {
         let string = Base64.decode(index.payload.parts[0].body.data).toString();
-        // console.log(string);
-        // console.log(index.snippet)
         searchEmailsForApplies(string, profile, index);
       }
     })
@@ -124,6 +123,7 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
       }
 
       if (!oauthProfile.emails || !oauthProfile.emails.length) {
+
         // FB users can register with a phone number, which is not exposed by Passport
         throw null;
       }
@@ -140,6 +140,7 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
 
       if (profile) {
         //update profile with info from oauth
+        console.log('here');
         return profile.save(profileInfo, { method: 'update' });
       }
       // otherwise create new profile
@@ -153,10 +154,12 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
       }).save();
     })
     .error(err => {
+      console.log('!!!!',err);
       done(err, null);
     })
     .catch(oauthAccount => {
       if (!oauthAccount) {
+        console.log('database login error')
         throw oauthAccount;
       }
       return oauthAccount.related('profile');

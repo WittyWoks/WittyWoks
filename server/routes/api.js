@@ -8,7 +8,7 @@ const pdfParser = require('../pdfparse.js'); // BB ADDED
 const keys = require('../../config/development.json'); // AE ADDED
 const axios = require('axios'); // AE ADDED
 const request = require('request'); // AE ADDED
-const userInfo = require('../middleware/passport.js')
+const userInfo = require('../middleware/passport')
 
 router.route('/')
   .get((req, res) => {
@@ -97,7 +97,7 @@ router.route('/indeed')
 
 router.route('/user')
   .get((req,res) => {
-    console.log(userInfo.userInfo)
+    console.log('!!!!!!!!!!!!',userInfo.userInfo)
     res.end(userInfo.userInfo.displayName);
   })
 
