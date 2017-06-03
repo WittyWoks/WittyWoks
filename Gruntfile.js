@@ -29,9 +29,9 @@ module.exports = function(grunt) {
     pgcreatedb: {
       default: {
         connection: {
-          url: "postgres://dciguifphqlpec:2448fb280f27d215544c2845eaa58e3c07ca19967aa06dc8cd2c6fe61273550a@ec2-174-129-224-33.compute-1.amazonaws.com:5432/dd7hrl5p7gm49v"
+          url: "postgres://cmjkywkiktodon:bc7aeeeb16c84b163b73dcb584405c60da6f9a93d459a24aa52d7f1cbbc723b2@ec2-107-21-108-204.compute-1.amazonaws.com:5432/dd3583hh16ob7n"
         },
-        name: 'dd7hrl5p7gm49v'
+        name: 'dd3583hh16ob7n'
       },
       staging: {
         connection: {
