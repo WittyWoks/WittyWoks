@@ -24,22 +24,11 @@ class Navbar extends React.Component {
                 </button>
                 <a className="navbar-brand" href="/"><strong>BestFit</strong></a>
                 <div className="collapse navbar-collapse" id="navbarNav1">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <Link className="nav-link" to="/companyInfo"> Company Info </Link>
-                        </li>
-                    </ul>
                     <ul className="navbar-nav ml-auto">
                       <li className="nav-item">
                         <FlatButton 
                           label="Log in" 
                           href="/auth/google"
-                        />
-                      </li>
-                      <li className="nav-item">
-                        <RaisedButton 
-                          label="Sign up" 
-                          primary={true} 
                         />
                       </li>
                     </ul>

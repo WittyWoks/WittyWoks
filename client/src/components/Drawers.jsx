@@ -72,7 +72,7 @@ class Drawers extends React.Component {
         >
           <Subheader>BestFit</Subheader>
           <MenuItem onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-home" aria-hidden="true"></i>} containerElement={<Link to="/dashboard" className="router-link-color"></Link>}>Home</MenuItem>
-          <MenuItem onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-briefcase" aria-hidden="true"></i>} containerElement={<Link to="/jobs" className="router-link-color"></Link>}>Jobs</MenuItem>
+          {/*<MenuItem onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-briefcase" aria-hidden="true"></i>} containerElement={<Link to="/jobs" className="router-link-color"></Link>}>Jobs</MenuItem>*/}
           <MenuItem onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-area-chart" aria-hidden="true"></i>} containerElement={<Link to="/analytics" className="router-link-color"></Link>}>Analytics</MenuItem>
           <MenuItem onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-pencil" aria-hidden="true"></i>} containerElement={<Link to="/resume" className="router-link-color"></Link>}>Résumé</MenuItem>
           <Divider />
