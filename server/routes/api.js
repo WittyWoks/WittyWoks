@@ -11,7 +11,6 @@ const request = require('request'); // AE ADDED
 const aws = require('aws-sdk'); // BB ADDED
 const S3_BUCKET = 'resumeswittywoks'; //BB ADDED
 const userInfo = require('../middleware/passport');
-const userInfo = require('../middleware/passport')
 
 
 router.route('/')
