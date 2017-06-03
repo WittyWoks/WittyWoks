@@ -35,19 +35,19 @@ class CompanyInfo extends React.Component {
   render() {
     const jobInfo = this.props.location.state;
     return (
-      <div className="container">
+      <div className="container-fluid">
         {this.state.jobs.length ? this.state.jobs.map(job => {
-          return <div className="media" key={Math.random() * 1000}>
-              <div className="media-left media-top">
-                <img src={job.squareLogo} className="media-object" />
-              </div>
-              <div className="media-body">
-                <h2 className="media-heading">{job.name}</h2>
-                <h4>{jobInfo.jobtitle}</h4>
-                <p>{jobInfo.snippet}</p>
-                <a className="btn btn-info" role="button" href={`${jobInfo.url}`} target="blank">Apply Now!</a>
-              </div>
-            </div>;
+          return <div className="card" key={Math.random() * 1000}>
+            <div className="card-img-top">
+              <img src={job.squareLogo} className="image-fluid card-img-top" alt="Card image cap" />
+            </div>
+            <div className="card-block text-center">
+              <h2 className="media-heading">{job.name}</h2>
+              <h4>{jobInfo.jobtitle}</h4>
+              <p>{jobInfo.snippet}</p>
+              <a className="btn btn-info" role="button" href={`${jobInfo.url}`} target="blank">Apply Now!</a>
+            </div>
+          </div>;
         }) : null}
     
       </div>
