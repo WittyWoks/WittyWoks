@@ -57,7 +57,7 @@ class Resume extends React.Component {
       if (xhr2.readyState === 4) {
         if (xhr2.status === 200) {
           const response = JSON.parse(xhr2.responseText);
-          this.uploadFile(file, response.signedRequest, response.url);
+          this.uploadFileAWS(file, response.signedRequest, response.url);
         } else {
           alert('Could not get signed URL.');
         }
@@ -94,7 +94,7 @@ class Resume extends React.Component {
     );
   }
 
-  uploadFile(file, signedRequest, url) {
+  uploadFileAWS(file, signedRequest, url) {
     const xhr3 = new XMLHttpRequest();
     xhr3.open('PUT', signedRequest);
     xhr3.onreadystatechange = () => {
