@@ -1,0 +1,60 @@
+{
+  "name": "WittyWoks",
+  "scripts": {
+  },
+  "env": {
+    "AWS_API_KEY": {
+      "required": true
+    },
+    "AWS_SECRET": {
+      "required": true
+    },
+    "DATABASE_DB": {
+      "required": true
+    },
+    "DATABASE_HOST": {
+      "required": true
+    },
+    "DATABASE_PASSWORD": {
+      "required": true
+    },
+    "DATABASE_USER": {
+      "required": true
+    },
+    "G_ID": {
+      "required": true
+    },
+    "G_SECRET": {
+      "required": true
+    },
+    "G_URL": {
+      "required": true
+    },
+    "GD_API_KEY": {
+      "required": true
+    },
+    "GD_PARTNER_ID": {
+      "required": true
+    },
+    "IN_MASHAPE": {
+      "required": true
+    },
+    "IN_PUB_KEY": {
+      "required": true
+    },
+    "REDISTOGO_URL": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "heroku-postgresql",
+    "redistogo"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
