@@ -69,7 +69,9 @@
     "redux": "^3.6.0",
     "utf8": "^2.1.2",
     "webpack": "^2.3.2",
-    "webpack-dev-server": "^2.4.2"
+    "webpack-dev-server": "^2.4.2",
+    "axios": "^0.16.1",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "@types/jest": "^19.2.3",
