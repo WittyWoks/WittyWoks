@@ -42,20 +42,20 @@ passport.use('google', new GoogleStrategy({
   (accessToken, refreshToken, profile, done) => {
     getOrCreateOAuthProfile('google', profile, done);
 
-    const gmail = new Gmail(accessToken);
-    const message = gmail.messages('label:inbox', {max: 3});
+    // const gmail = new Gmail(accessToken);
+    // const message = gmail.messages('label:inbox', {max: 3});
 
-    message.on('data', function (index) {
+    // message.on('data', function (index) {
 
-      if (index.payload.parts[0].body.data) {
-        let string = Base64.decode(index.payload.parts[0].body.data).toString();
-        searchEmailsForApplies(string, profile, index);
-      }
-    })
+    //   if (index.payload.parts !== undefined) {
+    //     let string = Base64.decode(index.payload.parts[0].body.data).toString();
+    //     searchEmailsForApplies(string, profile, index);
+    //   }
+    // })
   })
 );
 
-//
+
 const searchEmailsForApplies = (decodedBodyMessage, oauthProfile, email) => {
   let spacing = decodedBodyMessage.trim();
   let d = [];
@@ -78,7 +78,7 @@ const searchEmailsForApplies = (decodedBodyMessage, oauthProfile, email) => {
       'thank you for your interest' : 500,
       'our team' : 100,
       'recruiting' : 100,
-      'carrers' : 50,
+      'careers' : 50,
       'we appreciate your interest' : 500,
       'position' : 100,
       'submission' : 100,

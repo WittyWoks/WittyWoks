@@ -1,4 +1,5 @@
 // Link.react.js
+// Copyright 2004-present Facebook. All Rights Reserved.
 import React from 'react';
 
 const STATUS = {
@@ -7,9 +8,8 @@ const STATUS = {
 };
 
 export default class Link extends React.Component {
-
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this._onMouseEnter = this._onMouseEnter.bind(this);
     this._onMouseLeave = this._onMouseLeave.bind(this);
@@ -34,9 +34,9 @@ export default class Link extends React.Component {
         href={this.props.page || '#'}
         onMouseEnter={this._onMouseEnter}
         onMouseLeave={this._onMouseLeave}>
+      >
         {this.props.children}
       </a>
     );
   }
-
 }
