@@ -1,7 +1,3 @@
-body {
-  /*padding-top: 4.5rem;*/
-}
-
 canvas{
   width: 100% !important;
   height: auto !important;
@@ -15,20 +11,36 @@ canvas{
   height: 80vh;
 }
 
-/*Adds background to splash page*/
+.hero {
+  color: whitesmoke;
+}
+
+.sub-hero {
+  color: whitesmoke;
+}
+/* May need this for iphone support
 .content-home {
   content:"";
-  position:fixed; /* stretch a fixed position to the whole screen */
+  position:fixed;
   top:0;
-  height:100vh; /* fix for mobile browser address bar appearing disappearing */
+  height:100vh;
   left:0;
   right:0;
-  z-index:-1; /* needed to keep in the background */
-  background: url(https://res.cloudinary.com/jescobedo/image/upload/v1495868219/markus-spiske-37930-compressor_cikyyd.jpg) center center;
+  z-index:-1;
+  background: url(http://res.cloudinary.com/jescobedo/image/upload/v1496527533/garrhet-sampson-178990-2-compressor_esj8v4.jpg) center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}*/
+
+.view {
+  background: url("http://res.cloudinary.com/jescobedo/image/upload/v1496527533/garrhet-sampson-178990-2-compressor_esj8v4.jpg")no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
 }
 
 .router-link-color {
@@ -36,7 +48,7 @@ canvas{
 }
 
 .navbar {
-  background-color: rgba(255,255,255,0.1)
+  background-color: rgba(255,255,255,0)
 }
 
 #job-search{
@@ -45,7 +57,7 @@ canvas{
 
 @media only screen and (max-width: 768px) {
   .navbar {
-      background-color: whitesmoke;
+      background-color: #3c4f74;
   }
   #job-search{
     font-size: 1.5em;

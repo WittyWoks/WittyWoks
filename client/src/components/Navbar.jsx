@@ -4,8 +4,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
 
-const style = {
-  margin: 12
+const styles = {
+  button: {
+    color: 'white'
+  }
 };
 
 class Navbar extends React.Component {
@@ -13,11 +15,10 @@ class Navbar extends React.Component {
     super(props);
   }
 
-
   render() {
     return (
        <div className="Navigation">
-        <nav className="navbar navbar-toggleable-sm navbar-light fixed-top">
+        <nav className="navbar navbar-toggleable-sm navbar-dark fixed-top">
             <div className="container">
                 <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -29,6 +30,7 @@ class Navbar extends React.Component {
                         <FlatButton 
                           label="Log in" 
                           href="/auth/google"
+                          style={styles.button}
                         />
                       </li>
                     </ul>
