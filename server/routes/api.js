@@ -136,7 +136,7 @@ router.route('/sign-s3')
   });
 
 router.route('/user')
-  .get((req,res) => {
+  .get((req, res) => {
     res.end(userInfo.userInfo.displayName);
   });
 
