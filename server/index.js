@@ -5,8 +5,6 @@ const PORT = process.env.PORT || 3000;
 
 // JC ADDED
 const pg = require('pg');
-
-
 // JC ADDED
 const client = new pg.Client({
   database: process.env.DATABASE_DB || require('../config/development.json').postgresql.DATABASE_DB,

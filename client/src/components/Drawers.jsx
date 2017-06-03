@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import FlatButton from 'material-ui/FlatButton';
+import $ from 'jquery';
 
 class Drawers extends React.Component {
   constructor(props) {
@@ -49,6 +50,7 @@ class Drawers extends React.Component {
     });
   }
 
+
   render() {
     return (
       <div>
@@ -80,9 +82,9 @@ class Drawers extends React.Component {
           <Divider />
 
           <Subheader>Sign out</Subheader>
-          <MenuItem onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-sign-out" aria-hidden="true"></i>} href="/">Sign out</MenuItem>
+          <MenuItem onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-sign-out" aria-hidden="true"></i>} href="/logout">Sign Out</MenuItem>
         </Drawer>
-        
+
         {/* Secondary drawer (right-menu) */}
         <Drawer
           docked={false}

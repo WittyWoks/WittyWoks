@@ -10,6 +10,8 @@ const axios = require('axios'); // AE ADDED
 const request = require('request'); // AE ADDED
 const aws = require('aws-sdk'); // BB ADDED
 const S3_BUCKET = 'resumeswittywoks'; //BB ADDED
+const userInfo = require('../middleware/passport');
+
 
 router.route('/')
   .get((req, res) => {
@@ -46,7 +48,7 @@ router.route('/fileUpload')
     var form = new formidable.IncomingForm();
 
     form.parse(req);
-      
+
     form.uploadDir = path.join(__dirname, '../../uploads');
 
     form.on('file', function(field, file) {
@@ -58,7 +60,7 @@ router.route('/fileUpload')
 
     form.on('error', function(err) {
       console.log('An error has occured: \n' + err);
-    });  
+    });
   });
 
 router.route('/glassDoor')
@@ -126,6 +128,11 @@ router.route('/sign-s3')
       res.write(JSON.stringify(returnData));
       res.end();
     });
-  });  
+  });
+
+router.route('/user')
+  .get((req,res) => {
+    res.end(userInfo.userInfo.displayName);
+  })
 
 module.exports = router;

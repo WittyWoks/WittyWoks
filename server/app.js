@@ -30,4 +30,12 @@ app.use('/fileUpload', routes.api);
 app.use('/glassDoor', routes.api);
 app.use('/indeed', routes.api);
 
+//JC added routes
+app.use('/user', routes.api);
+app.use('/appliedJobs', routes.appliedJobs);
+// app.use('/jobs', routes.jobs);
+// app.use('/company', routes.company);
+// app.use('/resume', routes.resume);
+
+
 module.exports = app;
