@@ -50,6 +50,22 @@ class Resume extends React.Component {
     this.setState({completed: 0});
   }
 
+  getSignedRequest(file) {
+    const xhr2 = new XMLHttpRequest();
+    xhr2.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+    xhr2.onreadystatechange = () => {
+      if (xhr2.readyState === 4) {
+        if (xhr2.status === 200) {
+          const response = JSON.parse(xhr2.responseText);
+          this.uploadFile(file, response.signedRequest, response.url);
+        } else {
+          alert('Could not get signed URL.');
+        }
+      }
+    };
+    xhr2.send();
+  }
+
   // Update progress bar on file upload
   progress(completed) {
     if (completed > 100) {
@@ -78,11 +94,27 @@ class Resume extends React.Component {
     );
   }
 
+  uploadFile(file, signedRequest, url) {
+    const xhr3 = new XMLHttpRequest();
+    xhr3.open('PUT', signedRequest);
+    xhr3.onreadystatechange = () => {
+      if (xhr3.readyState === 4) {
+        if (xhr3.status === 200) {
+          //do nothing, it worked
+        } else {
+          alert('Could not upload file.');
+        }
+      }
+    };
+    xhr3.send(file);
+  }
+
   // Ajax call to upload resume
   fileUpload(e) {
     let file = e.target.files[0];
     this.setState({file: file});
     this.setState({completed: 0});
+    this.getSignedRequest(file);
 
     let formData = new FormData();
     let context = this;
