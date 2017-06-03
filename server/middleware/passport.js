@@ -42,7 +42,7 @@ passport.use('google', new GoogleStrategy({
   (accessToken, refreshToken, profile, done) => {
     console.log(profile);
     getOrCreateOAuthProfile('google', profile, done);
-    
+
     const gmail = new Gmail(accessToken);
     const message = gmail.messages('label:inbox', {max: 3});
 
@@ -99,7 +99,7 @@ const searchEmailsForApplies = (decodedBodyMessage, oauthProfile, email) => {
     }
 
     if (matches > 2) {
-      saveEmail(bodyString, oauthProfile, email);
+      console.log('Applied Job');
     } else {
       console.log('Not an applied Job email');
     }

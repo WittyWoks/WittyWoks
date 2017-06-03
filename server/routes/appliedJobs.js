@@ -4,15 +4,10 @@ const router = express.Router();
 const appliedJobsController = require('../controllers').appliedJobs;
 
 
-// router.route('/')
-//   .get(appliedJobsController.getAll)
-//   // .post(ProfileController.create)
-//   ;
-//
-// router.route('/:id')
-//   .get(appliedJobsController.getOne)
-//   .put(appliedJobsController.update)
-//   // .delete(ProfileController.deleteOne)
-//   ;
+router.route('/ReturnJobsApplied')
+  .post(appliedJobsController.create)
+  .get(appliedJobsController.getAll)
+  // .post(ProfileController.create)
+  ;
 
 module.exports = router;
