@@ -78,7 +78,7 @@ const searchEmailsForApplies = (decodedBodyMessage, oauthProfile, email) => {
       'thank you for your interest' : 500,
       'our team' : 100,
       'recruiting' : 100,
-      'carrers' : 50,
+      'careers' : 50,
       'we appreciate your interest' : 500,
       'position' : 100,
       'submission' : 100,
