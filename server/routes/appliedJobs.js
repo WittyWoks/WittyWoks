@@ -8,5 +8,4 @@ router.route('/ReturnJobsApplied')
   .get(appliedJobsController.getAll)
   ;
 
-
 module.exports = router;
