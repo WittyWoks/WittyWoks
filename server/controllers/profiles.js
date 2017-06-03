@@ -31,7 +31,6 @@ module.exports.getOne = (req, res) => {
       if (!profile) {
         throw profile;
       }
-      console.log(profile);
       res.status(200).send(profile);
     })
     .error(err => {
