@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 const styles = {
   button: {
-    color: 'white'
+    color: 'white', 
   }
 };
 
@@ -27,11 +27,19 @@ class Navbar extends React.Component {
                 <div className="collapse navbar-collapse" id="navbarNav1">
                     <ul className="navbar-nav ml-auto">
                       <li className="nav-item">
-                        <FlatButton 
-                          label="Log in" 
-                          href="/auth/google"
-                          style={styles.button}
-                        />
+                        <a className="nav-link" href="#home">Home <span className="sr-only">(current)</span></a>
+                      </li>
+                      <li className="nav-item">
+                        <a className="nav-link" href="#about">About Us</a>
+                      </li>
+                      <li className="nav-item">
+                        <a className="nav-link" href="#offer">What We Offer</a>
+                      </li>
+                      <li className="nav-item">
+                        <a className="nav-link" href="#contact">Contact</a>
+                      </li>
+                      <li className="nav-item">
+                        <a className="btn btn-primary btn-sm" id="menu-button" href="/auth/google"><i className="fa fa-google" aria-hidden="true"></i> Log In</a>
                       </li>
                     </ul>
                 </div>

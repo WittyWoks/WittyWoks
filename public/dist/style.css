@@ -18,6 +18,17 @@ canvas{
 .sub-hero {
   color: whitesmoke;
 }
+
+li {
+  margin-left: 20px;
+}
+
+#about, 
+#offer, 
+#contact {
+  padding-top: 40px;
+}
+
 /* May need this for iphone support
 .content-home {
   content:"";
@@ -64,6 +75,9 @@ canvas{
   }
   .card {
     margin-bottom: 20px;
+  }
+  li {
+    margin-left: 0;
   }
 }
 
