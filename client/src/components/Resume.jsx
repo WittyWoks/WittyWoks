@@ -154,12 +154,11 @@ class Resume extends React.Component {
           {/* First row */}
           <div className="row">
             {/* First column */}
-            <div className="col-md-4">
+            <div className="col-md-4 wow fadeInLeft" data-wow-delay="0.2s">
               <div className="card">
-                  <h3 className="card-header primary-color white-text">Upload a résumé</h3>
+                  <h3 className="card-header">Upload a résumé</h3>
                   <div className="card-block">
-                      <h4 className="card-title">Upload</h4>
-                      <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                      <p className="card-text">Upload your résumé and we'll automatically grab your relevant job skills.</p>
                       <RaisedButton
                         label="Upload Résumé"
                         labelPosition="before"
@@ -174,11 +173,10 @@ class Resume extends React.Component {
             </div>
 
             {/* Second column */}
-            <div className="col-md-4">
+            <div className="col-md-4 wow fadeInDown" data-wow-delay="0.2s">
               <div className="card">
-                  <h3 className="card-header primary-color white-text">Your skills</h3>
+                  <h3 className="card-header">Your skills</h3>
                   <div className="card-block">
-                      <h4 className="card-title">Technical</h4>
                       <p className="card-text">Technical skills extracted from your résumé.</p>
                       <div style={styles.wrapper}>
                         {this.state.skills.map(this.renderChip, this)}
@@ -188,11 +186,10 @@ class Resume extends React.Component {
             </div>
 
             {/* Third column */}
-            <div className="col-md-4">
+            <div className="col-md-4 wow fadeInRight" data-wow-delay="0.2s">
               <div className="card">
-                  <h3 className="card-header primary-color white-text">Your résumé</h3>
+                  <h3 className="card-header">Your résumé</h3>
                   <div className="card-block">
-                      <h4 className="card-title">Current résumé</h4>
                         <ReactPDF
                           file={this.state.file} 
                           onDocumentLoad={this.onDocumentCompleted}

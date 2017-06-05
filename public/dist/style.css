@@ -1,8 +1,12 @@
+/* *************************
+* ELEMENT SPECIFIC PROPERTIES
+************************** */
+
 body {
-  /*padding-top: 4.5rem;*/
+  background: #F3F3F3;
 }
 
-canvas{
+canvas { /*PDF Display*/
   width: 100% !important;
   height: auto !important;
   border: 1px solid #E0E0E0;
@@ -11,41 +15,94 @@ canvas{
   box-shadow: 10px 10px 47px -10px rgba(0,0,0,0.75);
 }
 
-.vert-center{
-  height: 80vh;
+li {
+  margin-left: 20px;
 }
 
-/*Adds background to splash page*/
-.content-home {
-  content:"";
-  position:fixed; /* stretch a fixed position to the whole screen */
-  top:0;
-  height:100vh; /* fix for mobile browser address bar appearing disappearing */
-  left:0;
-  right:0;
-  z-index:-1; /* needed to keep in the background */
-  background: url(https://res.cloudinary.com/jescobedo/image/upload/v1495868219/markus-spiske-37930-compressor_cikyyd.jpg) center center;
+
+/* *************************
+* NAVBAR PROPERTIES
+************************** */
+.transition.fixed-top {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  transition: background-color 1s ease 0s;
+}
+
+.transition.fixed-top.opaque {
+  background-color: rgb(78, 84, 108);
+  border: none;
+  transition: background-color 1s ease 0s;
+}
+
+/* *************************
+* SPLASH PAGE
+************************** */
+.view {
+  background: url("http://res.cloudinary.com/jescobedo/image/upload/v1496611720/garrhet-sampson-compressed-compressor_tnzvde.jpg")no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  height: 100vh;
 }
 
 .router-link-color {
   color: white;
 }
 
-.navbar {
-  background-color: rgba(255,255,255,0.1)
+.vert-center{
+  height: 80vh;
 }
+
+.hero {
+  color: whitesmoke;
+}
+
+.sub-hero {
+  color: whitesmoke;
+}
+
+#about, 
+#offer, 
+#contact {
+  padding-top: 40px;
+}
+
+/* May need this for iphone support
+.content-home {
+  content:"";
+  position:fixed;
+  top:0;
+  height:100vh;
+  left:0;
+  right:0;
+  z-index:-1;
+  background: url(http://res.cloudinary.com/jescobedo/image/upload/v1496527533/garrhet-sampson-178990-2-compressor_esj8v4.jpg) center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}*/
+
+/* *************************
+* DASHBOARD HOME
+************************** */
 
 #job-search{
   font-size: 2.5em;
 }
 
+.list-group {
+  box-shadow: none;
+}
+
+/* *************************
+* MOBILE SPECIFIC PARAMS
+************************** */
 @media only screen and (max-width: 768px) {
   .navbar {
-      background-color: whitesmoke;
+      background-color: #4E546C !important;
   }
   #job-search{
     font-size: 1.5em;
@@ -53,8 +110,14 @@ canvas{
   .card {
     margin-bottom: 20px;
   }
+  li {
+    margin-left: 0;
+  }
 }
 
+/* *************************
+* CSS STYLING UTILITIES
+************************** */
 .shade {
   background: rgba(0,0,0,0.5);
 }
