@@ -18,7 +18,6 @@ const chron = require('./chron.js');
 //   // url: process.env.DATABASE_URL +'ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory' || require('../config/development.json').postgresql.DATABASE_URL
 // });
 
-
 // // JC ADDED
 // client.connect();
 

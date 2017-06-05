@@ -26,7 +26,7 @@ router.route('/user')
 // scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/gmail.modify','https://www.googleapis.com/auth/calendar']
 // scope: ['profile', 'https://www.googleapis.com/auth/gmail.modify', 'https://www.googleapis.com/auth/calendar']
 router.get('/auth/google', middleware.passport.authenticate('google', {
-  scope: ['email', 'profile']
+  scope: ['profile', 'email', 'https://www.googleapis.com/auth/gmail.modify','https://www.googleapis.com/auth/calendar']
 }));
 
 router.get('/auth/google/callback', middleware.passport.authenticate('google', {

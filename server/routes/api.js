@@ -28,7 +28,9 @@ router.route('/')
 
 router.route('/dashboard')
   .get((req, res) => {
-    res.sendFile(path.join(__dirname, '../../public/index.html'));
+
+  res.sendFile(path.join(__dirname, '../../public/dist/loading.html'));
+  
   });
 
 router.route('/resume')
