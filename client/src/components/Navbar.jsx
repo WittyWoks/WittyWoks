@@ -10,15 +10,26 @@ const styles = {
   }
 };
 
+
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
   }
 
+  componentDidMount() {
+    $(window).scroll(function() {
+      if ($(this).scrollTop() > 200) { // <--- adjust pixel point here
+        $('.fixed-top').addClass('opaque');
+      } else {
+        $('.fixed-top').removeClass('opaque');
+      }
+    });
+  }
+
   render() {
     return (
        <div className="Navigation">
-        <nav className="navbar navbar-toggleable-sm navbar-dark fixed-top">
+        <nav className="navbar navbar-toggleable-sm navbar-dark fixed-top transition">
             <div className="container">
                 <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>

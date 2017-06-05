@@ -5,6 +5,19 @@ import Divider from 'material-ui/Divider';
 import $ from 'jquery';
 import JobListEntry from './JobListEntry.jsx';
 
+const styles = {
+  jobs: {
+    color: 'white'
+  },
+  cardHeader: {
+    backgroundColor: '#E34724',
+    padding: '10px'
+  },
+  cardBody: {
+    backgroundColor: '#F5F5F5'
+  }
+};
+
 class DashboardHome extends React.Component {
   constructor(props) {
     super(props);
@@ -55,12 +68,12 @@ class DashboardHome extends React.Component {
 
         {/* First row */}
         <div className="container">
-          <div className="row">
-            <div className="col-sm-12">
+          <div className="row justify-content-center">
+            <div className="col-sm-8">
               <div className="md-form">
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} className="wow fadeInDown" data-wow-delay="0.2s">
                   <i className="fa fa-search prefix" aria-hidden="true"></i>
-                  <input type="text" id="job-search" className="form-control" value={this.state.value} onChange={this.handleChange}/>
+                  <input className="form-control" type="text" id="job-search" value={this.state.value} onChange={this.handleChange}/>
                   <label htmlFor="job-search">Search jobs</label>
                 </form>
               </div>
@@ -69,6 +82,33 @@ class DashboardHome extends React.Component {
         </div>
 
         {/* Second row */}
+        <section>
+          <div className="container wow fadeIn" data-wow-delay="1.5s">
+            <div className="row justify-content-center">
+              <div className="col-sm-8">
+                <div className="card">
+                  <div style={styles.cardHeader}>
+                      <h4 className="card-title text-center" style={styles.jobs}>Jobs</h4>
+                  </div>
+                  <div className="card-block" style={styles.cardBody}>
+                      <div className="list-group">
+                        {this.state.jobs.length ? this.state.jobs.map(job => {
+                          return (
+                            <JobListEntry job={job} key={Math.random() * 1000}/>
+                          );
+                        }) : this.state.top10.map(job => {
+                          return (
+                            <JobListEntry job={job} key={Math.random() * 1000}/>
+                          );
+                        })}      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/*
         <div className="container">
           <div className="row">
             <div className="col-sm-12">
@@ -88,6 +128,7 @@ class DashboardHome extends React.Component {
             </div>
           </div>
         </div>
+      */}
         
       </div>
     );

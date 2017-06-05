@@ -10,13 +10,22 @@ import Settings from './Settings.jsx';
 import Drawers from './Drawers.jsx';
 import $ from 'jquery';
 
+const styles = {
+  cardHero: {
+    marginBottom: '30px',
+    background: '#E8E8E8',
+    color: '#434A54'
+  }
+};
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'Welcome!'
-    }
+      name: 'Welcome!',
+      avatar: '<i class="fa fa-user-circle" aria-hidden="true"></i>',
+      nameOnly: 'Guest'
+    };
   }
 
   componentDidMount() {
@@ -32,13 +41,15 @@ class Dashboard extends React.Component {
     })
     .done(function(data) {
       context.setState({
-        name: 'Welcome Back, '+data +'!'
-      })
+        name: 'Welcome Back, '+data.displayName +'!',
+        avatar: data.avatar,
+        nameOnly: data.displayName
+      });
       console.log('success GET', data);
-      })
+    })
     .fail(function(err) {
       console.log('failed to GET', err);
-    })
+    });
   }
 
 
@@ -48,12 +59,12 @@ class Dashboard extends React.Component {
         <div>
 
           {/* Dashboard Drawer (menus) */}
-          <Drawers />
+          <Drawers avatar={this.state.avatar} nameOnly={this.state.nameOnly}/>
 
           {/* First row */}
-          <div className="jumbotron jumbotron-fluid">
+          <div className="card card-block" style={styles.cardHero}>
             <div className="container">
-              <h1 className="h2-responsive">{this.state.name}</h1>
+              <h2 className="card-title">{this.state.name}</h2>
             </div>
           </div>
 

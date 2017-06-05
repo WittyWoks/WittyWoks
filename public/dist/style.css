@@ -1,10 +1,54 @@
-canvas{
+/* *************************
+* ELEMENT SPECIFIC PROPERTIES
+************************** */
+
+body {
+  background: #F3F3F3;
+}
+
+canvas { /*PDF Display*/
   width: 100% !important;
   height: auto !important;
   border: 1px solid #E0E0E0;
   -webkit-box-shadow: 10px 10px 47px -10px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 47px -10px rgba(0,0,0,0.75);
   box-shadow: 10px 10px 47px -10px rgba(0,0,0,0.75);
+}
+
+li {
+  margin-left: 20px;
+}
+
+
+/* *************************
+* NAVBAR PROPERTIES
+************************** */
+.transition.fixed-top {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  transition: background-color 1s ease 0s;
+}
+
+.transition.fixed-top.opaque {
+  background-color: rgb(78, 84, 108);
+  border: none;
+  transition: background-color 1s ease 0s;
+}
+
+/* *************************
+* SPLASH PAGE
+************************** */
+.view {
+  background: url("http://res.cloudinary.com/jescobedo/image/upload/v1496611720/garrhet-sampson-compressed-compressor_tnzvde.jpg")no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+}
+
+.router-link-color {
+  color: white;
 }
 
 .vert-center{
@@ -17,10 +61,6 @@ canvas{
 
 .sub-hero {
   color: whitesmoke;
-}
-
-li {
-  margin-left: 20px;
 }
 
 #about, 
@@ -45,30 +85,24 @@ li {
   background-size: cover;
 }*/
 
-.view {
-  background: url("http://res.cloudinary.com/jescobedo/image/upload/v1496527533/garrhet-sampson-178990-2-compressor_esj8v4.jpg")no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 100vh;
-}
-
-.router-link-color {
-  color: white;
-}
-
-.navbar {
-  background-color: rgba(255,255,255,0)
-}
+/* *************************
+* DASHBOARD HOME
+************************** */
 
 #job-search{
   font-size: 2.5em;
 }
 
+.list-group {
+  box-shadow: none;
+}
+
+/* *************************
+* MOBILE SPECIFIC PARAMS
+************************** */
 @media only screen and (max-width: 768px) {
   .navbar {
-      background-color: #3c4f74;
+      background-color: #4E546C !important;
   }
   #job-search{
     font-size: 1.5em;
@@ -81,6 +115,9 @@ li {
   }
 }
 
+/* *************************
+* CSS STYLING UTILITIES
+************************** */
 .shade {
   background: rgba(0,0,0,0.5);
 }
