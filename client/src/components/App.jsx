@@ -11,11 +11,14 @@ import CompanyInfo from './CompanyInfo.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+
+
 injectTapEventPlugin();
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    new WOW().init();
   }
 
   render() {
@@ -31,7 +34,6 @@ class App extends React.Component {
         <Route path="/resume" component={(props) => <Dashboard /> } />
         <Route path="/analytics" component={(props) => <Dashboard /> } />
         <Route path="/settings" component={(props) => <Dashboard /> } />
-
       </div>
       </MuiThemeProvider>
     );
