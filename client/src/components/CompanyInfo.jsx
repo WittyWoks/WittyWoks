@@ -34,9 +34,15 @@ class CompanyInfo extends React.Component {
       search: search
     })
     .done((data) => {
-      this.setState({
-        jobs: data
-      });
+      if (data.length === 0) {
+        this.setState({
+          jobs: [this.props.location.state]
+        });
+      } else {
+        this.setState({
+          jobs: data
+        });
+      }
     })
     .fail(err => {
       throw err;
@@ -59,7 +65,7 @@ class CompanyInfo extends React.Component {
               if (i === 0) {
                 return <div className="col-md-4 col-md-offset-5" key={Math.random() * 1000}>
                   <div className="card">
-                    <img src={job.squareLogo} className="image-fluid card-img-top" alt="Card image cap" />
+                    <img src={job.squareLogo} className="image-fluid card-img-top" alt="Image Not Found" />
                   </div>
                   <div className="card-block text-center">
                     <h2 className="media-heading">{job.name}</h2>
@@ -70,13 +76,13 @@ class CompanyInfo extends React.Component {
 
                   {/* Company Ratings */}
                   <div className="row">
-                    <div className="col-md-4">Overall Rating: <strong>{job.overallRating}</strong></div>
-                    <div className="col-md-4">Work Life Balance: <strong>{job.workLifeBalanceRating}</strong></div>
-                    <div className="col-md-4">Culture and Values: <strong>{job.cultureAndValuesRating}</strong></div>
+                    <div className="col-md-4">Overall Rating: <strong>{job.overallRating || 'N/A'}</strong></div>
+                    <div className="col-md-4">Work Life Balance: <strong>{job.workLifeBalanceRating || 'N/A'}</strong></div>
+                    <div className="col-md-4">Culture and Values: <strong>{job.cultureAndValuesRating || 'N/A'}</strong></div>
                   </div>
                 </div>;
               }
-            }) : null}
+            }) : null} 
           </div>
         </div>
       </div>
