@@ -18,7 +18,7 @@ const AWS_API_KEY = process.env.AWS_API_KEY || require('../../config/development
 const AWS_SECRET = process.env.AWS_SECRET || require('../../config/development.json').AWS.SECRET_ACCESS_KEY;
 
 pdfParser.parsePDF(() => {
-  console.log('BACK HERE')
+  console.log('BACK HERE');
 });
 
 router.route('/')
