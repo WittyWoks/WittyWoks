@@ -12,7 +12,7 @@ const G_SECRET = process.env.G_SECRET || require('../../config/development.json'
 const G_URL = process.env.G_URL || 'http://localhost:3000/auth/google/callback';
 
 
-passport.userInfo = null;
+// passport.userInfo = null; // JC ADDITION
 
 passport.serializeUser((profile, done) => {
   done(null, profile.id);
@@ -110,8 +110,9 @@ const saveEmail = (body, profile, emailDetail) => {
 };
 
 const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
-  passport.userInfo = oauthProfile;
+  // passport.userInfo = oauthProfile;
   console.log(oauthProfile);
+  
   return models.Auth.where({ type, oauth_id: oauthProfile.id }).fetch({
     withRelated: ['profile']
   })
@@ -129,12 +130,12 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
       return models.Profile.where({ email: oauthProfile.emails[0].value }).fetch();
     })
     .then(profile => {
-
       let profileInfo = {
         first: oauthProfile.name.givenName,
         last: oauthProfile.name.familyName,
         display: oauthProfile.displayName || `${oauthProfile.name.givenName} ${oauthProfile.name.familyName}`,
-        email: oauthProfile.emails[0].value
+        email: oauthProfile.emails[0].value,
+        avatar: (oauthProfile.photos[0].value.split('?')[0] + '?sz=100')
       };
 
       if (profile) {

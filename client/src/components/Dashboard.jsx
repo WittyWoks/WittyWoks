@@ -28,8 +28,9 @@ class Dashboard extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.nameChange();
+    // console.log('!!!!!!!!!!!!!!', this.props)
   }
 
   nameChange() {
@@ -40,12 +41,14 @@ class Dashboard extends React.Component {
       datatype: 'json'
     })
     .done(function(data) {
-      context.setState({
-        name: 'Welcome Back, '+data.displayName +'!',
-        avatar: data.avatar,
-        nameOnly: data.displayName
-      });
-      console.log('success GET', data);
+      if (data.email) {
+        console.log('success GET', data);
+        context.setState({
+          name: 'Welcome Back, '+data.display +'!',
+          avatar: data.avatar,
+          nameOnly: data.display
+        });
+      }
     })
     .fail(function(err) {
       console.log('failed to GET', err);

@@ -5,7 +5,6 @@ const path = require('path'); // JC ADDED
 const formidable = require('formidable'); // JEE ADDED
 const fs = require('fs'); // JEE ADDED
 const pdfParser = require('../pdfparse.js'); // BB ADDED
-// const keys = require('../../config/development.json'); // AE ADDED
 const axios = require('axios'); // AE ADDED
 const request = require('request'); // AE ADDED
 const aws = require('aws-sdk'); // BB ADDED
@@ -135,14 +134,20 @@ router.route('/sign-s3')
     });
   });
 
-router.route('/user')
-  .get((req, res) => {
-    let userObject = {};
-    userObject.displayName = userInfo.userInfo.displayName;
-    userObject.avatar = (userInfo.userInfo.photos[0].value).split('?')[0] + '?sz=100';
-    console.log(userObject.avatar);
-    // res.end(userInfo.userInfo.displayName);
-    res.json(userObject);
-  });
+// router.route('/user')
+  // .get((req, res) => {
+    // let userObject = {};
+    // userObject.displayName = userInfo.userInfo.displayName;
+    // userObject.avatar = (userInfo.userInfo.photos[0].value).split('?')[0] + '?sz=100';
+    // console.log(userObject.avatar);
+    // // res.end(userInfo.userInfo.displayName);
+    // res.json(userObject);
+    // req.user.avatar = (userInfo.userInfo.photos[0].value).split('?')[0] + '?sz=100';
+    // console.log('USER!!!!!!!!!!!!', req.user)
+    // res.json(req.user)
+  // });
 
 module.exports = router;
+
+
+
