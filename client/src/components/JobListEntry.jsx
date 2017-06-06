@@ -9,7 +9,7 @@ const JobListEntry = ({ job }) => (
         <small>{job.formattedRelativeTime}</small>
       </div>
       <p className="mb-1">{job.jobtitle}</p>
-      <small>{job.city}</small>
+      <small>{job.formattedLocation}</small>
   </div>
 </Link>
 );
