@@ -28,9 +28,7 @@ router.route('/')
 
 router.route('/dashboard')
   .get((req, res) => {
-
   res.sendFile(path.join(__dirname, '../../public/dist/loading.html'));
-  
   });
 
 router.route('/resume')
@@ -118,6 +116,18 @@ router.route('/sign-s3')
       res.write(JSON.stringify(returnData));
       res.end();
     });
+  });
+
+router.route('/user')
+  .get((req, res) => {
+
+    console.log('user!!!!', req.user);
+    let userObject = {};
+    userObject.displayName = userInfo.userInfo.displayName;
+    userObject.avatar = (userInfo.userInfo.photos[0].value).split('?')[0] + '?sz=100';
+    console.log(userObject.avatar);
+    // res.end(userInfo.userInfo.displayName);
+    res.json(userObject);
   });
 
 module.exports = router;
