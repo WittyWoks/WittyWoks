@@ -8,11 +8,9 @@ var utf8 = require('utf8');
 
 
 const G_ID = process.env.G_ID || require('../../config/development.json')['passport'].Google.clientID;
-const G_SECRET = process.env.G_SECRET || require('../../config/development.json')['passport'].Google.clientSecret
+const G_SECRET = process.env.G_SECRET || require('../../config/development.json')['passport'].Google.clientSecret;
 const G_URL = process.env.G_URL || 'http://localhost:3000/auth/google/callback';
 
-
-passport.userInfo = null;
 
 passport.serializeUser((profile, done) => {
   done(null, profile.id);
@@ -63,46 +61,45 @@ const searchEmailsForApplies = (decodedBodyMessage, oauthProfile, email) => {
     d.push(spacing[i]);
   }
 
-    for (let i = 0; i < d.length; i++) {
-      if (d[i] === '\r' || d[i] === '\n' || d[i] === '-') {
-        d.splice(i,1);
-        i--;
-      }
+  for (let i = 0; i < d.length; i++) {
+    if (d[i] === '\r' || d[i] === '\n' || d[i] === '-') {
+      d.splice(i, 1);
+      i--;
     }
+  }
 
-    let bodyString = d.join('').toLowerCase();
+  let bodyString = d.join('').toLowerCase();
 
-    let lookUp = {
-      'indeed' : 100,
-      'job' : 100,
-      'thank you for your interest' : 500,
-      'our team' : 100,
-      'recruiting' : 100,
-      'careers' : 50,
-      'we appreciate your interest' : 500,
-      'position' : 100,
-      'submission' : 100,
-      'employment' : 100,
-      'received your resume' : 500,
-      'application' : 100
+  let lookUp = {
+    'indeed': 100,
+    'job': 100,
+    'thank you for your interest': 500,
+    'our team': 100,
+    'recruiting': 100,
+    'careers': 50,
+    'we appreciate your interest': 500,
+    'position': 100,
+    'submission': 100,
+    'employment': 100,
+    'received your resume': 500,
+    'application': 100
+  };
+
+  let ranking = 0;
+  let matches = 0;
+
+  for (let k in lookUp) {
+    if (bodyString.includes(k)) {
+      ranking += lookUp[k];
+      matches++;
     }
+  }
 
-    let ranking = 0;
-    let matches = 0;
-
-    for (let k in lookUp) {
-      if (bodyString.includes(k)) {
-        ranking += lookUp[k];
-        matches++;
-      }
-    }
-
-    if (matches > 2) {
-      console.log('Applied Job');
-    } else {
-      console.log('Not an applied Job email');
-    }
-
+  if (matches > 2) {
+    console.log('Applied Job');
+  } else {
+    console.log('Not an applied Job email');
+  }
 };
 
 const saveEmail = (body, profile, emailDetail) => {
@@ -110,8 +107,8 @@ const saveEmail = (body, profile, emailDetail) => {
 };
 
 const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
-  passport.userInfo = oauthProfile;
   console.log(oauthProfile);
+  
   return models.Auth.where({ type, oauth_id: oauthProfile.id }).fetch({
     withRelated: ['profile']
   })
@@ -129,17 +126,16 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
       return models.Profile.where({ email: oauthProfile.emails[0].value }).fetch();
     })
     .then(profile => {
-
       let profileInfo = {
         first: oauthProfile.name.givenName,
         last: oauthProfile.name.familyName,
         display: oauthProfile.displayName || `${oauthProfile.name.givenName} ${oauthProfile.name.familyName}`,
-        email: oauthProfile.emails[0].value
+        email: oauthProfile.emails[0].value,
+        avatar: (oauthProfile.photos[0].value.split('?')[0] + '?sz=100')
       };
 
       if (profile) {
         //update profile with info from oauth
-        console.log('here');
         return profile.save(profileInfo, { method: 'update' });
       }
       // otherwise create new profile
@@ -153,12 +149,12 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
       }).save();
     })
     .error(err => {
-      console.log('!!!!',err);
+      console.log('Error authenticating... see line 153 in passport.js', err);
       done(err, null);
     })
     .catch(oauthAccount => {
       if (!oauthAccount) {
-        console.log('database login error')
+        console.log('database login error');
         throw oauthAccount;
       }
       return oauthAccount.related('profile');

@@ -1,33 +1,38 @@
 const express = require('express');
 const middleware = require('../middleware');
 const router = express.Router();
-const app = express();
-const profiles = require('../middleware/passport.js');
 
 router.route('/')
   .get(middleware.auth.verify, (req, res) => {
-    res.redirect('/home');
+    res.redirect('/dashboard'); // IF VERIFIED, GO HERE!
   });
 
 router.route('/logout')
   .get((req, res) => {
-    req.session.destroy(function (err) {
-    profiles.userInfo = null;
-    res.redirect('/');
+    req.session.destroy((err) => {
+      if (err) {
+        console.log('Error destroying session', err);
+        throw err;
+      }
+      res.redirect('/');
+    });
   });
-});
+
+router.route('/user')
+  .get(middleware.auth.verify, (req, res) => {
+    res.json(req.user);
+  });
 
 // scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/gmail.modify','https://www.googleapis.com/auth/calendar']
-// ['profile', 'email']
 // scope: ['profile', 'https://www.googleapis.com/auth/gmail.modify', 'https://www.googleapis.com/auth/calendar']
-// scope: ['profile', 'email']
 router.get('/auth/google', middleware.passport.authenticate('google', {
-  scope: ['profile', 'email']
+  scope: ['email', 'profile']
 }));
 
 router.get('/auth/google/callback', middleware.passport.authenticate('google', {
   successRedirect: '/dashboard',
   failureRedirect: '/'
 }));
+
 
 module.exports = router;
