@@ -43,7 +43,7 @@
     "IN_PUB_KEY": {
       "required": true
     },
-    "REDISTOGO_URL": {
+    "REDIS_URL": {
       "required": true
     }
   },
