@@ -58,6 +58,7 @@ class Resume extends React.Component {
         if (xhr2.status === 200) {
           const response = JSON.parse(xhr2.responseText);
           this.uploadFileAWS(file, response.signedRequest, response.url);
+          
         } else {
           alert('Could not get signed URL.');
         }
@@ -100,7 +101,8 @@ class Resume extends React.Component {
     xhr3.onreadystatechange = () => {
       if (xhr3.readyState === 4) {
         if (xhr3.status === 200) {
-          //do nothing, it worked
+          console.log('Response from S3:', url);
+          this.setState({file: url});
         } else {
           alert('Could not upload file.');
         }
@@ -112,7 +114,7 @@ class Resume extends React.Component {
   // Ajax call to upload resume
   fileUpload(e) {
     let file = e.target.files[0];
-    this.setState({file: file});
+    // this.setState({file: file});
     this.setState({completed: 0});
     this.getSignedRequest(file);
 

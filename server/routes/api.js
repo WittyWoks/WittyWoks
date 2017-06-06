@@ -17,6 +17,10 @@ const IN_PUB_KEY = process.env.IN_PUB_KEY || require('../../config/development.j
 const AWS_API_KEY = process.env.AWS_API_KEY || require('../../config/development.json').AWS.ACCESS_KEY_ID;
 const AWS_SECRET = process.env.AWS_SECRET || require('../../config/development.json').AWS.SECRET_ACCESS_KEY;
 
+pdfParser.parsePDF(() => {
+  console.log('BACK HERE')
+});
+
 router.route('/')
   .get((req, res) => {
     res.sendFile(path.join(__dirname, '../../public/index.html'));
@@ -47,25 +51,25 @@ router.route('/home')
     res.sendFile(path.join(__dirname, '../../public/index.html'));
   });
 
-router.route('/fileUpload')
-  .post((req, res) => {
-    var form = new formidable.IncomingForm();
+// router.route('/fileUpload')
+//   .post((req, res) => {
+//     var form = new formidable.IncomingForm();
 
-    form.parse(req);
+//     form.parse(req);
 
-    form.uploadDir = path.join(__dirname, '../../uploads');
+//     form.uploadDir = path.join(__dirname, '../../uploads');
 
-    form.on('file', function(field, file) {
-      fs.rename(file.path, path.join(form.uploadDir, file.name));
-      pdfParser.parsePDF(file.name, function(skills) {
-        res.json(skills);
-      });
-    });
+//     form.on('file', function(field, file) {
+//       fs.rename(file.path, path.join(form.uploadDir, file.name));
+//       pdfParser.parsePDF(file.name, function(skills) {
+//         res.json(skills);
+//       });
+//     });
 
-    form.on('error', function(err) {
-      console.log('An error has occured: \n' + err);
-    });
-  });
+//     form.on('error', function(err) {
+//       console.log('An error has occured: \n' + err);
+//     });
+//   });
 
 router.route('/glassDoor')
   .get((req, res) => {

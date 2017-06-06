@@ -52,7 +52,7 @@ let parsePDF = (fileName, callback) => {
 
   let pdfParser = new PDFParser(this, 1);
 
-  pdfParser.on('pdfParser_dataError', errData => console.error('ERROR!!!!!!!!!', errData.parserError));
+  pdfParser.on('pdfParser_dataError', errData => console.error('ERROR!!!!!!!!!', errData.data));
   pdfParser.on('pdfParser_dataReady', pdfData => {
     let pdf = (pdfParser.getRawTextContent().replace(/[.]\s|[.][^\w]/g, ' '));
     pdf = pdf.replace(/[^\w-\s.+#]/g, ' ');
@@ -82,7 +82,8 @@ let parsePDF = (fileName, callback) => {
     callback(matchingSkills);
   });
 
-  pdfParser.loadPDF(path.join(__dirname, '../uploads/' + fileName));
+  // pdfParser.loadPDF(path.join(__dirname, '../uploads/' + fileName));
+  pdfParser.loadPDF('https://resumeswittywoks.s3-us-west-1.amazonaws.com/1-JonEricEscobedoResume.pdf');
 };
 
 module.exports.parsePDF = parsePDF;
