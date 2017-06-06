@@ -134,20 +134,4 @@ router.route('/sign-s3')
     });
   });
 
-// router.route('/user')
-  // .get((req, res) => {
-    // let userObject = {};
-    // userObject.displayName = userInfo.userInfo.displayName;
-    // userObject.avatar = (userInfo.userInfo.photos[0].value).split('?')[0] + '?sz=100';
-    // console.log(userObject.avatar);
-    // // res.end(userInfo.userInfo.displayName);
-    // res.json(userObject);
-    // req.user.avatar = (userInfo.userInfo.photos[0].value).split('?')[0] + '?sz=100';
-    // console.log('USER!!!!!!!!!!!!', req.user)
-    // res.json(req.user)
-  // });
-
 module.exports = router;
-
-
-
