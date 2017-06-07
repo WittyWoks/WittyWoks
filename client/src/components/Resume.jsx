@@ -96,13 +96,36 @@ class Resume extends React.Component {
   }
 
   uploadFileAWS(file, signedRequest, url) {
+    let context = this;
     const xhr3 = new XMLHttpRequest();
     xhr3.open('PUT', signedRequest);
     xhr3.onreadystatechange = () => {
       if (xhr3.readyState === 4) {
         if (xhr3.status === 200) {
-          console.log('Response from S3:', url);
           this.setState({file: url});
+
+          $.ajax({
+            url: '/fileUpload',
+            type: 'POST',
+            data: context.state.file,
+            success: function(data) {
+              console.log('Upload succeeded');
+              context.setState({skills: data});
+            },
+            xhr: () => {
+              let xhr = new XMLHttpRequest();
+
+              xhr.upload.addEventListener('progress', (evt) => {
+                if (evt.lengthComputable) {
+                  let percentComplete = evt.loaded / evt.total;
+                  percentComplete = parseInt(percentComplete * 100);
+                  context.progress(percentComplete);
+                }
+              }, false);
+
+              return xhr;
+            }
+          });
         } else {
           alert('Could not upload file.');
         }
@@ -111,41 +134,12 @@ class Resume extends React.Component {
     xhr3.send(file);
   }
 
-  // Ajax call to upload resume
+  // On button press, trigger Amazon S3 actions
   fileUpload(e) {
     let file = e.target.files[0];
-    // this.setState({file: file});
+
     this.setState({completed: 0});
     this.getSignedRequest(file);
-
-    let formData = new FormData();
-    let context = this;
-    formData.append('upload', file, file.name);
-
-    $.ajax({
-      url: '/fileUpload',
-      type: 'POST',
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function(data) {
-        console.log('Upload succeeded');
-        context.setState({skills: data});
-      },
-      xhr: () => {
-        let xhr = new XMLHttpRequest();
-
-        xhr.upload.addEventListener('progress', (evt) => {
-          if (evt.lengthComputable) {
-            let percentComplete = evt.loaded / evt.total;
-            percentComplete = parseInt(percentComplete * 100);
-            context.progress(percentComplete);
-          }
-        }, false);
-
-        return xhr;
-      }
-    });
   }
 
   render() {
