@@ -23,6 +23,7 @@ class DashboardHome extends React.Component {
     super(props);
     this.state = {
       value: '',
+      location: '',
       jobs: [],
       top10: []
     };
@@ -75,6 +76,8 @@ class DashboardHome extends React.Component {
                   <i className="fa fa-search prefix" aria-hidden="true"></i>
                   <input className="form-control" type="text" id="job-search" value={this.state.value} onChange={this.handleChange}/>
                   <label htmlFor="job-search">Search jobs</label>
+                  <input className="form-control" type="text" id="location-search" value={this.state.location}/>
+                  <label htmlFor="location-search"> Location</label>
                 </form>
               </div>
             </div>

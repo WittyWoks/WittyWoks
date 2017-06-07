@@ -33,6 +33,11 @@ exports.up = function (knex, Promise) {
       table.string('url',200).nullable();
       table.string('top_ten',50).nullable();
       table.integer('company_name').references('company.id');
+      // table.string('formatted_time',100).nullable();
+      // table.string('formatted_location',200).nullable();
+      // table.string('company',100).nullable();
+      // table.string('city',100).nullable();
+      // change url from 200 to 700
     }),
     knex.schema.createTableIfNotExists('resume', function(table) {
       table.increments('id').unsigned().primary();

@@ -6,6 +6,7 @@ const fs = require('fs'); // JEE ADDED
 const pdfParser = require('../pdfparse.js'); // BB ADDED
 const axios = require('axios'); // AE ADDED
 const request = require('request'); // AE ADDED
+const Jobs = require('../../db/models/jobs')
 const aws = require('aws-sdk'); // BB ADDED
 const S3_BUCKET = 'resumeswittywoks'; //BB ADDED
 const userInfo = require('../middleware/passport');
@@ -61,25 +62,62 @@ router.route('/glassDoor')
       });
   });
 
+var convertJobsToClientSideForm = function(jobs) {
+  var convertedJobs = [];
+  jobs.models.forEach(job => {
+    var job = job.attributes;
+    var jobChanged = { 
+      jobtitle: job.title,
+      company: job.company || 'Prestige WorldWide',
+      city: job.city || 'San Francisco',
+      snippet: job.description, 
+      url: job.url,
+      formattedLocation: job.formatted_location || 'San Francisco, CA',
+      formattedTime: job.formatted_time || '2 million years ago'
+    }
+      convertedJobs.push(jobChanged)
+    })
+  return convertedJobs
+}
+
 router.route('/indeed')
   .get((req, res) => {
-    let location = req.query.location || 'San Francisco, CA';
-    let jobOptions = {
-      method: 'get',
-      url: `https://indeed-indeed.p.mashape.com/apisearch?publisher=${IN_PUB_KEY}&callback=<required>&chnl=<required>&co=<required>&filter=<required>&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=${location}&latlong=<required>&limit=<required>&q=${req.query.search}&radius=25&sort=<required>&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2`,
-      headers: {
-        'X-Mashape-Key': IN_MASHAPE,
-        'Accept': 'application/json'
-      }
-    };
-    request(jobOptions, (error, response, body) => {
-      if (error) {
-        console.error(error);
-      } else {
-        body = JSON.parse(body);
-        res.send(body.results);
-      }
-    });
+    
+
+  // first check and see if it exists in the database for specified location. 
+  // if it does, perform get jobs from database. If not, get jobs from http request to indeed;
+    Jobs
+  .query(qb => {
+    qb.limit('10');
+    //need to query by lcoation, as well. get from req.query.location
+  })  
+  .fetchAll()
+  .then(x => {
+    return convertJobsToClientSideForm(x)
+  })
+  .then(jobs => {
+    res.send(jobs);
+  })
+  
+
+    // let location = req.query.location || 'San Francisco, CA';
+    // let jobOptions = {
+    //   method: 'get',
+    //   url: `https://indeed-indeed.p.mashape.com/apisearch?publisher=${IN_PUB_KEY}&callback=<required>&chnl=<required>&co=<required>&filter=<required>&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=${location}&latlong=<required>&limit=<required>&q=${req.query.search}&radius=25&sort=<required>&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2`,
+    //   headers: {
+    //     'X-Mashape-Key': IN_MASHAPE,
+    //     'Accept': 'application/json'
+    //   }
+    // };
+    // request(jobOptions, (error, response, body) => {
+    //   if (error) {
+    //     console.error(error);
+    //   } else {
+    //     body = JSON.parse(body);
+    //     console.log('bodyresults!!!', body.results)
+    //     res.send(body.results);
+    //   }
+    // });
   });
 
 router.route('/sign-s3')
