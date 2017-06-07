@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { Component, PropTypes, defaultProps } from 'react';
 import ReactDOM from 'react-dom';
 import resizeMixin from './resizemin.js';
@@ -99,7 +100,5 @@ ProgressChart.defaultProps = {
 //   }
 // };
 //
-
-
 
 export default ProgressChart;

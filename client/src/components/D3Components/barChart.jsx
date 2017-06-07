@@ -1,49 +1,91 @@
-import React, { Component } from 'react'
-import { scaleLinear } from 'd3-scale'
-import { max } from 'd3-array'
-import { select } from 'd3-selection'
-class BarChart extends Component {
-   constructor(props){
-      super(props)
-      this.createBarChart = this.createBarChart.bind(this)
-   }
-   componentDidMount() {
-      this.createBarChart()
-   }
-   componentDidUpdate() {
-      this.createBarChart()
-   }
-   createBarChart() {
-      const node = this.node
-      const dataMax = max(this.props.data)
-      const yScale = scaleLinear()
-         .domain([0, dataMax])
-         .range([0, this.props.size[1]])
-   select(node)
-      .selectAll('rect')
-      .data(this.props.data)
-      .enter()
-      .append('rect')
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import resizeMixin from './resizemin.js'
+import InsetShadow from './svgShadow.jsx';
 
-   select(node)
-      .selectAll('rect')
-      .data(this.props.data)
-      .exit()
-      .remove()
 
-   select(node)
-      .selectAll('rect')
-      .data(this.props.data)
-      .style('fill', '#fe9922')
-      .attr('x', (d,i) => i * 25)
-      .attr('y', d => this.props.size[1] - yScale(d))
-      .attr('height', d => yScale(d))
-      .attr('width', 25)
-   }
-render() {
-      return( <svg ref={node => this.node = node}
-      width={500} height={500}>
-      </svg>)
-   }
-}
+var BarChart=React.createClass({
+    getDefaultProps: function() {
+        return {
+            width: 300,
+            height: 70,
+            chartId: 'v_chart'
+        };
+    },
+    getInitialState:function(){
+        return {
+            width:0
+        };
+    },
+    mixins:[resizeMixin],
+
+    render:function(){
+        var data=[
+            { month:'Jan', value:40 },
+            { month:'Feb', value:50 },
+            { month:'Mar', value:65 },
+            { month:'Apr', value:60 },
+            { month:'May', value:70 },
+            { month:'Jun', value:55 },
+            { month:'Jul', value:80 },
+            { month:'Aug', value:55 },
+            { month:'Sep', value:75 },
+            { month:'Oct', value:50 },
+            { month:'Nov', value:60 },
+            { month:'Dec', value:75 }
+        ];
+
+        var margin={top:5,right:5,bottom:5,left:5},
+        w=this.state.width-(margin.left+margin.right),
+        h=this.props.height-(margin.top+margin.bottom);
+
+        var transform='translate('+margin.left+','+margin.top+')';
+
+        var x=d3.scale.ordinal()
+            .domain(data.map(function(d){
+                return d.month;
+            }))
+            .rangeRoundBands([0,this.state.width],.35);
+
+        var y=d3.scale.linear()
+            .domain([0,100])
+            .range([this.props.height,0]);
+
+
+        var rectBackground=(data).map(function(d, i) {
+
+            return (
+                <rect fill="#58657f" rx="3" ry="3" key={i}
+                      x={x(d.month)} y={margin.top-margin.bottom}
+                      height={h}
+                      width={x.rangeBand()}/>
+            )
+        });
+        var rectForeground=(data).map(function(d, i) {
+
+            return (
+                <rect fill="#74d3eb" rx="3" ry="3" key={i}
+                      x={x(d.month)} y={y(d.value)} className="shadow"
+                      height={h-y(d.value)}
+                      width={x.rangeBand()}/>
+            )
+        });
+
+        return(
+            <div>
+                <svg id={this.props.chartId} width={this.state.width}
+                     height={this.props.height}>
+
+                    <g transform={transform}>
+                        {rectBackground}
+                        {rectForeground}
+                    </g>
+                </svg>
+            </div>
+            );
+    }
+
+});
+
+
 export default BarChart
