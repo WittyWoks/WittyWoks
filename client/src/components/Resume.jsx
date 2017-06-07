@@ -34,7 +34,7 @@ class Resume extends React.Component {
     this.state = {
       completed: 0,
       skills: [],
-      file: '',
+      file: null,
       pageIndex: null,
       pageNumber: null,
       total: null,
@@ -186,11 +186,21 @@ class Resume extends React.Component {
               <div className="card">
                   <h3 className="card-header">Your résumé</h3>
                   <div className="card-block">
-                        <ReactPDF
-                          file={this.state.file} 
-                          onDocumentLoad={this.onDocumentCompleted}
-                          onPageLoad={this.onPageCompleted}
-                        />
+                    { this.state.file === null ? 
+                      <ReactPDF
+                        file={this.state.file} 
+                        onDocumentLoad={this.onDocumentCompleted}
+                        onPageLoad={this.onPageCompleted}
+                      />
+                    :
+                    <a target="_blank" href={this.state.file}>
+                      <ReactPDF
+                        file={this.state.file} 
+                        onDocumentLoad={this.onDocumentCompleted}
+                        onPageLoad={this.onPageCompleted}
+                      />
+                    </a>
+                    }
                   </div>
               </div>
             </div>
