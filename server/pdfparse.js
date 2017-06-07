@@ -1,6 +1,7 @@
 const fs = require('fs');
 const PDFParser = require('pdf2json');
 const path = require('path');
+const request = require('request');
 
 
 let parsePDF = (fileName, callback) => {
@@ -50,11 +51,14 @@ let parsePDF = (fileName, callback) => {
 
   let matchingSkills = [];
 
-  let pdfParser = new PDFParser(this, 1);
 
-  pdfParser.on('pdfParser_dataError', errData => console.error('ERROR!!!!!!!!!', errData.parserError));
-  pdfParser.on('pdfParser_dataReady', pdfData => {
-    let pdf = (pdfParser.getRawTextContent().replace(/[.]\s|[.][^\w]/g, ' '));
+  let pdfParser = new PDFParser(this, 1);
+  let pdfPipe = request({url: fileName, encoding: null}).pipe(pdfParser);
+
+
+  pdfPipe.on('pdfParser_dataError', errData => console.error('ERROR!!!!!!!!!', errData.data));
+  pdfPipe.on('pdfParser_dataReady', pdfData => {
+    let pdf = (pdfPipe.getRawTextContent().replace(/[.]\s|[.][^\w]/g, ' '));
     pdf = pdf.replace(/[^\w-\s.+#]/g, ' ');
     pdf = pdf.split(/\s/);
     let pdfNew = [];
@@ -82,7 +86,6 @@ let parsePDF = (fileName, callback) => {
     callback(matchingSkills);
   });
 
-  pdfParser.loadPDF(path.join(__dirname, '../uploads/' + fileName));
 };
 
 module.exports.parsePDF = parsePDF;
