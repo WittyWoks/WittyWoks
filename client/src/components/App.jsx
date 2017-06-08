@@ -30,6 +30,7 @@ class App extends React.Component {
         <Route path="/signup" component={(props) => <Signup /> } />
         <Route path="/dashboard" component={(props) => <Dashboard /> } />
         <Route path="/resume" component={(props) => <Dashboard /> } />
+        <Route path="/companyInfo" component={(props) => <CompanyInfo /> } />    
         <Route path="/analytics" component={(props) => <Dashboard /> } />
         <Route path="/settings" component={(props) => <Dashboard /> } />
       </div>
