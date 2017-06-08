@@ -52,58 +52,34 @@ class CompanyInfo extends React.Component {
   }
 
   appliedJob() {
+    let context = this;
     $.ajax({
       type: 'GET',
       url: '/user',
       datatype: 'json'
     })
-    .done(function(data) {
+    .done(data => {
       if (data.email) {
+        let job = context.state.jobs[0];
         axios.post('/ReturnJobsApplied', {
-          google_id: data.id
+          google_id: data.id,
+          jobId: job.id,
+          jobData: JSON.stringify(job)
         })
-          .then(results => {
-            console.log('Results from Axios Job Get', results);
-          })
-          .catch(err => {
-            console.error('Error occured getting jobs', err);
-          });
+        .then(() => {
+          console.log('Success within adding this job!');
+        })
+        .catch(err => {
+          console.error('Error occured getting jobs', err);
+        });
       }
     })
     .fail(function(err) {
-      console.log('failed to GET', err);
+      console.error('Failed to thumbs up a job', err);
     });
   }
-
-  getappliedJob() {
-    $.ajax({
-      type: 'GET',
-      url: '/user',
-      datatype: 'json'
-    })
-    .done(function(data) {
-      if (data.email) {
-        axios.get('/ReturnJobsApplied', {
-          params: {
-            google_id: data.id
-          }
-        })
-          .then(results => {
-            console.log('Results from Axios Job Get', results);
-          })
-          .catch(err => {
-            console.error('Error occured getting jobs', err);
-          });
-      }
-    })
-    .fail(function(err) {
-      console.log('failed to GET', err);
-    });
-  }
-  
 
   render() {
-    
     const jobInfo = this.props.location.state;
 
     return (
