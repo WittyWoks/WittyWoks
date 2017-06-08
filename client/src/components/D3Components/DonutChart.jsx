@@ -3,104 +3,105 @@ import ReactDOM from 'react-dom';
 import resizeMixin from './resizemin.js';
 import InsetShadow from './svgShadow.jsx';
 
-var DonutChartPath=React.createClass({
-    propTypes: {
-        width:React.PropTypes.number,
-        height:React.PropTypes.number,
-        data:React.PropTypes.array,
-        pie:React.PropTypes.func,
-        color:React.PropTypes.func
-    },
-    componentWillMount:function(){
+class DonutChartPath extends React.Component {
 
-        var radius=this.props.height;
+  componentWillMount() {
+    var radius=this.props.height;
+    var outerRadius=radius/2;
+    var innerRadius=radius/3.3;
 
-        var outerRadius=radius/2;
-        var innerRadius=radius/3.3;
+    this.arc=d3.svg.arc()
+      .outerRadius(outerRadius)
+      .innerRadius(innerRadius);
 
-        this.arc=d3.svg.arc()
-            .outerRadius(outerRadius)
-            .innerRadius(innerRadius);
+    this.transform='translate('+radius/2+','+radius/2+')';
 
-        this.transform='translate('+radius/2+','+radius/2+')';
+  };
 
-    },
-    createChart:function(_self){
+  createChart(_self) {
 
-        var paths = (this.props.pie(this.props.data)).map(function(d, i) {
+    var paths = (this.props.pie(this.props.data)).map(function(d, i) {
 
-            return (
-                <path fill={_self.props.color(i)} d={_self.arc(d)} key={i}/>
-            )
-        });
-        return paths;
-    },
+      return (
+        <path fill={_self.props.color(i)} d={_self.arc(d)} key={i}/>
+      )
+    });
 
-    render:function(){
+    return paths;
+  }
 
-        var paths = this.createChart(this);
+  render() {
+    var paths = this.createChart(this);
 
-        return(
-            <g transform={this.transform}>
-                {paths}
-            </g>
-        )
+    return(
+      <g transform={this.transform}>
+        {paths}
+      </g>
+    )
+  }
+};
+
+DonutChartPath.propTypes = {
+    width:React.PropTypes.number,
+    height:React.PropTypes.number,
+    data:React.PropTypes.array,
+    pie:React.PropTypes.func,
+    color:React.PropTypes.func
+}
+
+class DonutChartLegend extends React.Component {
+
+  createChart(_self)  {
+
+    var texts = (this.props.pie(this.props.data)).map(function(d, i) {
+    var transform="translate(10,"+i*30+")";
+    var rectStyle = {
+      fill:_self.props.color(i),
+      stroke:_self.props.color(i)
+    };
+
+    var textStyle = {
+      fill:_self.props.color(i)
+    };
+
+    return (
+      <g transform={transform} key={i}>
+        <rect width="20" height="20" style={rectStyle} rx="2" rx="2"/>
+        <text x="30" y="15" className="browser-legend" style={textStyle}>{d.data.name}</text>
+      </g>
+    )
+    });
+
+  return texts;
+  }
+
+  render(){
+
+    var style={
+      visibility:'visible'
+    };
+
+    if(this.props.width<=this.props.height+70){
+      style.visibility='hidden';
     }
-});
 
-var DonutChartLegend=React.createClass({
-    propTypes: {
-        width:React.PropTypes.number,
-        height:React.PropTypes.number,
-        data:React.PropTypes.array,
-        pie:React.PropTypes.func,
-        color:React.PropTypes.func
-    },
-    createChart:function(_self){
+    var texts = this.createChart(this);
+    var transform="translate("+(this.props.width/2+80)+",55)";
+    return(
+      <g is transform={transform} style={style}>
+        {texts}
+      </g>
+    )
+  }
+}
 
-        var texts = (this.props.pie(this.props.data)).map(function(d, i) {
-
-            var transform="translate(10,"+i*30+")";
-
-            var rectStyle = {
-                fill:_self.props.color(i),
-                stroke:_self.props.color(i)
-
-            };
-
-            var textStyle = {
-                fill:_self.props.color(i)
-            };
-
-            return (
-                <g transform={transform} key={i}>
-                    <rect width="20" height="20" style={rectStyle} rx="2" rx="2"/>
-                    <text x="30" y="15" className="browser-legend" style={textStyle}>{d.data.name}</text>
-                </g>
-            )
-        });
-        return texts;
-    },
-
-    render:function(){
-
-        var style={
-            visibility:'visible'
-        };
-
-        if(this.props.width<=this.props.height+70){
-            style.visibility='hidden';
-        }
-
-        var texts = this.createChart(this);
-        var transform="translate("+(this.props.width/2+80)+",55)";
-        return(
-            <g is transform={transform} style={style}>
-                {texts}
-            </g>
-        )
-    }
-});
+DonutChartLegend.propTypes = {
+  width:React.PropTypes.number,
+  height:React.PropTypes.number,
+  data:React.PropTypes.array,
+  pie:React.PropTypes.func,
+  color:React.PropTypes.func
+};
 
 var DonutChart=React.createClass({
     propTypes: {
@@ -137,10 +138,10 @@ var DonutChart=React.createClass({
             .range(['#68c8d7','#eccd63','#bb8cdd','#de6942','#52b36e','#bbc7d9']);
 
         var data = [
-            { name: 'IE', count: 40 },
-            { name: 'Chrome', count: 32 },
-            { name: 'Safari', count: 14 },
-            { name: 'Firefox', count: 9 },
+            { name: 'React', count: 40 },
+            { name: 'Node', count: 32 },
+            { name: 'Javascript', count: 14 },
+            { name: 'mySql', count: 9 },
             { name: 'Others', count: 6 }
         ];
 
@@ -149,11 +150,11 @@ var DonutChart=React.createClass({
 
     updateData:function(){
         var data = [
-            { name: 'IE', count: Math.random() },
-            { name: 'Chrome', count: Math.random() },
-            { name: 'Safari', count: Math.random() },
-            { name: 'Firefox', count: Math.random() },
-            { name: 'Others', count: Math.random() },
+            { name: 'Backbone', count: Math.random() },
+            { name: 'React', count: Math.random() },
+            { name: 'Node', count: Math.random() },
+            { name: 'Javascript', count: Math.random() },
+            { name: 'mySql', count: Math.random() },
             { name: 'Opera', count: Math.random() }
 
         ];

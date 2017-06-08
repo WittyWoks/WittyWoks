@@ -14,6 +14,7 @@ import ProgressChart from './D3Components/ProgressChart.jsx';
 import LineChart from './D3Components/LineChart.jsx';
 import BarChart from './D3Components/BarChart.jsx';
 
+
 class Analytics extends React.Component {
   constructor(props){
     super(props);
@@ -73,24 +74,33 @@ renderAll() {
          <p></p>
          I authorize BestFit to sign into my current Gmail account and scan emails for job related emails.
         </Dialog>
-
         <div className="container wow fadeIn" data-wow-delay="1.5s">
           <div className="row justify-content-center">
-            <h3>Job Applications</h3>
-            <p></p>
-            <ul id="top-line-chart"></ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
-
-            <h3>Resume Keywords Matches</h3>
-            <p></p>
-            <ul id="browser"></ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
-
-            <h3>Percentage of Rejections</h3>
-            <p></p>
-            <ul id="ret_visitors"></ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
-
+            <div className="card text-center z-depth-2">
+              <div className="card-block">
+                <h3 className="card-header default-color-dark white-text">Applied Jobs</h3>
+                <ul id="top-line-chart"></ul>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
+              </div>
+            </div>
+              <p></p>
+            <div className="card text-center z-depth-2">
+              <div className="card-block">
+                <h3 className="card-header default-color-dark white-text">Resume Keywords Matches</h3>
+                <p></p>
+                <ul id="browser"></ul>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
+              </div>
+            </div>
+              <p></p>
+            <div className="card text-center z-depth-2">
+              <div className="card-block">
+                <h3 className="card-header default-color-dark white-text">Percentage of Rejections</h3>
+                <p></p>
+                <ul id="ret_visitors"></ul>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -133,6 +143,7 @@ class Visitors extends React.Component {
     )
   }
 };
+
 
 
 export default Analytics;
