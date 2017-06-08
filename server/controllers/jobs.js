@@ -36,7 +36,6 @@ const getIndeedJobs = (search='top ten jobs', location) => {
         reject(error);
       } else {
         var body = JSON.parse(body);
-        console.log(body.results);
         resolve(body.results);
       }        
     });

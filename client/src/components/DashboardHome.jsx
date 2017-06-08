@@ -60,7 +60,6 @@ class DashboardHome extends React.Component {
       location: location
     })
     .done((data) => {
-    // console.log('Job DATA Indeed', data);      
       this.setState({
         jobs: data,
         value: '',
