@@ -40,16 +40,16 @@ passport.use('google', new GoogleStrategy({
   (accessToken, refreshToken, profile, done) => {
     getOrCreateOAuthProfile('google', profile, done);
 
-    const gmail = new Gmail(accessToken);
-    const message = gmail.messages('label:inbox', {max: 3});
-
-    message.on('data', function (index) {
-
-      if (index.payload.parts !== undefined) {
-        let string = Base64.decode(index.payload.parts[0].body.data).toString();
-        searchEmailsForApplies(string, profile, index);
-      }
-    })
+  //   const gmail = new Gmail(accessToken);
+  //   const message = gmail.messages('label:inbox', {max: 3});
+  //
+  //   message.on('data', function (index) {
+  //
+  //     if (index.payload.parts !== undefined) {
+  //       let string = Base64.decode(index.payload.parts[0].body.data).toString();
+  //       searchEmailsForApplies(string, profile, index);
+  //     }
+  //   })
   })
 );
 
@@ -108,7 +108,7 @@ const saveEmail = (body, profile, emailDetail) => {
 
 const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
   console.log(oauthProfile);
-  
+
   return models.Auth.where({ type, oauth_id: oauthProfile.id }).fetch({
     withRelated: ['profile']
   })

@@ -2,15 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
 
-var InsetShadow=React.createClass({
+class InsetShadow extends React.Component {
 
-    propTypes: {
-        id:React.PropTypes.string,
-        stdDeviation:React.PropTypes.string,
-        floodColor:React.PropTypes.string,
-        floodOpacity:React.PropTypes.string
-    },
-    render:function(){
+    render() {
         return(
             <defs>
                 <filter id={this.props.id}>
@@ -26,7 +20,14 @@ var InsetShadow=React.createClass({
     }
 
 
-});
+};
+
+InsetShadow.propTypes = {
+  id:React.PropTypes.string,
+  stdDeviation:React.PropTypes.string,
+  floodColor:React.PropTypes.string,
+  floodOpacity:React.PropTypes.string
+  }
 
 
 export default InsetShadow;

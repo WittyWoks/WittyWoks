@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Added D3 graphs
 import React, { Component, PropTypes, defaultProps } from 'react';
 import ReactDOM from 'react-dom';
 import resizeMixin from './resizemin.js';

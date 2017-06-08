@@ -35,16 +35,16 @@ class Analytics extends React.Component {
 
 componentDidUpdate() {
   setTimeout(() => {
-  ReactDOM.render(<Visitors />,document.getElementById("top-line-chart"));
-  ReactDOM.render(<Browser />,document.getElementById("browser"));
+  ReactDOM.render(<Applied />,document.getElementById("applied"));
+  ReactDOM.render(<Keyword />,document.getElementById("keyword"));
   },1)
-  ReactDOM.render(<RetVisitors />,document.getElementById("ret_visitors"));
+  ReactDOM.render(<Rejections />,document.getElementById("rejections"));
 }
 
 renderAll() {
-  ReactDOM.render(<Visitors />,document.getElementById("top-line-chart"));
-  ReactDOM.render(<Browser />,document.getElementById("browser"));
-  ReactDOM.render(<RetVisitors />,document.getElementById("ret_visitors"));
+  ReactDOM.render(<Applied />,document.getElementById("applied"));
+  ReactDOM.render(<Browser />,document.getElementById("keyword"));
+  ReactDOM.render(<Rejections />,document.getElementById("rejections"));
 };
 
   render() {
@@ -79,7 +79,7 @@ renderAll() {
             <div className="card text-center z-depth-2">
               <div className="card-block">
                 <h3 className="card-header default-color-dark white-text">Applied Jobs</h3>
-                <ul id="top-line-chart"></ul>
+                <ul id="applied"></ul>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
               </div>
             </div>
@@ -88,7 +88,7 @@ renderAll() {
               <div className="card-block">
                 <h3 className="card-header default-color-dark white-text">Resume Keywords Matches</h3>
                 <p></p>
-                <ul id="browser"></ul>
+                <ul id="keyword"></ul>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
               </div>
             </div>
@@ -97,7 +97,7 @@ renderAll() {
               <div className="card-block">
                 <h3 className="card-header default-color-dark white-text">Percentage of Rejections</h3>
                 <p></p>
-                <ul id="ret_visitors"></ul>
+                <ul id="rejections"></ul>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
               </div>
             </div>
@@ -109,7 +109,19 @@ renderAll() {
   }
 }
 
-class Browser extends React.Component {
+class Applied extends React.Component {
+
+
+  render() {
+    return (
+      <div>
+        <LineChart/>
+      </div>
+    )
+  }
+};
+
+class Keyword extends React.Component {
 
   render() {
     return (
@@ -120,8 +132,7 @@ class Browser extends React.Component {
   }
 };
 
-
-class RetVisitors extends React.Component {
+class Rejections extends React.Component {
 
   render() {
     return (
@@ -133,16 +144,9 @@ class RetVisitors extends React.Component {
   }
 };
 
-class Visitors extends React.Component {
 
-  render() {
-    return (
-      <div>
-        <LineChart/>
-      </div>
-    )
-  }
-};
+
+
 
 
 
