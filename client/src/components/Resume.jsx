@@ -37,13 +37,31 @@ class Resume extends React.Component {
       file: null,
       pageIndex: null,
       pageNumber: null,
-      total: null,
+      total: null
     };
+    
+    console.log('PROPS', props);
 
     this.progress = this.progress.bind(this);
     this.onDocumentCompleted = this.onDocumentCompleted.bind(this);
     this.onPageCompleted = this.onPageCompleted.bind(this);
+    
+    let context = this;
+
+    $.ajax({
+      url: '/getResume',
+      type: 'GET',
+      data: {resume_id: props.resume_id},
+      success: function(resume) {
+        console.log('Got resume info', resume);
+        context.setState({
+          skills: resume.skills.split(','),
+          file: resume.resume_url
+        });
+      }
+    });
   }
+
 
   // Set progress bar to zero on page load
   componentWillUnmount() {
@@ -174,6 +192,7 @@ class Resume extends React.Component {
                   <h3 className="card-header">Your skills</h3>
                   <div className="card-block">
                       <p className="card-text">Technical skills extracted from your résumé.</p>
+
                       <div style={styles.wrapper}>
                         {this.state.skills.map(this.renderChip, this)}
                       </div>

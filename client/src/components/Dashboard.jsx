@@ -24,7 +24,8 @@ class Dashboard extends React.Component {
     this.state = {
       name: 'Welcome!',
       avatar: '<i class="fa fa-user-circle" aria-hidden="true"></i>',
-      nameOnly: 'Guest'
+      nameOnly: 'Guest',
+      resume_id: null
     };
   }
 
@@ -46,7 +47,8 @@ class Dashboard extends React.Component {
         context.setState({
           name: 'Welcome Back, '+data.display +'!',
           avatar: data.avatar,
-          nameOnly: data.display
+          nameOnly: data.display,
+          resume_id: data.resume_id
         });
       }
     })
@@ -76,7 +78,7 @@ class Dashboard extends React.Component {
           <Route path="/jobs" component={JobList} />
           <Route path="/companyInfo" component={CompanyInfo} />
           <Route path="/analytics" component={Analytics} />
-          <Route path="/resume" component={Resume} />
+          <Route path="/resume" component={(props) => <Resume resume_id={this.state.resume_id}/>} />
           <Route path="/settings" component={Settings} />
           <Route path='/home' component={Home} />
 

@@ -24,7 +24,8 @@ app.use('/', routes.auth);
 // JEE added routes
 app.use('/', routes.api);
 app.use('/home', routes.api);
-app.use('/fileUpload', routes.api);
+// app.use('/fileUpload', routes.api)
+app.use('/', routes.resume);
 // app.use('/logout', routes.auth);
 
 //AE added routes
