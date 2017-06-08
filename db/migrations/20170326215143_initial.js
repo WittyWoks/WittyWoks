@@ -21,8 +21,8 @@ exports.up = function (knex, Promise) {
     }),
     knex.schema.createTableIfNotExists('applied_jobs', function(table) {
       table.increments('id').unsigned().primary();
-      table.integer('job_id').references('jobs.id').nullable();
       table.string('status').notNullable();
+      table.string('job_data', 5000).notNullable();
       table.string('applied_id').unique();
       table.integer('user_id').references('auths.id');
     }),
@@ -64,7 +64,7 @@ exports.down = function (knex, Promise) {
   return Promise.all([
     knex.schema.dropTable('auths'),
     knex.schema.dropTable('profiles'),
-    knex.schema.dropTable('appliedJobs'),
+    knex.schema.dropTable('applied_jobs'),
     knex.schema.dropTable('jobs'),
     knex.schema.dropTable('resume'),
     knex.schema.dropTable('company'),

@@ -4,7 +4,9 @@ const router = express.Router();
 const appliedJobsController = require('../controllers').appliedJobs;
 
 router.route('/ReturnJobsApplied')
-  .post(appliedJobsController.create)
+  .post((req, res) => {
+    appliedJobsController.create(req.body);
+  })
   .get(appliedJobsController.getAll)
   ;
 

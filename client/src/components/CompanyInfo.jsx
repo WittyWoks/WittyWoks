@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import axios from 'axios';
 
 const styles = {
   jobs: {
@@ -19,10 +20,11 @@ class CompanyInfo extends React.Component {
     super(props);
 
     this.state = {
-      jobs: []
+      jobs: [],
     };
 
     this.searchGlassDoor = this.searchGlassDoor.bind(this);
+    this.appliedJob = this.appliedJob.bind(this);
   }
 
   componentDidMount() {
@@ -48,10 +50,38 @@ class CompanyInfo extends React.Component {
       throw err;
     });
   }
-  
+
+  appliedJob() {
+    let context = this;
+    $.ajax({
+      type: 'GET',
+      url: '/user',
+      datatype: 'json'
+    })
+    .done(data => {
+      if (data.email) {
+        let job = context.state.jobs[0];
+        axios.post('/ReturnJobsApplied', {
+          google_id: data.id,
+          jobId: job.id,
+          jobData: JSON.stringify(job)
+        })
+        .then(() => {
+          console.log('Success within adding this job!');
+        })
+        .catch(err => {
+          console.error('Error occured getting jobs', err);
+        });
+      }
+    })
+    .fail(function(err) {
+      console.error('Failed to thumbs up a job', err);
+    });
+  }
 
   render() {
     const jobInfo = this.props.location.state;
+
     return (
       <div className="container wow fadeIn" data-wow-delay="0.2s">
         <div className="card">
@@ -71,7 +101,7 @@ class CompanyInfo extends React.Component {
                     <h2 className="media-heading">{job.name}</h2>
                     <h4>{jobInfo.jobtitle}</h4>
                     <p>{jobInfo.snippet}</p>
-                    <a className="btn btn-info" role="button" href={`${jobInfo.url}`} target="blank">Apply Now!</a>
+                    <a className="btn btn-warning" role="button" href={`${jobInfo.url}`} target="blank">Apply Now!</a>
                   </div>
 
                   {/* Company Ratings */}
@@ -84,6 +114,7 @@ class CompanyInfo extends React.Component {
               }
             }) : null} 
           </div>
+          <button className="btn btn-mdb" onClick={this.appliedJob}>Thumbs Up</button>
         </div>
       </div>
     );
