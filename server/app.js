@@ -16,28 +16,10 @@ app.use(middleware.flash());
 
 app.use(express.static(path.join(__dirname, '../public/dist')));
 
-
+// Added Routes 
 app.use('/', routes.auth);
-// app.use('/api', routes.api);
-// app.use('/api/profiles', routes.profiles);
-
-// JEE added routes
 app.use('/', routes.api);
-app.use('/home', routes.api);
-// app.use('/fileUpload', routes.api)
 app.use('/', routes.resume);
-// app.use('/logout', routes.auth);
-
-//AE added routes
-app.use('/glassDoor', routes.api);
-app.use('/indeed', routes.api);
-
-//JC added routes
-app.use('/user', routes.api);
-app.use('/appliedJobs', routes.appliedJobs);
-// app.use('/jobs', routes.jobs);
-// app.use('/company', routes.company);
-// app.use('/resume', routes.resume);
-
+app.use('/', routes.appliedJobs);
 
 module.exports = app;
