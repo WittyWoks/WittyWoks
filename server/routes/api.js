@@ -47,15 +47,6 @@ router.route('/home')
     res.sendFile(path.join(__dirname, '../../public/index.html'));
   });
 
-router.route('/fileUpload')
-  .post((req, res) => {
-    let pdfUrl = Object.keys(req.body)[0];
-
-    pdfParser.parsePDF(pdfUrl, (skills) => {
-      res.json(skills);
-    });
-  });
-
 router.route('/glassDoor')
   .get((req, res) => {
     // console.log('REQ---', req.query.search);

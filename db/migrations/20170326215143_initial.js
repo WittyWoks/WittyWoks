@@ -8,6 +8,7 @@ exports.up = function (knex, Promise) {
       table.string('email', 100).nullable().unique();
       table.string('phone', 100).nullable();
       table.string('avatar', 150).nullable();
+      table.integer('resume_id').references('resume.id');
       table.timestamps(true, true);
     }),
     knex.schema.createTableIfNotExists('auths', function(table) {
@@ -38,7 +39,8 @@ exports.up = function (knex, Promise) {
       table.string('location', 100).nullable();
       table.string('skills', 5000).nullable();
       table.string('keywords', 5000).nullable();
-      table.integer('resumeUser_id').references('auths.id');
+      table.string('resume_url', 200).nullable();
+      // table.integer('resumeUser_id').references('auths.id');
     }),
     knex.schema.createTableIfNotExists('company', function(table) {
       table.increments('id').unsigned().primary();

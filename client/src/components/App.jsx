@@ -29,8 +29,6 @@ class App extends React.Component {
         <Route path="/login" component={(props) => <Login /> } />
         <Route path="/signup" component={(props) => <Signup /> } />
         <Route path="/dashboard" component={(props) => <Dashboard /> } />
-        <Route path="/resume" component={(props) => <Resume /> } />
-        <Route path="/companyInfo" component={(props) => <CompanyInfo /> } />
         <Route path="/resume" component={(props) => <Dashboard /> } />
         <Route path="/analytics" component={(props) => <Dashboard /> } />
         <Route path="/settings" component={(props) => <Dashboard /> } />

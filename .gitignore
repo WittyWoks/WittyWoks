@@ -1,9 +1,18 @@
+######################################################
+# default.js can be ignored since we have a copy on  #
+# WittyWoks that is already configured to work with  #
+# the deployed database. We can therefore keep the   #
+# default.js files set up on our local machines to   #
+# continue running our local database (thesis)       #
+######################################################
+
 # Project specific
-config/development.json
-config/production.json
-config/staging.json
-config/test.json
+#config/development.json
+#config/production.json
+#config/staging.json
+#config/test.json
 uploads/
+config/
 
 # OS X
 .DS_Store
