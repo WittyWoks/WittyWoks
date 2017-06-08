@@ -6,7 +6,9 @@ const fs = require('fs'); // JEE ADDED
 const pdfParser = require('../pdfparse.js'); // BB ADDED
 const axios = require('axios'); // AE ADDED
 const request = require('request'); // AE ADDED
+const Jobs = require('../../db/models/jobs'); //BB ADDED
 const aws = require('aws-sdk'); // BB ADDED
+var Promise = require('bluebird');
 const S3_BUCKET = 'resumeswittywoks'; //BB ADDED
 const userInfo = require('../middleware/passport');
 const GD_PARTNER_ID = process.env.GD_PARTNER_ID || require('../../config/development.json').glassDoor.PARTNER_ID;
@@ -15,7 +17,9 @@ const IN_MASHAPE = process.env.IN_MASHAPE || require('../../config/development.j
 const IN_PUB_KEY = process.env.IN_PUB_KEY || require('../../config/development.json').indeed.PUBLISHER_KEY;
 const AWS_API_KEY = process.env.AWS_API_KEY || require('../../config/development.json').AWS.ACCESS_KEY_ID;
 const AWS_SECRET = process.env.AWS_SECRET || require('../../config/development.json').AWS.SECRET_ACCESS_KEY;
-
+const convertJobsToClientSideForm = require('../controllers/jobs').convertJobsToClientSideForm;
+const getIndeedJobs = require('../controllers/jobs').getIndeedJobs;
+const retrieveTopTenJobsFromDatabase = require('../controllers/jobs').retrieveTopTenJobsFromDatabase;
 
 router.route('/')
   .get((req, res) => {
@@ -61,25 +65,25 @@ router.route('/glassDoor')
       });
   });
 
+
 router.route('/indeed')
   .get((req, res) => {
-    let location = req.query.location || 'San Francisco, CA';
-    let jobOptions = {
-      method: 'get',
-      url: `https://indeed-indeed.p.mashape.com/apisearch?publisher=${IN_PUB_KEY}&callback=<required>&chnl=<required>&co=<required>&filter=<required>&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=${location}&latlong=<required>&limit=<required>&q=${req.query.search}&radius=25&sort=<required>&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2`,
-      headers: {
-        'X-Mashape-Key': IN_MASHAPE,
-        'Accept': 'application/json'
-      }
-    };
-    request(jobOptions, (error, response, body) => {
-      if (error) {
-        console.error(error);
-      } else {
-        body = JSON.parse(body);
-        res.send(body.results);
-      }
-    });
+    getIndeedJobs(req.query.search, req.query.location)
+      .then(jobs => {
+        res.send(jobs);
+      });
+  });
+
+router.route('/indeedTopTen')
+  .get((req, res) => {
+    retrieveTopTenJobsFromDatabase()
+      .then(jobs => {
+        res.send(jobs);
+      })
+      .catch(err => {
+        console.log(err);
+        res.end();
+      });
   });
 
 router.route('/sign-s3')

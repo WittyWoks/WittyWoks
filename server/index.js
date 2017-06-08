@@ -2,6 +2,8 @@
 const app = require('./app');
 const db = require('../db');
 const PORT = process.env.PORT || 3000;
+const chron = require('./chron.js');
+
 
 // // JC ADDED
 // const pg = require('pg');
@@ -15,6 +17,7 @@ const PORT = process.env.PORT || 3000;
 //   // ssl: true,
 //   // url: process.env.DATABASE_URL +'ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory' || require('../config/development.json').postgresql.DATABASE_URL
 // });
+
 
 // // JC ADDED
 // client.connect();

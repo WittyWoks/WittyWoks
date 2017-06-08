@@ -19,7 +19,7 @@ exports.up = function (knex, Promise) {
       table.string('salt', 100).nullable();
       table.integer('profile_id').references('profiles.id');
     }),
-    knex.schema.createTableIfNotExists('appliedJobs', function(table) {
+    knex.schema.createTableIfNotExists('applied_jobs', function(table) {
       table.increments('id').unsigned().primary();
       table.integer('job_id').references('jobs.id').nullable();
       table.string('status').notNullable();
@@ -30,9 +30,14 @@ exports.up = function (knex, Promise) {
       table.increments('id').unsigned().primary();
       table.string('title', 100).notNullable();
       table.string('description', 5000).nullable();
-      table.string('url',200).nullable();
-      table.string('top_ten',50).nullable();
+      table.string('url', 700).nullable();
+      table.string('top_ten', 50).nullable();
       table.integer('company_name').references('company.id');
+      table.string('formatted_time', 100).nullable();
+      table.string('formatted_location', 200).nullable();
+      table.string('company', 100).nullable();
+      table.string('city', 100).nullable();
+      table.string('location', 100).nullable();
     }),
     knex.schema.createTableIfNotExists('resume', function(table) {
       table.increments('id').unsigned().primary();
