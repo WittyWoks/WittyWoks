@@ -27,11 +27,7 @@ class Dashboard extends React.Component {
       nameOnly: 'Guest',
       resume_id: null
     };
-  }
-
-  componentWillMount() {
     this.nameChange();
-    // console.log('!!!!!!!!!!!!!!', this.props)
   }
 
   nameChange() {
@@ -43,12 +39,10 @@ class Dashboard extends React.Component {
     })
     .done(function(data) {
       if (data.email) {
-        console.log('success GET', data);
         context.setState({
           name: 'Welcome Back, '+data.display +'!',
           avatar: data.avatar,
-          nameOnly: data.display,
-          resume_id: data.resume_id
+          nameOnly: data.display
         });
       }
     })
@@ -78,7 +72,7 @@ class Dashboard extends React.Component {
           <Route path="/jobs" component={JobList} />
           <Route path="/companyInfo" component={CompanyInfo} />
           <Route path="/analytics" component={Analytics} />
-          <Route path="/resume" component={(props) => <Resume resume_id={this.state.resume_id}/>} />
+          <Route path="/resume" component={Resume} />
           <Route path="/settings" component={Settings} />
           <Route path='/home' component={Home} />
 

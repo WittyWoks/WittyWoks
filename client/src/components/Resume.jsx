@@ -40,32 +40,44 @@ class Resume extends React.Component {
       total: null
     };
     
-    console.log('PROPS', props);
-
     this.progress = this.progress.bind(this);
     this.onDocumentCompleted = this.onDocumentCompleted.bind(this);
     this.onPageCompleted = this.onPageCompleted.bind(this);
-    
-    let context = this;
-
-    $.ajax({
-      url: '/getResume',
-      type: 'GET',
-      data: {resume_id: props.resume_id},
-      success: function(resume) {
-        console.log('Got resume info', resume);
-        context.setState({
-          skills: resume.skills.split(','),
-          file: resume.resume_url
-        });
-      }
-    });
+    this.getResume();
   }
 
 
   // Set progress bar to zero on page load
   componentWillUnmount() {
     this.setState({completed: 0});
+  }
+
+  getResume() {
+    let context = this;
+    $.ajax({
+      type: 'GET',
+      url: '/user',
+      datatype: 'json'
+    })
+    .done((user) => {
+      $.ajax({
+        url: '/getResume',
+        type: 'GET',
+        data: {resume_id: user.resume_id},
+      })
+      .done((resume) => {
+        context.setState({
+          skills: resume.skills.split(','),
+          file: resume.resume_url
+        });
+      })
+      .fail(function(err) {
+        console.log('failed to GET', err);
+      });
+    })
+    .fail(function(err) {
+      console.log('failed to GET', err);
+    });
   }
 
   getSignedRequest(file) {
@@ -107,7 +119,7 @@ class Resume extends React.Component {
   // Needed to render skills chips (Material-UI component)
   renderChip(data) {
     return (
-      <Chip style={styles.chip}>
+      <Chip style={styles.chip} key={Math.random() * 1000}>
         {data}
       </Chip>
     );
@@ -126,7 +138,7 @@ class Resume extends React.Component {
             url: '/fileUpload',
             type: 'POST',
             data: context.state.file,
-            success: function(data) {
+            success: function(data) { 
               console.log('Upload succeeded');
               context.setState({skills: data});
             },
