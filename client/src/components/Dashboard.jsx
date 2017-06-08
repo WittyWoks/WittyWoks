@@ -10,6 +10,7 @@ import Settings from './Settings.jsx';
 import Drawers from './Drawers.jsx';
 import $ from 'jquery';
 
+
 const styles = {
   cardHero: {
     marginBottom: '30px',
@@ -25,9 +26,11 @@ class Dashboard extends React.Component {
       name: 'Welcome!',
       avatar: '<i class="fa fa-user-circle" aria-hidden="true"></i>',
       nameOnly: 'Guest',
-      resume_id: null
+      resume_id: null,
+      loggedIn: false
     };
     this.nameChange();
+    
   }
 
   nameChange() {
@@ -42,8 +45,10 @@ class Dashboard extends React.Component {
         context.setState({
           name: 'Welcome Back, '+data.display +'!',
           avatar: data.avatar,
-          nameOnly: data.display
+          nameOnly: data.display,
+          loggedIn: true
         });
+        console.log('User data:', data);
       }
     })
     .fail(function(err) {
@@ -58,7 +63,7 @@ class Dashboard extends React.Component {
         <div>
 
           {/* Dashboard Drawer (menus) */}
-          <Drawers avatar={this.state.avatar} nameOnly={this.state.nameOnly}/>
+          <Drawers avatar={this.state.avatar} nameOnly={this.state.nameOnly} loggedIn={this.state.loggedIn} />
 
           {/* First row */}
           <div className="card card-block" style={styles.cardHero}>

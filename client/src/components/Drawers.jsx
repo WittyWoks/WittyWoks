@@ -9,7 +9,7 @@ import Subheader from 'material-ui/Subheader';
 import FlatButton from 'material-ui/FlatButton';
 import $ from 'jquery';
 import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
-
+import Dialog from 'material-ui/Dialog';
 
 const styles = {
   drawer: {
@@ -43,13 +43,23 @@ class Drawers extends React.Component {
     super(props);
     this.state = {
       openPrimary: false,
-      openSecondary: false
+      openSecondary: false,
+      open: false
     };
     this.handleTogglePrimary = this.handleTogglePrimary.bind(this);
     this.handleToggleSecondary = this.handleToggleSecondary.bind(this);
     this.handleClosePrimary = this.handleClosePrimary.bind(this);
     this.handleCloseSecondary = this.handleCloseSecondary.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
 
+  handleOpen() {
+    this.setState({open: true});
+  }
+
+  handleClose() {
+    this.setState({open: false});
   }
 
   // Toggles state of primary drawer (left-menu)
@@ -81,6 +91,11 @@ class Drawers extends React.Component {
   }
 
   render() {
+    const actions = [
+      <button type="button" className="btn btn-default" onTouchTap={this.handleClose}>Cancel</button>,
+      <a className="btn btn-primary" href="/auth/google"><i className="fa fa-google" aria-hidden="true"></i> Log In</a>
+    ];
+
     return (
       <div>
 
@@ -118,13 +133,33 @@ class Drawers extends React.Component {
             </li>
             <Subheader style={styles.subheader}>BESTFIT</Subheader>
             <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-home" aria-hidden="true"></i>} containerElement={<Link to="/dashboard" className="router-link-color"></Link>}>Home</MenuItem>
-            <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-area-chart" aria-hidden="true"></i>} containerElement={<Link to="/analytics" className="router-link-color"></Link>}>Analytics</MenuItem>
-            <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-pencil" aria-hidden="true"></i>} containerElement={<Link to="/resume" className="router-link-color"></Link>}>Résumé</MenuItem>
+            { this.props.loggedIn === false ? 
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-area-chart" aria-hidden="true"></i>} >Analytics</MenuItem>
+             :
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-area-chart" aria-hidden="true"></i>} containerElement={<Link to="/analytics" className="router-link-color"></Link>}>Analytics</MenuItem>
+            }
+            { this.props.loggedIn === false ? 
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-pencil" aria-hidden="true"></i>}>Résumé</MenuItem>
+             :
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-pencil" aria-hidden="true"></i>} containerElement={<Link to="/resume" className="router-link-color"></Link>}>Résumé</MenuItem>
+            }
             <Subheader style={styles.subheader}>MY SETTINGS</Subheader>
-            <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-cogs" aria-hidden="true"></i>} containerElement={<Link to="/settings" className="router-link-color"></Link>}>Settings</MenuItem>
+            { this.props.loggedIn === false ? 
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-cogs" aria-hidden="true"></i>}>Settings</MenuItem>
+             :
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-cogs" aria-hidden="true"></i>} containerElement={<Link to="/settings" className="router-link-color"></Link>}>Settings</MenuItem>
+            }
             <Subheader style={styles.subheader}>SIGN OUT</Subheader>
             <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-sign-out" aria-hidden="true"></i>} href="/logout">Sign Out</MenuItem>
-
+            <Dialog
+              title="Log in to continue"
+              actions={actions}
+              modal={false}
+              open={this.state.open}
+              onRequestClose={this.handleClose}
+            >
+              Please log in to use this feature.
+            </Dialog>
             
           </ul>
           {/*

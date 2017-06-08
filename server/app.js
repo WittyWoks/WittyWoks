@@ -22,4 +22,5 @@ app.use('/', routes.api);
 app.use('/', routes.resume);
 app.use('/', routes.appliedJobs);
 
+
 module.exports = app;
