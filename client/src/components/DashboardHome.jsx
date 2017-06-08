@@ -37,31 +37,40 @@ class DashboardHome extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({
-      value: e.target.value,
-    });
-    // console.log(e.target.value);
+    var name = e.target.name;
+    this.state[name] = e.target.value; 
+    this.setState(this.state);
   }
 
   handleSubmit(e) {
-    this.searchIndeed(this.state.value);
+    this.searchIndeed(this.state.value, this.state.location);
     e.preventDefault();
   }
 
-  searchIndeed(search) {
-    $.get('/indeed', {
-      search: search
+  searchIndeed(search, location) {
+    let route = '';
+    if (location === undefined) {
+      route = '/indeedTopTen';
+    } else {
+      route = '/indeed';
+    }
+    
+    $.get(route, {
+      search: search,
+      location: location
     })
     .done((data) => {
-      // console.log('Job DATA Indeed', data);      
+    // console.log('Job DATA Indeed', data);      
       this.setState({
-        jobs: data
+        jobs: data,
+        value: '',
+        location: ''
       });
     })
     .fail(err => {
       console.error('Error occured ', err);
     });
-  }
+  } 
 
   render() {
     return (
@@ -74,10 +83,10 @@ class DashboardHome extends React.Component {
               <div className="md-form">
                 <form onSubmit={this.handleSubmit} className="wow fadeInDown" data-wow-delay="0.2s">
                   <i className="fa fa-search prefix" aria-hidden="true"></i>
-                  <input className="form-control" type="text" id="job-search" value={this.state.value} onChange={this.handleChange}/>
+                  <input className="form-control" type="text" id="job-search" name="value" value={this.state.value} onChange={this.handleChange}/>
                   <label htmlFor="job-search">Search jobs</label>
-                  <input className="form-control" type="text" id="location-search" value={this.state.location}/>
-                  <label htmlFor="location-search"> Location</label>
+                  <input className="form-control" type="text" id="location-search" name="location" value={this.state.location} onChange={this.handleChange}/>
+                  <button type="submit" className="btn-sm btn-primary">Search Jobs</button>
                 </form>
               </div>
             </div>
