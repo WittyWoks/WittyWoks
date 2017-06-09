@@ -75,7 +75,7 @@ class Dashboard extends React.Component {
           {/* React Router Routes */}
           <Route exact path='/dashboard' component={DashboardHome} />
           <Route path="/jobs" component={JobList} />
-          <Route path="/companyInfo" component={CompanyInfo} />
+          <Route path="/companyInfo" component={(props) => <CompanyInfo loggedIn={this.state.loggedIn} {...props} />} />
           <Route path="/analytics" component={Analytics} />
           <Route path="/resume" component={Resume} />
           <Route path="/settings" component={Settings} />

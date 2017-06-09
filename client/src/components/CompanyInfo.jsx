@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import axios from 'axios';
-
+import Dialog from 'material-ui/Dialog';
 const styles = {
   jobs: {
     color: 'white'
@@ -21,14 +21,25 @@ class CompanyInfo extends React.Component {
 
     this.state = {
       jobs: [],
+      open: false
     };
 
     this.searchGlassDoor = this.searchGlassDoor.bind(this);
     this.appliedJob = this.appliedJob.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
     this.searchGlassDoor(this.props.location.state.company);
+  }
+
+  handleOpen() {
+    this.setState({open: true});
+  }
+
+  handleClose() {
+    this.setState({open: false});
   }
   
   searchGlassDoor(search) {
@@ -81,6 +92,10 @@ class CompanyInfo extends React.Component {
 
   render() {
     const jobInfo = this.props.location.state;
+    const actions = [
+      <button type="button" className="btn btn-default" onTouchTap={this.handleClose}>Cancel</button>,
+      <a className="btn btn-primary" href="/auth/google"><i className="fa fa-google" aria-hidden="true"></i> Log In</a>
+    ];
 
     return (
       <div className="container wow fadeIn" data-wow-delay="0.2s">
@@ -114,7 +129,20 @@ class CompanyInfo extends React.Component {
               }
             }) : null} 
           </div>
-          <button className="btn btn-mdb" onClick={this.appliedJob}>Thumbs Up</button>
+          { this.props.loggedIn === false ? 
+            <button className="btn btn-mdb" onClick={this.handleOpen} >Thumbs Up</button>
+           :
+            <button className="btn btn-mdb" onClick={this.appliedJob}>Thumbs Up</button>
+          }
+            <Dialog
+              title="Log in to continue"
+              actions={actions}
+              modal={false}
+              open={this.state.open}
+              onRequestClose={this.handleClose}
+            >
+              Please log in to use this feature.
+            </Dialog>
         </div>
       </div>
     );
