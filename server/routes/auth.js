@@ -23,6 +23,7 @@ router.route('/user')
     res.json(req.user);
   });
 
+
 // scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/gmail.modify','https://www.googleapis.com/auth/calendar']
 // scope: ['profile', 'https://www.googleapis.com/auth/gmail.modify', 'https://www.googleapis.com/auth/calendar']
 router.get('/auth/google', middleware.passport.authenticate('google', {
