@@ -74,15 +74,25 @@ class DashboardHome extends React.Component {
       console.error('Error occured ', err);
     });
   }
+  
+  sortJobsByTime(jobs) {
+    let sortedJobs = jobs.sort((a, b) => {
+      return Date.parse(b.date) - Date.parse(a.date);
+    });
+    this.setState({
+      jobs: sortedJobs
+    }); 
+  }
 
   render() {
     return (
       <div>
+      <button onClick={ () => this.sortJobsByTime(this.state.jobs)}> filter by time </button>
         <div className="row">
           <div className="col-sm-8"> 
           </div>
           <div className="col-sm-4">
-            <button onClick= { () => {this.searchIndeed('top ten jobs'); }}> Find 10 Ten Jobs In the US </button>
+            <button onClick= { () => { this.searchIndeed('top ten jobs'); }}> Find 10 Ten Jobs In the US </button>
           </div>
         </div>
         
