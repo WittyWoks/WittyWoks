@@ -35,10 +35,7 @@ class DashboardHome extends React.Component {
   componentWillMount() {
     this.searchIndeed('top 10 jobs');
     $.get("https://ipinfo.io", function(response) {
-      console.log(response);
-      $.get(`https://ip-api.com/json/${response.ip}`, function(result) {
-        console.log(result);
-      });
+      console.log(response.city);
     }, "jsonp");
   }
 
