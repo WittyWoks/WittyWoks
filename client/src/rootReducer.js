@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import D3Reducer from './components/D3Components/D3Reducers.js';
+import C3Reducer from './components/C3Components/C3Reducers.js';
 
 
 const appReducer = combineReducers({
-  D3Reducer
+  C3Reducer
 });
 
 const rootReducer = (state, action) => {

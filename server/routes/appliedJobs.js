@@ -11,3 +11,15 @@ router.route('/ReturnJobsApplied')
   ;
 
 module.exports = router;
+
+
+router.route('/keyword')
+  .get((req,res) => {
+    console.log(req.user);
+    console.log('here!!!');
+
+    appliedJobs.get
+    res.end('{python:200s}');
+
+
+  });
