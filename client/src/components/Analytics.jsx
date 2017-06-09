@@ -43,7 +43,7 @@ componentDidUpdate() {
 
 renderAll() {
   ReactDOM.render(<Applied />,document.getElementById("applied"));
-  ReactDOM.render(<Browser />,document.getElementById("keyword"));
+  ReactDOM.render(<Keyword />,document.getElementById("keyword"));
   ReactDOM.render(<Rejections />,document.getElementById("rejections"));
 };
 
@@ -138,7 +138,6 @@ class Rejections extends React.Component {
     return (
       <div>
         <ProgressChart />
-
         </div>
     )
   }

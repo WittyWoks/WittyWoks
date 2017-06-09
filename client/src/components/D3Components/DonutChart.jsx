@@ -2,13 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import resizeMixin from './resizemin.js';
 import InsetShadow from './svgShadow.jsx';
+import createReactClass from 'create-react-class';
+
 
 class DonutChartPath extends React.Component {
 
   componentWillMount() {
-    var radius=this.props.height;
-    var outerRadius=radius/2;
-    var innerRadius=radius/3.3;
+    let radius=this.props.height;
+    let outerRadius=radius/2;
+    let innerRadius=radius/3.3;
 
     this.arc=d3.svg.arc()
       .outerRadius(outerRadius)
@@ -20,7 +22,7 @@ class DonutChartPath extends React.Component {
 
   createChart(_self) {
 
-    var paths = (this.props.pie(this.props.data)).map(function(d, i) {
+    let paths = (this.props.pie(this.props.data)).map(function(d, i) {
 
       return (
         <path fill={_self.props.color(i)} d={_self.arc(d)} key={i}/>
@@ -31,7 +33,7 @@ class DonutChartPath extends React.Component {
   }
 
   render() {
-    var paths = this.createChart(this);
+    let paths = this.createChart(this);
 
     return(
       <g transform={this.transform}>
@@ -51,16 +53,16 @@ DonutChartPath.propTypes = {
 
 class DonutChartLegend extends React.Component {
 
-  createChart(_self)  {
+  createChart(_self) {
 
-    var texts = (this.props.pie(this.props.data)).map(function(d, i) {
-    var transform="translate(10,"+i*30+")";
-    var rectStyle = {
+    let texts = (this.props.pie(this.props.data)).map(function(d, i) {
+    let transform="translate(10,"+i*30+")";
+    let rectStyle = {
       fill:_self.props.color(i),
       stroke:_self.props.color(i)
     };
 
-    var textStyle = {
+    let textStyle = {
       fill:_self.props.color(i)
     };
 
@@ -103,7 +105,7 @@ DonutChartLegend.propTypes = {
   color:React.PropTypes.func
 };
 
-var DonutChart=React.createClass({
+const DonutChart=createReactClass({
     propTypes: {
         width:React.PropTypes.number,
         height:React.PropTypes.number,
@@ -137,7 +139,7 @@ var DonutChart=React.createClass({
         this.color = d3.scale.ordinal()
             .range(['#68c8d7','#eccd63','#bb8cdd','#de6942','#52b36e','#bbc7d9']);
 
-        var data = [
+        let data = [
             { name: 'React', count: 40 },
             { name: 'Node', count: 32 },
             { name: 'Javascript', count: 14 },
@@ -148,8 +150,8 @@ var DonutChart=React.createClass({
         this.setState({'data':data,width:this.props.width});
     },
 
-    updateData:function(){
-        var data = [
+    updateData(){
+        let data = [
             { name: 'Backbone', count: Math.random() },
             { name: 'React', count: Math.random() },
             { name: 'Node', count: Math.random() },
@@ -161,7 +163,7 @@ var DonutChart=React.createClass({
 
         this.setState({'data':data });
     },
-    render:function(){
+    render(){
 
         return (
             <div>

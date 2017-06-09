@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import resizeMixin from './resizemin.js';
+import createReactClass from 'create-react-class';
 
 class Axis extends React.Component {
 
@@ -145,7 +146,7 @@ Dots.propTypes= {
 }
 
 
-var LineChart=React.createClass({
+const LineChart= createReactClass({
 
     propTypes: {
         width:React.PropTypes.number,

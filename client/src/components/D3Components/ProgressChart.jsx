@@ -28,31 +28,31 @@ export class ProgressChart extends React.Component {
 
   render() {
 
-    var color = ['#404F70','#ECF0F1','black'];
+    let color = ['#404F70','#ECF0F1','black'];
 
-    var outerRadius=(this.props.height/2)-10;
-    var innerRadius=outerRadius-20;
+    let outerRadius=(this.props.height/2)-10;
+    let innerRadius=outerRadius-20;
 
-    var arc=d3.svg.arc()
+    let arc=d3.svg.arc()
         .innerRadius(innerRadius)
         .outerRadius(outerRadius)
         .startAngle(0)
         .endAngle(2*Math.PI);
 
-    var arcLine=d3.svg.arc()
+    let arcLine=d3.svg.arc()
         .innerRadius(innerRadius)
         .outerRadius(outerRadius)
         .cornerRadius(20)
         .startAngle(-0.05);
 
-      var transform='translate('+this.props.width/2+','+this.props.height/2+')';
-      var style1={
+      let transform='translate('+this.props.width/2+','+this.props.height/2+')';
+      let style1={
         filter:'url(#inset-shadow1)'
       };
-      var style2={
+      let style2={
         filter:'url(#inset-shadow2)'
       };
-      var styleText= {
+      let styleText= {
         'fontSize': '40px'
       };
 
