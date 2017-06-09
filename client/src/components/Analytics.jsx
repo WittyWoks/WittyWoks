@@ -25,6 +25,12 @@ class Analytics extends React.Component {
     this.handleClose = this.handleClose.bind(this);
   }
 
+  // gmailAnalytics() {
+  //   $.ajax({
+  //     url: '/Gmail'
+  //     type: 'GET',
+  //   }
+  // }
   handleClose() {
     this.setState({
       open: false,
@@ -110,7 +116,6 @@ renderAll() {
 }
 
 class Applied extends React.Component {
-
 
   render() {
     return (
