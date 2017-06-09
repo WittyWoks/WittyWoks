@@ -118,16 +118,5 @@ router.route('/sign-s3')
     });
   });
 
-router.route('/user')
-  .get((req, res) => {
-
-    console.log('user!!!!', req.user);
-    let userObject = {};
-    userObject.displayName = userInfo.userInfo.displayName;
-    userObject.avatar = (userInfo.userInfo.photos[0].value).split('?')[0] + '?sz=100';
-    console.log(userObject.avatar);
-    // res.end(userInfo.userInfo.displayName);
-    res.json(userObject);
-  });
 
 module.exports = router;
