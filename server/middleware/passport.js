@@ -2,10 +2,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const models = require('../../db/models');
-const Gmail = require('node-gmail-api');
-var Base64 = require('js-base64').Base64;
-var utf8 = require('utf8');
-
 
 const G_ID = process.env.G_ID || require('../../config/development.json')['passport'].Google.clientID;
 const G_SECRET = process.env.G_SECRET || require('../../config/development.json')['passport'].Google.clientSecret;
@@ -39,72 +35,10 @@ passport.use('google', new GoogleStrategy({
 },
   (accessToken, refreshToken, profile, done) => {
     getOrCreateOAuthProfile('google', profile, done);
-
-  //   const gmail = new Gmail(accessToken);
-  //   const message = gmail.messages('label:inbox', {max: 3});
-  //
-  //   message.on('data', function (index) {
-  //
-  //     if (index.payload.parts !== undefined) {
-  //       let string = Base64.decode(index.payload.parts[0].body.data).toString();
-  //       searchEmailsForApplies(string, profile, index);
-  //     }
-  //   })
+    console.log(accessToken);
   })
 );
 
-
-const searchEmailsForApplies = (decodedBodyMessage, oauthProfile, email) => {
-  let spacing = decodedBodyMessage.trim();
-  let d = [];
-  for (var i = 0; i < spacing.length; i++) {
-    d.push(spacing[i]);
-  }
-
-  for (let i = 0; i < d.length; i++) {
-    if (d[i] === '\r' || d[i] === '\n' || d[i] === '-') {
-      d.splice(i, 1);
-      i--;
-    }
-  }
-
-  let bodyString = d.join('').toLowerCase();
-
-  let lookUp = {
-    'indeed': 100,
-    'job': 100,
-    'thank you for your interest': 500,
-    'our team': 100,
-    'recruiting': 100,
-    'careers': 50,
-    'we appreciate your interest': 500,
-    'position': 100,
-    'submission': 100,
-    'employment': 100,
-    'received your resume': 500,
-    'application': 100
-  };
-
-  let ranking = 0;
-  let matches = 0;
-
-  for (let k in lookUp) {
-    if (bodyString.includes(k)) {
-      ranking += lookUp[k];
-      matches++;
-    }
-  }
-
-  if (matches > 2) {
-    console.log('Applied Job');
-  } else {
-    console.log('Not an applied Job email');
-  }
-};
-
-const saveEmail = (body, profile, emailDetail) => {
-
-};
 
 const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
   console.log(oauthProfile);

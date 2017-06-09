@@ -11,6 +11,11 @@ const aws = require('aws-sdk'); // BB ADDED
 var Promise = require('bluebird');
 const S3_BUCKET = 'resumeswittywoks'; //BB ADDED
 const userInfo = require('../middleware/passport');
+const Gmail = require('node-gmail-api');
+var Base64 = require('js-base64').Base64;
+var utf8 = require('utf8');
+
+
 const GD_PARTNER_ID = process.env.GD_PARTNER_ID || require('../../config/development.json').glassDoor.PARTNER_ID;
 const GD_API_KEY = process.env.GD_API_KEY || require('../../config/development.json').glassDoor.API_KEY;
 const IN_MASHAPE = process.env.IN_MASHAPE || require('../../config/development.json').indeed['X-Mashape-Key'];
@@ -117,6 +122,8 @@ router.route('/sign-s3')
       res.end();
     });
   });
+
+
 
 
 module.exports = router;
