@@ -38,7 +38,7 @@ class DashboardHome extends React.Component {
 
   handleChange(e) {
     var name = e.target.name;
-    this.state[name] = e.target.value; 
+    this.state[name] = e.target.value;
     this.setState(this.state);
   }
 
@@ -54,7 +54,7 @@ class DashboardHome extends React.Component {
     } else {
       route = '/indeed';
     }
-    
+
     $.get(route, {
       search: search,
       location: location
@@ -69,7 +69,7 @@ class DashboardHome extends React.Component {
     .fail(err => {
       console.error('Error occured ', err);
     });
-  } 
+  }
 
   render() {
     return (
@@ -111,7 +111,7 @@ class DashboardHome extends React.Component {
                           return (
                             <JobListEntry job={job} key={Math.random() * 1000}/>
                           );
-                        })}      
+                        })}
                     </div>
                   </div>
                 </div>
@@ -130,7 +130,7 @@ class DashboardHome extends React.Component {
                     <JobListEntry job={job}/>
                   </ListItem>;
                 }) : this.state.top10.map(job => {
-                  return <ListItem className="list-group-item" key={Math.random() * 1000}> 
+                  return <ListItem className="list-group-item" key={Math.random() * 1000}>
                     <JobListEntry job={job}/>
                   </ListItem>;
                 })}
@@ -140,7 +140,7 @@ class DashboardHome extends React.Component {
           </div>
         </div>
       */}
-        
+
       </div>
     );
   }
