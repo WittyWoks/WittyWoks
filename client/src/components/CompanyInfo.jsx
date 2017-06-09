@@ -134,15 +134,15 @@ class CompanyInfo extends React.Component {
            :
             <button className="btn btn-mdb" onClick={this.appliedJob}>Thumbs Up</button>
           }
-            <Dialog
-              title="Log in to continue"
-              actions={actions}
-              modal={false}
-              open={this.state.open}
-              onRequestClose={this.handleClose}
-            >
-              Please log in to use this feature.
-            </Dialog>
+          <Dialog
+            title="Log in to continue"
+            actions={actions}
+            modal={false}
+            open={this.state.open}
+            onRequestClose={this.handleClose}
+          >
+            Please log in to use this feature.
+          </Dialog>
         </div>
       </div>
     );
