@@ -8,7 +8,7 @@ const axios = require('axios'); // AE ADDED
 const request = require('request'); // AE ADDED
 const Jobs = require('../../db/models/jobs'); //BB ADDED
 const aws = require('aws-sdk'); // BB ADDED
-var Promise = require('bluebird');
+const Promise = require('bluebird');
 const S3_BUCKET = 'resumeswittywoks'; //BB ADDED
 const userInfo = require('../middleware/passport');
 const GD_PARTNER_ID = process.env.GD_PARTNER_ID || require('../../config/development.json').glassDoor.PARTNER_ID;
@@ -28,7 +28,7 @@ router.route('/')
 
 router.route('/dashboard')
   .get((req, res) => {
-  res.sendFile(path.join(__dirname, '../../public/index.html'));
+    res.sendFile(path.join(__dirname, '../../public/index.html'));
   });
 
 router.route('/resume')

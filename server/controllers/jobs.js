@@ -4,15 +4,17 @@ const request = require('request'); // BB ADDED
 const Jobs = require('../../db/models/jobs'); //BB ADDED
 
 const convertJobsToClientSideForm = (jobs) => {
-  var convertedJobs = [];
-  jobs.models.forEach(job => {
-    var job = job.attributes;
-    var jobChanged = { 
+  let convertedJobs = [];
+  jobs.models.forEach(jobData => {
+    let job = jobData.attributes;
+    let jobChanged = { 
       jobtitle: job.title,
       company: job.company,
       city: job.city,
       snippet: job.description, 
-      url: job.url
+      url: job.url,
+      formattedLocation: job.formatted_location,
+      formattedRelativeTime: job.formatted_time
     };
     convertedJobs.push(jobChanged);
   });
@@ -20,7 +22,7 @@ const convertJobsToClientSideForm = (jobs) => {
 };
 
 const getIndeedJobs = (search='top ten jobs', location) => {
-  var locationExpression = '';
+  let locationExpression = '';
   location ? locationExpression = `&l=${location}` : locationExpression = '';
   return new Promise((resolve, reject) => {
     let jobOptions = {
@@ -35,8 +37,8 @@ const getIndeedJobs = (search='top ten jobs', location) => {
       if (error) {
         reject(error);
       } else {
-        var body = JSON.parse(body);
-        resolve(body.results);
+        let parsedBody = JSON.parse(body);
+        resolve(parsedBody.results);
       }        
     });
   });

@@ -33,11 +33,14 @@ class DashboardHome extends React.Component {
   }
 
   componentWillMount() {
-    this.searchIndeed('top 10 jobs');
+    $.get('https://ipinfo.io', (response) => {
+      console.log(response.city);
+      this.searchIndeed('top ten jobs', response.city);
+    }, 'jsonp');
   }
 
   handleChange(e) {
-    var name = e.target.name;
+    let name = e.target.name;
     this.state[name] = e.target.value;
     this.setState(this.state);
   }
@@ -48,6 +51,7 @@ class DashboardHome extends React.Component {
   }
 
   searchIndeed(search, location) {
+    console.log('searching indeed');
     let route = '';
     if (location === undefined) {
       route = '/indeedTopTen';
@@ -74,22 +78,39 @@ class DashboardHome extends React.Component {
   render() {
     return (
       <div>
+        <div className="row">
+          <div className="col-sm-8"> 
+          </div>
+          <div className="col-sm-4">
+            <button onClick= { () => {this.searchIndeed('top ten jobs'); }}> Find 10 Ten Jobs In the US </button>
+          </div>
+        </div>
+        
+        <p>&nbsp;</p> 
 
         {/* First row */}
         <div className="container">
+        <form onSubmit={this.handleSubmit} className="wow fadeInDown" data-wow-delay="0.2s">
           <div className="row justify-content-center">
-            <div className="col-sm-8">
+            <div className="col-sm-6">
               <div className="md-form">
-                <form onSubmit={this.handleSubmit} className="wow fadeInDown" data-wow-delay="0.2s">
-                  <i className="fa fa-search prefix" aria-hidden="true"></i>
-                  <input className="form-control" type="text" id="job-search" name="value" value={this.state.value} onChange={this.handleChange}/>
+                  <input type="text" id="job-search" name="value" value={this.state.value} onChange={this.handleChange}/>
                   <label htmlFor="job-search">Search jobs</label>
-                  <input className="form-control" type="text" id="location-search" name="location" value={this.state.location} onChange={this.handleChange}/>
-                  <button type="submit" className="btn-sm btn-primary">Search Jobs</button>
-                </form>
               </div>
             </div>
+            <div className="col-sm-2">
+              <div className="md-form">
+                  <input type="text" id="location-search" name="location" value={this.state.location} onChange={this.handleChange}/>
+                  <label htmlFor="job-search"> Location </label>
+              </div>
+            </div>
+            <div className="col-sm-2">
+              <div className="md-form">
+                  <button> search jobs </button>
+              </div>
+            </div>                                    
           </div>
+          </form>
         </div>
 
         {/* Second row */}

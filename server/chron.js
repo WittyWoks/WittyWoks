@@ -1,16 +1,16 @@
-var CronJob = require('cron').CronJob;
-var Promise = require('bluebird');
-var request = require('request');
-var axios = require('axios');
-var Jobs = require('../db/models/jobs');
-var IN_PUB_KEY = process.env.IN_PUB_KEY || require('../config/development.json').indeed['PUBLISHER_KEY'];
-var IN_MASHAPE = process.env.IN_MASHAPE || require('../config/development.json').indeed['X-Mashape-Key'];
+let CronJob = require('cron').CronJob;
+let Promise = require('bluebird');
+let request = require('request');
+let axios = require('axios');
+let Jobs = require('../db/models/jobs');
+let IN_PUB_KEY = process.env.IN_PUB_KEY || require('../config/development.json').indeed['PUBLISHER_KEY'];
+let IN_MASHAPE = process.env.IN_MASHAPE || require('../config/development.json').indeed['X-Mashape-Key'];
 const GD_PARTNER_ID = process.env.GD_PARTNER_ID || require('../config/development.json').glassDoor.PARTNER_ID;
 const GD_API_KEY = process.env.GD_API_KEY || require('../config/development.json').glassDoor.API_KEY;
 const getIndeedJobs = require('./controllers/jobs').getIndeedJobs;
 
-var job = new CronJob({
-  cronTime: '00 37 17 * * 1-7',
+let job = new CronJob({
+  cronTime: '00 50 12 * * 1-7',
   onTick: function() {
     // ideally first delete top Ten Jobs for San Francisco
     getIndeedJobs()
@@ -41,3 +41,4 @@ var job = new CronJob({
   timeZone: 'America/Los_Angeles'
 });
 job.start();
+
