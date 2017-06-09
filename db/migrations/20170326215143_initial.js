@@ -38,6 +38,7 @@ exports.up = function (knex, Promise) {
       table.string('company', 100).nullable();
       table.string('city', 100).nullable();
       table.string('location', 100).nullable();
+      table.string('date', 100).nullable();
     }),
     knex.schema.createTableIfNotExists('resume', function(table) {
       table.increments('id').unsigned().primary();

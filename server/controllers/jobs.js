@@ -14,7 +14,8 @@ const convertJobsToClientSideForm = (jobs) => {
       snippet: job.description, 
       url: job.url,
       formattedLocation: job.formatted_location,
-      formattedRelativeTime: job.formatted_time
+      formattedRelativeTime: job.formatted_time,
+      date: job.date
     };
     convertedJobs.push(jobChanged);
   });
