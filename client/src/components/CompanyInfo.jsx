@@ -78,7 +78,11 @@ class CompanyInfo extends React.Component {
     })
     .done(data => {
       if (data.email) {
-        let job = context.state.jobs[0];
+        let job = {
+          glassDoor: context.state.jobs[0],
+          indeed: context.props.location.state
+        };
+        
         axios.post('/ReturnJobsApplied', {
           google_id: data.id,
           jobId: job.id,
