@@ -26,7 +26,9 @@ class DashboardHome extends React.Component {
       location: '',
       jobs: [],
       top10: [],
-      sortedChron: true
+      sortedChron: true,
+      totalJobs: [],
+      pageNumber: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,11 +36,20 @@ class DashboardHome extends React.Component {
   }
 
   componentWillMount() {
-    let jobsFromSessions = sessionStorage.getItem('jobs');
-    //check and see if results already exist in sessions
-    if (jobsFromSessions) {
+    //if this.state.jobs has no entires, get entries from sessions instead
+    if (!this.state.jobs.length && sessionStorage.totalJobs) {
+      let jobsFromSessions = sessionStorage.getItem('totalJobs');
+      let pageNumberFromSessions = sessionStorage.getItem('pageNumber');
+      jobsFromSessions = JSON.parse(jobsFromSessions);
+      
+      console.log('sessions happening');
+      let filteredJobs = jobsFromSessions.filter((job, i) => {
+        return i > pageNumberFromSessions * 10 && i < (pageNumberFromSessions + 1) * 10;
+      });
       this.setState({
-        jobs: JSON.parse(jobsFromSessions)
+        totalJobs: jobsFromSessions,
+        jobs: filteredJobs,
+        pageNumber: pageNumberFromSessions
       });
     } else {
       $.get('https://ipinfo.io', (response) => {
@@ -59,11 +70,10 @@ class DashboardHome extends React.Component {
   }
 
   searchIndeed(search, location) {
-    let route = '';
     if (location === undefined) {
-      route = '/indeedTopTen';
+      var route = '/indeedTopTen';
     } else {
-      route = '/indeed';
+      var route = '/indeed';
     }
 
     $.get(route, {
@@ -72,9 +82,15 @@ class DashboardHome extends React.Component {
     })
     .done((data) => {
       //store new results in sessionStorage
-      sessionStorage.setItem('jobs', JSON.stringify(data));
+      sessionStorage.setItem('totalJobs', JSON.stringify(data));
+      sessionStorage.setItem('pageNumber', 0);
+      let initialJobs = data.filter((job, i) => {
+        return i < 10;
+      });
       this.setState({
-        jobs: data,
+        totalJobs: data,
+        jobs: initialJobs,
+        pageNumber: 0
       });
     })
     .fail(err => {
@@ -82,31 +98,54 @@ class DashboardHome extends React.Component {
     });
   }
   
-  sortJobsByTime(jobs) {
+  sortJobsByTime() {
     if (this.state.sortedChron) {
-      var sortedJobs = jobs.sort((a, b) => {
+      var sortedJobs = this.state.totalJobs.sort((a, b) => {
         return Date.parse(b.date) - Date.parse(a.date);
       });
     } else {
-      var sortedJobs = jobs.sort((a, b) => {
+      var sortedJobs = this.state.totalJobs.sort((a, b) => {
         return Date.parse(a.date) - Date.parse(b.date);
       });
     }
+    let jobs = sortedJobs.filter((job, i) => {
+      return i < 10;
+    });
     this.setState({
-      jobs: sortedJobs,
+      totalJobs: sortedJobs,
+      jobs: jobs,
       sortedChron: !this.state.sortedChron
     }); 
+    
+    sessionStorage.setItem('totalJobs', JSON.stringify(sortedJobs));
+    sessionStorage.setItem('pageNumber', 0);
+  }
+  
+  changePage(page) {
+    if (page > 2) {
+      page = 2;
+    }
+    if (page < 0) {
+      page = 0;
+    }
+    let nextJobs = this.state.totalJobs.filter((a, i) => {
+      return i > page * 10 && i < (page + 1) * 10;
+    });
+    this.setState({
+      jobs: nextJobs,
+      pageNumber: page
+    });
+
+    sessionStorage.setItem('pageNumber', page);
   }
 
   render() {
     return (
       <div>
-      <button onClick={ () => this.sortJobsByTime(this.state.jobs)}> filter by time </button>
         <div className="row">
           <div className="col-sm-8"> 
           </div>
           <div className="col-sm-4">
-            <button onClick= { () => { this.searchIndeed('top ten jobs'); }}> Find 10 Ten Jobs In the US </button>
           </div>
         </div>
         
@@ -114,6 +153,14 @@ class DashboardHome extends React.Component {
 
         {/* First row */}
         <div className="container">
+          <div className="row">
+            <button onClick={ () => this.sortJobsByTime()}> Sort By Time </button>
+          </div>
+          <div className="row">
+            <button onClick= { () => { this.searchIndeed('top jobs in us'); }}> Top Jobs in US </button>
+          </div>
+          <p>&nbsp;</p> 
+          <p>&nbsp;</p> 
         <form onSubmit={this.handleSubmit} className="wow fadeInDown" data-wow-delay="0.2s">
           <div className="row justify-content-center">
             <div className="col-sm-6">
@@ -162,6 +209,15 @@ class DashboardHome extends React.Component {
                 </div>
               </div>
             </div>
+          <div className="row justify-content-center">
+            <div className="col-sm-3"> 
+              <button onClick={ () => this.changePage(this.state.pageNumber - 1)}> back </button>
+              <button onClick={ () => this.changePage(this.state.pageNumber + 1)}> next </button>
+              <button onClick={ () => this.changePage(0)}> 1 </button>
+              <button onClick={ () => this.changePage(1)}> 2 </button>
+              <button onClick={ () => this.changePage(2)}> 3 </button>
+            </div>
+          </div>
           </div>
         </section>
       </div>

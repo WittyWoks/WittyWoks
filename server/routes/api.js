@@ -83,6 +83,7 @@ router.route('/indeedTopTen')
   .get((req, res) => {
     retrieveTopTenJobsFromDatabase()
       .then(jobs => {
+        console.log('jobs indeedtopten', jobs);
         res.send(jobs);
       })
       .catch(err => {
