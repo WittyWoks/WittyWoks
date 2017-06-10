@@ -18,7 +18,7 @@ import axios from 'axios';
 
 
 class Analytics extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       barChartDates: null,
