@@ -25,7 +25,8 @@ class DashboardHome extends React.Component {
       value: '',
       location: '',
       jobs: [],
-      top10: []
+      top10: [],
+      sortedChron: true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,10 +34,17 @@ class DashboardHome extends React.Component {
   }
 
   componentWillMount() {
-    $.get('https://ipinfo.io', (response) => {
-      console.log(response.city);
-      this.searchIndeed('top ten jobs', response.city);
-    }, 'jsonp');
+    let jobsFromSessions = sessionStorage.getItem('jobs');
+    //check and see if results already exist in sessions
+    if (jobsFromSessions) {
+      this.setState({
+        jobs: JSON.parse(jobsFromSessions)
+      });
+    } else {
+      $.get('https://ipinfo.io', (response) => {
+        this.searchIndeed('top ten jobs', response.city);
+      }, 'jsonp');
+    }
   }
 
   handleChange(e) {
@@ -51,7 +59,6 @@ class DashboardHome extends React.Component {
   }
 
   searchIndeed(search, location) {
-    console.log('searching indeed');
     let route = '';
     if (location === undefined) {
       route = '/indeedTopTen';
@@ -64,10 +71,10 @@ class DashboardHome extends React.Component {
       location: location
     })
     .done((data) => {
+      //store new results in sessionStorage
+      sessionStorage.setItem('jobs', JSON.stringify(data));
       this.setState({
         jobs: data,
-        value: '',
-        location: ''
       });
     })
     .fail(err => {
@@ -76,11 +83,18 @@ class DashboardHome extends React.Component {
   }
   
   sortJobsByTime(jobs) {
-    let sortedJobs = jobs.sort((a, b) => {
-      return Date.parse(b.date) - Date.parse(a.date);
-    });
+    if (this.state.sortedChron) {
+      var sortedJobs = jobs.sort((a, b) => {
+        return Date.parse(b.date) - Date.parse(a.date);
+      });
+    } else {
+      var sortedJobs = jobs.sort((a, b) => {
+        return Date.parse(a.date) - Date.parse(b.date);
+      });
+    }
     this.setState({
-      jobs: sortedJobs
+      jobs: sortedJobs,
+      sortedChron: !this.state.sortedChron
     }); 
   }
 
