@@ -9,7 +9,11 @@ router.route('/ReturnJobsApplied')
   })
   .get(appliedJobsController.getAll)
   ;
-
+  // .get((req, res) => {
+  //   // console.log('INSIDE APPLIEDJOBS', req.user);
+  //   appliedJobsController.getAll(req, res)
+  //   // res.json('HALLO');
+  // })
 module.exports = router;
 
 

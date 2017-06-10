@@ -14,6 +14,7 @@ module.exports.create = (req, res) => {
 
 
 module.exports.getAll = (req, res) => {
+  // console.log('INSIDE CONTROLLER', req.query)
   models.appliedJobs.where({ user_id: req.query.google_id}).fetchAll()
     .then((data) => {
       console.log('Here you go!');

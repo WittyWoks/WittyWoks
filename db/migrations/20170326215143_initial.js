@@ -25,6 +25,7 @@ exports.up = function (knex, Promise) {
       table.string('job_data', 5000).notNullable();
       table.string('applied_id').unique();
       table.integer('user_id').references('auths.id');
+      table.timestamps(true, true);
     }),
     knex.schema.createTableIfNotExists('jobs', function(table) {
       table.increments('id').unsigned().primary();
