@@ -2,6 +2,8 @@ import React from 'react';
 import $ from 'jquery';
 import axios from 'axios';
 import Dialog from 'material-ui/Dialog';
+import Snackbar from 'material-ui/Snackbar';
+
 const styles = {
   jobs: {
     color: 'white'
@@ -21,13 +23,17 @@ class CompanyInfo extends React.Component {
 
     this.state = {
       jobs: [],
-      open: false
+      open: false,
+      openSnack: false
     };
 
     this.searchGlassDoor = this.searchGlassDoor.bind(this);
     this.appliedJob = this.appliedJob.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.goBack = this.goBack.bind(this);
+    this.handleTouchTap = this.handleTouchTap.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
   componentDidMount() {
@@ -90,7 +96,24 @@ class CompanyInfo extends React.Component {
     });
   }
 
+  goBack() {
+    window.history.back();
+  }
+
+  handleTouchTap() {
+    this.setState({
+      openSnack: true,
+    });
+  }
+
+  handleRequestClose() {
+    this.setState({
+      openSnack: false,
+    });
+  }
+
   render() {
+    
     const jobInfo = this.props.location.state;
     const actions = [
       <button type="button" className="btn btn-default" onTouchTap={this.handleClose}>Cancel</button>,
@@ -102,6 +125,7 @@ class CompanyInfo extends React.Component {
         <div className="card">
           <div style={styles.cardHeader}>
             <h4 className="card-title text-center" style={styles.jobs}>Company Info</h4>
+            <button onClick={this.goBack}>Go Back</button>
           </div>
           <br/>
           {/* Single Job Listing */}
@@ -130,9 +154,15 @@ class CompanyInfo extends React.Component {
             }) : null} 
           </div>
           { this.props.loggedIn === false ? 
-            <button className="btn btn-mdb" onClick={this.handleOpen} >Thumbs Up</button>
+            <button className="btn btn-mdb" 
+              onClick={this.handleOpen} 
+              onTouchTap={this.handleTouchTap}
+              label="Add to my calendar" >Thumbs Up</button>
            :
-            <button className="btn btn-mdb" onClick={this.appliedJob}>Thumbs Up</button>
+            <button className="btn btn-mdb" 
+              onClick={this.appliedJob} 
+              onTouchTap={this.handleTouchTap}
+              label="Add to my calendar">Thumbs Up</button>
           }
           <Dialog
             title="Log in to continue"
@@ -143,6 +173,12 @@ class CompanyInfo extends React.Component {
           >
             Please log in to use this feature.
           </Dialog>
+          <Snackbar
+            open={this.state.openSnack}
+            message="Yay! You've applied to this job!"
+            autoHideDuration={4000}
+            onRequestClose={this.handleRequestClose}
+          />
         </div>
       </div>
     );
