@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom';
 
 import DonutChart from './C3Components/DonutChart.jsx';
 import PieChart from './C3Components/PieChart.jsx';
-import LineChart from './C3Components/LineChart.jsx';
+import BarChart from './C3Components/BarChart.jsx';
 import PercentChart from './C3Components/PercentChart.jsx';
 import axios from 'axios';
 
@@ -21,9 +21,10 @@ class Analytics extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      // barChartJobsApplied: null,
-      // barChartDates: null
-    }
+      barChartDates: null,
+      barChartJobsApplied: null,
+      loaded: false
+    };
     this.fetchAllAppliedJob();
   }
 
@@ -61,8 +62,13 @@ class Analytics extends React.Component {
             xAxis.push(key);
           }
 
-          console.log(yAxis);
-          console.log(xAxis);
+          // console.log(xAxis);
+          // console.log(yAxis);
+          context.setState({
+            barChartDates: xAxis,
+            barChartJobsApplied: yAxis,
+            loaded: true
+          });
         })
         .catch(err => {
           console.error('Error occured getting jobs', err);
@@ -79,7 +85,11 @@ class Analytics extends React.Component {
             <div className="card text-center z-depth-2">
               <div className="card-block">
                 <h3 className="card-header default-color-dark white-text">Applied Jobs</h3>
-                <LineChart />
+                { this.state.loaded === false ? 
+                  <p>Loading...</p>
+                 :
+                  <BarChart barChartData={this.state} />
+                }
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
               </div>
             </div>
