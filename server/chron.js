@@ -10,7 +10,7 @@ const GD_API_KEY = process.env.GD_API_KEY || require('../config/development.json
 const getIndeedJobs = require('./controllers/jobs').getIndeedJobs;
 
 let job = new CronJob({
-  cronTime: '30 38 15 * * 1-7',
+  cronTime: '00 25 14 * * 1-7',
   onTick: function() {
     // ideally first delete top Ten Jobs for San Francisco
     getIndeedJobs()
