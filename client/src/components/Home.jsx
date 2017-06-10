@@ -7,6 +7,9 @@ const styles = {
   button: {
     margin: 12,
   },
+  hidden: {
+    visibility: 'hidden'
+  }
 };
 
 class HomePage extends React.Component {
@@ -26,8 +29,8 @@ class HomePage extends React.Component {
               <div className="col text-center align-self-center">
                 <h1 className="display-1 hero wow fadeInDown" data-wow-delay="0.2s">BestFit</h1>
                 <p className="sub-hero wow fadeIn" data-wow-delay="0.2s">Your one stop autoshop for your job search</p>
-                <a className="btn btn-primary btn-lg wow fadeInLeft" data-wow-delay="0.6s" href="/auth/google"><i className="fa fa-google" aria-hidden="true"></i> Log In</a>
-                <Link className="btn btn-default btn-lg wow fadeInRight" data-wow-delay="0.6s" to="/dashboard"> Guest </Link>
+                <a style={styles.hidden} className="btn btn-primary btn-lg wow fadeInLeft" data-wow-delay="0.6s" href="/auth/google"><i className="fa fa-google" aria-hidden="true"></i> Log In</a>
+                <Link style={styles.hidden} className="btn btn-default btn-lg wow fadeInRight" data-wow-delay="0.6s" to="/dashboard"> Guest </Link>
               </div>
             </div>
           </div>

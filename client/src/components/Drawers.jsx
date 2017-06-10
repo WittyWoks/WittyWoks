@@ -10,6 +10,7 @@ import FlatButton from 'material-ui/FlatButton';
 import $ from 'jquery';
 import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
 import Dialog from 'material-ui/Dialog';
+import axios from 'axios';
 
 const styles = {
   drawer: {
@@ -44,7 +45,9 @@ class Drawers extends React.Component {
     this.state = {
       openPrimary: false,
       openSecondary: false,
-      open: false
+      open: false,
+      jobsAppliedTo: null,
+      loaded: false
     };
     this.handleTogglePrimary = this.handleTogglePrimary.bind(this);
     this.handleToggleSecondary = this.handleToggleSecondary.bind(this);
@@ -52,6 +55,7 @@ class Drawers extends React.Component {
     this.handleCloseSecondary = this.handleCloseSecondary.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.fetchAllAppliedJob();
   }
 
   handleOpen() {
@@ -87,6 +91,56 @@ class Drawers extends React.Component {
   handleCloseSecondary() {
     this.setState({
       openSecondary: false,
+    });
+  }
+
+  fetchAllAppliedJob() {
+    let context = this;
+    $.ajax({
+      type: 'GET',
+      url: '/user',
+      datatype: 'json'
+    })
+    .done(data => {
+      if (data.email) {
+        axios.get('/ReturnJobsApplied', {
+          params: {
+            google_id: data.id 
+          }
+        })
+        .then((jobs) => {
+          console.log('Success getting jobs! - inside drawer', jobs);
+          let datesObj = {};
+          let yAxis = ['Applied'];
+          let xAxis = [];
+
+          jobs.data.forEach((job) => {
+            let convertedDate = (new Date(job.created_at)).toDateString();
+            if (!datesObj[convertedDate]) {
+              datesObj[convertedDate] = 1;
+            } else {
+              datesObj[convertedDate] += 1;
+            }
+          });
+
+          for (let key in datesObj) {
+            yAxis.push(datesObj[key]);
+            xAxis.push(key);
+          }
+
+          // console.log(xAxis);
+          // console.log(yAxis);
+          context.setState({
+            barChartDates: xAxis,
+            barChartJobsApplied: yAxis,
+            jobsAppliedTo: jobs.data,
+            loaded: true
+          });
+        })
+        .catch(err => {
+          console.error('Error occured getting jobs', err);
+        });
+      }
     });
   }
 
@@ -177,11 +231,30 @@ class Drawers extends React.Component {
           openSecondary={true}
           open={this.state.openSecondary}
           onRequestChange={(openSecondary) => this.setState({openSecondary})}
+          containerStyle={styles.drawer}
         >
-          <Subheader>Calendar</Subheader>
-          <MenuItem onTouchTap={this.handleCloseSecondary}><img src="http://placehold.it/325x350"/></MenuItem>
-          <Subheader>Activity</Subheader>
-          <MenuItem onTouchTap={this.handleCloseSecondary}><img src="http://placehold.it/325x300"/></MenuItem>
+          <Subheader style={styles.subheader}>Calendar</Subheader>
+          <MenuItem onTouchTap={this.handleCloseSecondary}><img src="http://placehold.it/300x300"/></MenuItem>
+          <Subheader style={styles.subheader}>Activity</Subheader>
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-sm-12">
+                { this.state.loaded === false ? 
+                  <p>Loading...</p>
+                 :
+                  <ul className="list-group">
+                    {this.state.jobsAppliedTo.map(job => {
+                      let parsedJob = JSON.parse(job.job_data); 
+                      // console.log(parsedJob)
+                      return (
+                        <li className="list-group-item">{parsedJob.name}</li>
+                      );
+                    })}
+                  </ul>
+                }
+              </div>
+            </div>
+          </div>
         </Drawer>
 
       </div>

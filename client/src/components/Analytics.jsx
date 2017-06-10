@@ -23,6 +23,7 @@ class Analytics extends React.Component {
     this.state = {
       barChartDates: null,
       barChartJobsApplied: null,
+      jobsAppliedTo: null,
       loaded: false
     };
     this.fetchAllAppliedJob();
@@ -43,7 +44,7 @@ class Analytics extends React.Component {
           }
         })
         .then((jobs) => {
-          console.log('Success getting jobs!', jobs.data);
+          console.log('Success getting jobs!', jobs);
           let datesObj = {};
           let yAxis = ['Applied'];
           let xAxis = [];
@@ -67,6 +68,7 @@ class Analytics extends React.Component {
           context.setState({
             barChartDates: xAxis,
             barChartJobsApplied: yAxis,
+            jobsAppliedTo: jobs.data,
             loaded: true
           });
         })
@@ -112,14 +114,36 @@ class Analytics extends React.Component {
               </div>
             </div>
               <p></p>
-              <div className="card text-center z-depth-2">
-                <div className="card-block">
-                  <h3 className="card-header default-color-dark white-text">Percent</h3>
-                  <p></p>
-                  <PercentChart />
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
-                </div>
+            <div className="card text-center z-depth-2">
+              <div className="card-block">
+                <h3 className="card-header default-color-dark white-text">Percent</h3>
+                <p></p>
+                <PercentChart />
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
               </div>
+            </div>
+              <p></p>
+            <div className="card text-center z-depth-2">
+              <div className="card-block">
+                <h3 className="card-header default-color-dark white-text">Jobs I've Applied To</h3>
+                <p></p>
+                { this.state.loaded === false ? 
+                  <p>Loading...</p>
+                 :
+                  <ul className="list-group">
+                    {this.state.jobsAppliedTo.map(job => {
+                      let parsedJob = JSON.parse(job.job_data); 
+                      // console.log(parsedJob)
+                      return (
+                        <li className="list-group-item">{parsedJob.name}</li>
+                      );
+                    })}
+                  </ul>
+                }
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
