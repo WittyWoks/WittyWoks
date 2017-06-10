@@ -49,7 +49,7 @@ const retrieveTopTenJobsFromDatabase = () => {
   return new Promise((resolve, reject) => {
     Jobs
       .query(qb => {
-        qb.limit('10');
+        qb.limit('25');
       })  
       .fetchAll()
       .then(x => {
