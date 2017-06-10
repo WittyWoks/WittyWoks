@@ -10,7 +10,7 @@ const GD_API_KEY = process.env.GD_API_KEY || require('../config/development.json
 const getIndeedJobs = require('./controllers/jobs').getIndeedJobs;
 
 let job = new CronJob({
-  cronTime: '00 50 12 * * 1-7',
+  cronTime: '30 38 15 * * 1-7',
   onTick: function() {
     // ideally first delete top Ten Jobs for San Francisco
     getIndeedJobs()
@@ -24,6 +24,7 @@ let job = new CronJob({
             city: job.city, 
             formatted_time: job.formattedRelativeTime,
             formatted_location: job.formattedLocation,
+            date: job.date
           }).save()
           .then(function(newrow) {
             console.log('inserted row!');
@@ -41,4 +42,3 @@ let job = new CronJob({
   timeZone: 'America/Los_Angeles'
 });
 job.start();
-
