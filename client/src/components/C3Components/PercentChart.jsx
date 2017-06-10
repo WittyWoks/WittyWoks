@@ -69,7 +69,7 @@ class PercentChart extends React.Component {
 
     setTimeout(function () {
       chart.load({
-        columns: [['data', 100]]
+        columns: [['data', 80]]
       });
     }, 5000);
   }
