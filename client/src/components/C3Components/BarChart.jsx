@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class LineChart extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       gmail: null,
@@ -30,6 +30,9 @@ class LineChart extends React.Component {
         x: {
           type: 'category',
           categories: context.props.barChartData.barChartDates
+        },
+        y: {
+          tick: { format: d3.format('d') }
         }
       }
     });
