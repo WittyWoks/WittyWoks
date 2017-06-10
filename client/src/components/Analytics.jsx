@@ -123,31 +123,42 @@ class Analytics extends React.Component {
               </div>
             </div>
               <p></p>
-            <div className="card text-center z-depth-2">
-              <div className="card-block">
-                <h3 className="card-header default-color-dark white-text">Jobs I've Applied To</h3>
-                <p></p>
-                { this.state.loaded === false ? 
-                  <p>Loading...</p>
-                 :
-                  <ul className="list-group">
-                    {this.state.jobsAppliedTo.map(job => {
-                      let parsedJob = JSON.parse(job.job_data); 
-                      // console.log(parsedJob)
-                      return (
-                        <li className="list-group-item">{parsedJob.name}</li>
-                      );
-                    })}
-                  </ul>
-                }
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ullamcorper diam eu aliquam. Pellentesque nisl ligula, euismod in urna nec, semper porttitor purus. Sed commodo velit magna, eget pulvinar nunc hendrerit in. Morbi ipsum sapien, faucibus eget imperdiet non, sollicitudin eu lectus. Donec non ultricies tellus. Vestibulum sit amet bibendum massa. Sed lorem urna, fringilla vel posuere vulputate, consectetur a ante.</p>
-              </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-12">
+            {this.state.loaded === false ?
+              <p>Loading...</p>
+            :
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Company</th>
+                    <th>Job Title</th>
+                    <th>Location</th>
+                    <th>Posting</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.jobsAppliedTo.map((job, idx) => {
+                    let parsedJob = JSON.parse(job.job_data);
+                    return (
+                      <tr key={idx}>
+                        <th>{idx + 1}</th>
+                        <td>{parsedJob.indeed.company}</td>
+                        <td>{parsedJob.indeed.jobtitle}</td>
+                        <td>{parsedJob.indeed.city}</td>
+                        <td><a target="_blank" href={parsedJob.indeed.url}>Link</a></td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            }
             </div>
-
           </div>
         </div>
       </div>
-
     );
   }
 }

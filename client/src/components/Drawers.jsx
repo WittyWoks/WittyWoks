@@ -235,23 +235,35 @@ class Drawers extends React.Component {
         >
           <Subheader style={styles.subheader}>Calendar</Subheader>
           <MenuItem onTouchTap={this.handleCloseSecondary}><img src="http://placehold.it/300x300"/></MenuItem>
-          <Subheader style={styles.subheader}>Activity</Subheader>
+          <Subheader style={styles.subheader}>Recently Applied</Subheader>
           <div className="container-fluid">
             <div className="row">
               <div className="col-sm-12">
-                { this.state.loaded === false ? 
-                  <p>Loading...</p>
-                 :
-                  <ul className="list-group">
-                    {this.state.jobsAppliedTo.map(job => {
-                      let parsedJob = JSON.parse(job.job_data); 
-                      // console.log(parsedJob)
-                      return (
-                        <li className="list-group-item">{parsedJob.name}</li>
-                      );
-                    })}
-                  </ul>
-                }
+            {this.state.loaded === false ?
+              <p>Loading...</p>
+            :
+              <table className="table table-sm">
+                <thead>
+                  <tr>
+                    <th>Company</th>
+                    <th>Job Title</th>
+                    <th>Posting</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.jobsAppliedTo.map((job, idx) => {
+                    let parsedJob = JSON.parse(job.job_data);
+                    return (
+                      <tr key={idx}>
+                        <td>{parsedJob.indeed.company}</td>
+                        <td>{parsedJob.indeed.jobtitle}</td>
+                        <td><a target="_blank" href={parsedJob.indeed.url}>Link</a></td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            }
               </div>
             </div>
           </div>
