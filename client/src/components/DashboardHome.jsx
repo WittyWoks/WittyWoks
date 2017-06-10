@@ -139,7 +139,7 @@ class DashboardHome extends React.Component {
 
         {/* Second row */}
         <section>
-          <div className="container wow fadeIn" data-wow-delay="1.5s">
+          <div className="container wow fadeIn" data-wow-delay="0.5s">
             <div className="row justify-content-center">
               <div className="col-sm-8">
                 <div className="card">
@@ -164,28 +164,6 @@ class DashboardHome extends React.Component {
             </div>
           </div>
         </section>
-        {/*
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-12">
-              <List>
-              <ul className="list-group">
-                {this.state.jobs.length ? this.state.jobs.map(job => {
-                  return <ListItem className="list-group-item" key={Math.random() * 1000}>
-                    <JobListEntry job={job}/>
-                  </ListItem>;
-                }) : this.state.top10.map(job => {
-                  return <ListItem className="list-group-item" key={Math.random() * 1000}>
-                    <JobListEntry job={job}/>
-                  </ListItem>;
-                })}
-              </ul>
-              </List>
-            </div>
-          </div>
-        </div>
-      */}
-
       </div>
     );
   }
