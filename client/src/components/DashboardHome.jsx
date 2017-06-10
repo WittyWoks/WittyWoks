@@ -26,7 +26,9 @@ class DashboardHome extends React.Component {
       location: '',
       jobs: [],
       top10: [],
-      sortedChron: true
+      sortedChron: true,
+      totalJobs: [],
+      pageNumber: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,6 +39,7 @@ class DashboardHome extends React.Component {
     let jobsFromSessions = sessionStorage.getItem('jobs');
     //check and see if results already exist in sessions
     if (jobsFromSessions) {
+      console.log('sessions happening');
       this.setState({
         jobs: JSON.parse(jobsFromSessions)
       });
@@ -73,8 +76,13 @@ class DashboardHome extends React.Component {
     .done((data) => {
       //store new results in sessionStorage
       sessionStorage.setItem('jobs', JSON.stringify(data));
+      let initialJobs = data.filter((job, i) => {
+        return i < 10;
+      });
       this.setState({
-        jobs: data,
+        totalJobs: data,
+        jobs: initialJobs,
+        pageNumber: 0
       });
     })
     .fail(err => {
@@ -98,9 +106,23 @@ class DashboardHome extends React.Component {
     }); 
   }
 
+  renderLaterJobs() { 
+    let newPageNumber = this.state.pageNumber + 1;
+    console.log('total jobs', this.state.totalJobs);
+    let nextJobs = this.state.totalJobs.filter((a, i) => {
+      return i > newPageNumber * 10 && i < (newPageNumber + 1) * 10;
+    });
+    console.log('next jobs', nextJobs); 
+    this.setState({
+      jobs: nextJobs,
+      pageNumber: newPageNumber
+    });
+  }
+
   render() {
     return (
       <div>
+      <button onClick={ () => this.renderLaterJobs(this.state.totalJobs)}> next </button>
       <button onClick={ () => this.sortJobsByTime(this.state.jobs)}> filter by time </button>
         <div className="row">
           <div className="col-sm-8"> 

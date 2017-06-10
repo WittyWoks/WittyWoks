@@ -28,7 +28,7 @@ const getIndeedJobs = (search='top ten jobs', location) => {
   return new Promise((resolve, reject) => {
     let jobOptions = {
       method: 'get',
-      url: `https://indeed-indeed.p.mashape.com/apisearch?publisher=${IN_PUB_KEY}&callback=<required>&chnl=<required>&co=<required>&filter=<required>&format=json&fromage=<required>&highlight=<required>&jt=<required>${locationExpression}&latlong=<required>&limit=10&q=${search}&radius=25&sort=<required>&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2`,
+      url: `https://indeed-indeed.p.mashape.com/apisearch?publisher=${IN_PUB_KEY}&callback=<required>&chnl=<required>&co=<required>&filter=<required>&format=json&fromage=<required>&highlight=<required>&jt=<required>${locationExpression}&latlong=<required>&limit=25&q=${search}&radius=25&sort=<required>&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2`,
       headers: {
         'X-Mashape-Key': IN_MASHAPE,
         'Accept': 'application/json'
