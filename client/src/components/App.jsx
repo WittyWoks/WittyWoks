@@ -6,7 +6,7 @@ import Signup from './Signup.jsx';
 import Resume from './Resume.jsx';
 import Dashboard from './Dashboard.jsx';
 import Home from './Home.jsx';
-import Analytics from './Analytics.jsx';
+import JobHistory from './JobHistory.jsx';
 import CompanyInfo from './CompanyInfo.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -31,8 +31,8 @@ class App extends React.Component {
         <Route path="/dashboard" component={(props) => <Dashboard /> } />
         <Route path="/resume" component={(props) => <Dashboard /> } />
         <Route path="/companyInfo" component={(props) => <CompanyInfo /> } />    
-        <Route path="/analytics" component={(props) => <Dashboard /> } />
-        <Route path="/settings" component={(props) => <Dashboard /> } />
+        <Route path="/jobhistory" component={(props) => <Dashboard /> } />
+        <Route path="/smartanalysis" component={(props) => <Dashboard /> } />
       </div>
       </MuiThemeProvider>
     );

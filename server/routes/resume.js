@@ -25,6 +25,16 @@ router.route('/getResume')
     ResumeController.getResume(req.query, res);
   });
 
+router.route('/analyzeResume')
+  .get((req, res) => {
+    let pdfUrl = req.query.url;
+
+    pdfParser.pdfToText(pdfUrl, (rawText) => {
+      res.json(rawText);
+    });
+
+  });
+
 module.exports = router;
 
 

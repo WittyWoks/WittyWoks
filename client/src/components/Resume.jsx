@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import LinearProgress from 'material-ui/LinearProgress';
 import Chip from 'material-ui/Chip';
 import ReactPDF from 'react-pdf';
+import $ from 'jquery';
 
 const styles = {
   button: {
@@ -70,6 +71,7 @@ class Resume extends React.Component {
           skills: resume.skills.split(','),
           file: resume.resume_url
         });
+        console.log('Skillset:', context.state.skills);
       })
       .fail(function(err) {
         console.log('failed to GET', err);

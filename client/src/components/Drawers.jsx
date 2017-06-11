@@ -188,20 +188,19 @@ class Drawers extends React.Component {
             <Subheader style={styles.subheader}>BESTFIT</Subheader>
             <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-home" aria-hidden="true"></i>} containerElement={<Link to="/dashboard" className="router-link-color"></Link>}>Home</MenuItem>
             { this.props.loggedIn === false ? 
-              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-area-chart" aria-hidden="true"></i>} >Analytics</MenuItem>
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-list" aria-hidden="true"></i>}>Job History</MenuItem>
              :
-              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-area-chart" aria-hidden="true"></i>} containerElement={<Link to="/analytics" className="router-link-color"></Link>}>Analytics</MenuItem>
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-list" aria-hidden="true"></i>} containerElement={<Link to="/jobhistory" className="router-link-color"></Link>}>Job History</MenuItem>
             }
             { this.props.loggedIn === false ? 
               <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-pencil" aria-hidden="true"></i>}>Résumé</MenuItem>
              :
               <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-pencil" aria-hidden="true"></i>} containerElement={<Link to="/resume" className="router-link-color"></Link>}>Résumé</MenuItem>
             }
-            <Subheader style={styles.subheader}>MY SETTINGS</Subheader>
             { this.props.loggedIn === false ? 
-              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-cogs" aria-hidden="true"></i>}>Settings</MenuItem>
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-fa-area-chart" aria-hidden="true"></i>}>Smart Analysis</MenuItem>
              :
-              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-cogs" aria-hidden="true"></i>} containerElement={<Link to="/settings" className="router-link-color"></Link>}>Settings</MenuItem>
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-area-chart" aria-hidden="true"></i>} containerElement={<Link to="/smartanalysis" className="router-link-color"></Link>}>Smart Analysis</MenuItem>
             }
             <Subheader style={styles.subheader}>SIGN OUT</Subheader>
             <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-sign-out" aria-hidden="true"></i>} href="/logout">Sign Out</MenuItem>
