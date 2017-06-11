@@ -10,20 +10,14 @@ import FlatButton from 'material-ui/FlatButton';
 import $ from 'jquery';
 import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
 import Dialog from 'material-ui/Dialog';
-<<<<<<< HEAD
 import axios from 'axios';
-=======
 import moment from 'moment';
-import BigCalendar from 'react-big-calendar'
+import BigCalendar from 'react-big-calendar';
+import calanderCss from 'react-big-calendar/lib/css/react-big-calendar.css';
 // a localizer for BigCalendar
 BigCalendar.momentLocalizer(moment)
 
-// this weird syntax is just a shorthand way of specifying loaders
-import calanderCss from 'react-big-calendar/lib/css/react-big-calendar.css';
 
-import InfiniteCalendarCss from 'react-infinite-calendar/styles.css';
-
->>>>>>> Added google Cal
 
 const styles = {
   drawer: {
@@ -59,13 +53,10 @@ class Drawers extends React.Component {
       openPrimary: false,
       openSecondary: false,
       open: false,
-<<<<<<< HEAD
       jobsAppliedTo: null,
-      loaded: false
-=======
+      loaded: false,
       gCalEvents:[]
 
->>>>>>> Added google Cal
     };
     this.handleTogglePrimary = this.handleTogglePrimary.bind(this);
     this.handleToggleSecondary = this.handleToggleSecondary.bind(this);
@@ -73,12 +64,10 @@ class Drawers extends React.Component {
     this.handleCloseSecondary = this.handleCloseSecondary.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
-<<<<<<< HEAD
+
     this.fetchAllAppliedJob();
-=======
     this.getGcal();
 
->>>>>>> Added google Cal
   }
 
   getGcal() {
@@ -117,7 +106,7 @@ class Drawers extends React.Component {
         temp['start'] = new Date(startYear, startMonth, startDay, startHour, startMinutes, 0, 0);
         temp['end'] = new Date(endYear, endMonth, endDay, endHour, endMinutes, 0, 0);
         temp['desc'] = 'index.description';
-        console.log(temp);
+        
         storage.push(temp);
       })
       this.setState({
