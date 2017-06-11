@@ -14,7 +14,7 @@ import axios from 'axios';
 import moment from 'moment';
 import BigCalendar from 'react-big-calendar';
 // a localizer for BigCalendar
-BigCalendar.momentLocalizer(moment)
+BigCalendar.momentLocalizer(moment);
 
 // this weird syntax is just a shorthand way of specifying loaders
 import calanderCss from 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -307,14 +307,15 @@ class Drawers extends React.Component {
           onRequestChange={(openSecondary) => this.setState({openSecondary})}
           containerStyle={styles.drawer}
         >
+        <MenuItem onTouchTap={this.handleCloseSecondary}>
           <Subheader style={styles.subheader}>Calendar</Subheader>
-          <MenuItem onTouchTap={this.handleCloseSecondary}>
-            <Subheader>Calendar</Subheader></MenuItem>
+          </MenuItem>
             <div className="card text-center z-depth-2">
                         <BigCalendar
                         style={{height: '420px',
-                        width:'300px'}}
+                                width:'300px'}}
                         events={this.state.gCalEvents}
+                        default={['week', 'agenda']}
                         />
                 </div>
           <Subheader style={styles.subheader}>Recently Applied</Subheader>

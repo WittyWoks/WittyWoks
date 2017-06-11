@@ -12,7 +12,8 @@
 #config/staging.json
 #config/test.json
 uploads/
-config/
+#config/default.js
+Gruntfile.js
 
 # OS X
 .DS_Store

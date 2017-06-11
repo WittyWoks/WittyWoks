@@ -99,6 +99,7 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
     })
     .then(profile => {
       if (profile) {
+          console.log('in then profile');
         done(null, profile.serialize());
       }
     })

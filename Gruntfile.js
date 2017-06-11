@@ -16,7 +16,6 @@ module.exports = function(grunt) {
     eslint: {
       target: ['Gruntfile.js', 'client/**/*.js', 'db/**/*.js', 'server/**/*.js']
     },
-
     mochaTest: {
       test: {
         options: {
