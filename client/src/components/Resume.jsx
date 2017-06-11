@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import LinearProgress from 'material-ui/LinearProgress';
 import Chip from 'material-ui/Chip';
 import ReactPDF from 'react-pdf';
+import $ from 'jquery';
 
 const styles = {
   button: {
