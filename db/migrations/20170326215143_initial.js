@@ -8,6 +8,7 @@ exports.up = function (knex, Promise) {
       table.string('email', 100).nullable().unique();
       table.string('phone', 100).nullable();
       table.string('avatar', 150).nullable();
+      table.string('token',300).nullable();
       table.integer('resume_id').references('resume.id');
       table.timestamps(true, true);
     }),

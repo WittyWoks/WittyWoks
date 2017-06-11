@@ -14,19 +14,10 @@ import BarChart from './C3Components/BarChart.jsx';
 import PercentChart from './C3Components/PercentChart.jsx';
 import axios from 'axios';
 
-import {Tabs, Tab} from 'material-ui/Tabs';
-
-const styles = {
-  headline: {
-    fontSize: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-    fontWeight: 400,
-  },
-};
 
 
-class JobHistory extends React.Component {
+
+class Analytics extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,13 +25,20 @@ class JobHistory extends React.Component {
       barChartJobsApplied: null,
       jobsAppliedTo: null,
       loaded: false,
-      value: 'a',
+      allData: [],
+      keywordsRanking:[],
+      skills:[]
     };
     this.fetchAllAppliedJob();
-    this.handleChange = this.handleChange.bind(this);
+
+
+
   }
 
+
+
   fetchAllAppliedJob() {
+    this.getResume();
     let context = this;
     $.ajax({
       type: 'GET',
@@ -57,12 +55,15 @@ class JobHistory extends React.Component {
         .then((jobs) => {
 
           console.log('Success getting jobs!', jobs);
+          context.setState({
+            allData : jobs.data
+          });
           let datesObj = {};
           let yAxis = ['Applied'];
           let xAxis = [];
 
           jobs.data.forEach((job) => {
-            let convertedDate = (new Date(job.created_at)).toDateString().substring(0, 10);
+            let convertedDate = (new Date(job.created_at)).toDateString();
             if (!datesObj[convertedDate]) {
               datesObj[convertedDate] = 1;
             } else {
@@ -75,6 +76,8 @@ class JobHistory extends React.Component {
             xAxis.push(key);
           }
 
+          // console.log(xAxis);
+          // console.log(yAxis);
           context.setState({
             barChartDates: xAxis,
             barChartJobsApplied: yAxis,
@@ -82,6 +85,9 @@ class JobHistory extends React.Component {
             loaded: true
           });
 
+          console.log(context.state.allData);
+
+          this.urlParser(context.state.allData, this.state.skills);
         })
         .catch(err => {
           console.error('Error occured getting jobs', err);
@@ -90,75 +96,55 @@ class JobHistory extends React.Component {
     });
   }
 
-  handleChange(value) {
-    this.setState({
-      value: value,
+  urlParser(DataArray, skills) {
+    $.ajax({
+      type: 'POST',
+      url: '/urlParser',
+      contentType: 'application/JSON',
+      data: JSON.stringify({
+        data: DataArray,
+        skills: skills
+      })
+    })
+    .done((ranking) => {
+      console.log(ranking);
+
+    })
+    .fail(err => {
+      console.error('Error occured getting jobs', err);
     });
   }
 
+    getResume() {
+      let context = this;
+      $.ajax({
+        type: 'GET',
+        url: '/user',
+        datatype: 'json'
+      })
+      .done((user) => {
+        $.ajax({
+          url: '/getResume',
+          type: 'GET',
+          data: {resume_id: user.resume_id},
+        })
+        .done((resume) => {
+          context.setState({
+            skills: resume.skills.split(',')
+          });
+        })
+        .fail(function(err) {
+          console.log('failed to GET', err);
+        });
+      })
+      .fail(function(err) {
+        console.log('failed to GET', err);
+      });
+    }
+
+
   render() {
     return (
-      <div className="container-fluid">
-        
-        {/* First Row */}
-        <div className="row">
-          <div className="col-sm-6">
-            <div className="col-sm-12">
-            { this.state.loaded === false ? 
-              <p>Loading...</p>
-             :
-             <div>
-                <h4>Application rate</h4>
-                <BarChart barChartData={this.state} />
-              </div>
-            }
-            </div>
-          </div>
-            
-          <div className="col-sm-6">
-            {this.state.loaded === false ?
-                <p>Loading...</p>
-              :
-                <div>
-                  <h4>List of jobs applied to</h4>
-                  <table className="table table-striped table-sm">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Company</th>
-                        <th>Job Title</th>
-                        <th>Location</th>
-                        <th>Posting</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.state.jobsAppliedTo.map((job, idx) => {
-                        let parsedJob = JSON.parse(job.job_data);
-                        return (
-                          <tr key={idx}>
-                            <th>{idx + 1}</th>
-                            <td>{parsedJob.indeed.company}</td>
-                            <td>{parsedJob.indeed.jobtitle}</td>
-                            <td>{parsedJob.indeed.city}</td>
-                            <td><a target="_blank" href={parsedJob.indeed.url}>Link</a></td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              }
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default JobHistory;
-
-
-/* All the old graphs originally implemented by Jeff are below
       <div>
         <div className="container wow fadeIn" data-wow-delay="1.5s">
           <div className="row justify-content-center">
@@ -237,4 +223,8 @@ export default JobHistory;
           </div>
         </div>
       </div>
-*/
+    );
+  }
+}
+
+export default Analytics;

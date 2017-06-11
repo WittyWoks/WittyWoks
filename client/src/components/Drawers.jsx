@@ -11,6 +11,14 @@ import $ from 'jquery';
 import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
 import Dialog from 'material-ui/Dialog';
 import axios from 'axios';
+import moment from 'moment';
+import BigCalendar from 'react-big-calendar';
+// a localizer for BigCalendar
+BigCalendar.momentLocalizer(moment)
+
+// this weird syntax is just a shorthand way of specifying loaders
+import calanderCss from 'react-big-calendar/lib/css/react-big-calendar.css';
+
 
 const styles = {
   drawer: {
@@ -48,6 +56,7 @@ class Drawers extends React.Component {
       open: false,
       jobsAppliedTo: null,
       loaded: false
+      gCalEvents:[]
     };
     this.handleTogglePrimary = this.handleTogglePrimary.bind(this);
     this.handleToggleSecondary = this.handleToggleSecondary.bind(this);
@@ -56,7 +65,57 @@ class Drawers extends React.Component {
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.fetchAllAppliedJob();
+    this.getGcal();
   }
+
+  getGcal() {
+    let context = this;
+    $.ajax({
+      type:'GET',
+      url: '/gCalender',
+      datatype: 'json'
+    })
+    .done(data => {
+
+      let storage = [];
+      data = JSON.parse(data);
+
+      data.items.forEach((index) => {
+        let temp = {};
+        let start = index.start.dateTime;
+        let end = index.end.dateTime;
+
+        let startYear, startMonth, startDay, startHour,startMinutes;
+        let endYear, endMonth, endDay, endHour, endMinutes;
+
+        startYear = Number(start.slice(0,4));
+        startMonth = Number(start.slice(5,7));
+        startDay = Number(start.slice(8,10));
+        startHour = Number(start.slice(11,13));
+        startMinutes = Number(start.slice(14,16));
+
+        endYear = Number(end.slice(0,4));
+        endMonth = Number(end.slice(5,7));
+        endDay = Number(end.slice(8,10));
+        endHour = Number(start.slice(11,13));
+        endMinutes = Number(end.slice(14,16));
+
+        temp['title'] = index.summary;
+        temp['start'] = new Date(startYear, startMonth, startDay, startHour, startMinutes, 0, 0);
+        temp['end'] = new Date(endYear, endMonth, endDay, endHour, endMinutes, 0, 0);
+        temp['desc'] = 'index.description';
+        console.log(temp);
+        storage.push(temp);
+      })
+      this.setState({
+        gCalEvents: storage
+      })
+    })
+    .catch(err => {
+      console.log('did not get gcal');
+    })
+  };
+
 
   handleOpen() {
     this.setState({open: true});
@@ -105,7 +164,7 @@ class Drawers extends React.Component {
       if (data.email) {
         axios.get('/ReturnJobsApplied', {
           params: {
-            google_id: data.id 
+            google_id: data.id
           }
         })
         .then((jobs) => {
@@ -149,6 +208,23 @@ class Drawers extends React.Component {
       <button type="button" className="btn btn-default" onTouchTap={this.handleClose}>Cancel</button>,
       <a className="btn btn-primary" href="/auth/google"><i className="fa fa-google" aria-hidden="true"></i> Log In</a>
     ];
+  const events = [
+    {
+        start: '2015-07-20',
+        end: '2015-07-02',
+        eventClasses: 'optionalEvent',
+        title: 'test event',
+        description: 'This is a test description of an event',
+    },
+    {
+        start: '2015-07-19',
+        end: '2015-07-25',
+        title: 'test event',
+        description: 'This is a test description of an event',
+        data: 'you can add what ever random data you may want to use later',
+    },
+];
+
 
     return (
       <div>
@@ -175,7 +251,7 @@ class Drawers extends React.Component {
             <li style={styles.user}>
               <div className="container-fluid" style={styles.user}>
                 <div className="flex-center">
-                  { this.props.nameOnly === 'Guest' ? 
+                  { this.props.nameOnly === 'Guest' ?
                     <i className="fa fa-user-circle fa-5x" aria-hidden="true" > </i>
                    :
                     <img src={this.props.avatar} className="img-fluid rounded-circle" />
@@ -187,17 +263,17 @@ class Drawers extends React.Component {
             </li>
             <Subheader style={styles.subheader}>BESTFIT</Subheader>
             <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-home" aria-hidden="true"></i>} containerElement={<Link to="/dashboard" className="router-link-color"></Link>}>Home</MenuItem>
-            { this.props.loggedIn === false ? 
+            { this.props.loggedIn === false ?
               <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-list" aria-hidden="true"></i>}>Job History</MenuItem>
              :
               <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-list" aria-hidden="true"></i>} containerElement={<Link to="/jobhistory" className="router-link-color"></Link>}>Job History</MenuItem>
             }
-            { this.props.loggedIn === false ? 
+            { this.props.loggedIn === false ?
               <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-pencil" aria-hidden="true"></i>}>Résumé</MenuItem>
              :
               <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-pencil" aria-hidden="true"></i>} containerElement={<Link to="/resume" className="router-link-color"></Link>}>Résumé</MenuItem>
             }
-            { this.props.loggedIn === false ? 
+            { this.props.loggedIn === false ?
               <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-area-chart" aria-hidden="true"></i>}>Smart Analysis</MenuItem>
              :
               <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-area-chart" aria-hidden="true"></i>} containerElement={<Link to="/smartanalysis" className="router-link-color"></Link>}>Smart Analysis</MenuItem>
@@ -213,13 +289,11 @@ class Drawers extends React.Component {
             >
               Please log in to use this feature.
             </Dialog>
-            
+
           </ul>
           {/*
           <Divider />
-
           <Divider />
-
           */}
         </Drawer>
 
@@ -233,7 +307,15 @@ class Drawers extends React.Component {
           containerStyle={styles.drawer}
         >
           <Subheader style={styles.subheader}>Calendar</Subheader>
-          <MenuItem onTouchTap={this.handleCloseSecondary}><img src="http://placehold.it/300x300"/></MenuItem>
+          <MenuItem onTouchTap={this.handleCloseSecondary}>
+            <Subheader>Calendar</Subheader></MenuItem>
+            <div className="card text-center z-depth-2">
+                        <BigCalendar
+                        style={{height: '420px',
+                        width:'300px'}}
+                        events={this.state.gCalEvents}
+                        />
+                </div>
           <Subheader style={styles.subheader}>Recently Applied</Subheader>
           <div className="container-fluid">
             <div className="row">
