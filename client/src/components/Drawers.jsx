@@ -55,8 +55,8 @@ class Drawers extends React.Component {
       openSecondary: false,
       open: false,
       jobsAppliedTo: null,
-      loaded: false
-      gCalEvents:[]
+      loaded: false,
+      gCalEvents:[],
     };
     this.handleTogglePrimary = this.handleTogglePrimary.bind(this);
     this.handleToggleSecondary = this.handleToggleSecondary.bind(this);
@@ -66,6 +66,7 @@ class Drawers extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.fetchAllAppliedJob();
     this.getGcal();
+
   }
 
   getGcal() {
@@ -104,7 +105,7 @@ class Drawers extends React.Component {
         temp['start'] = new Date(startYear, startMonth, startDay, startHour, startMinutes, 0, 0);
         temp['end'] = new Date(endYear, endMonth, endDay, endHour, endMinutes, 0, 0);
         temp['desc'] = 'index.description';
-        console.log(temp);
+
         storage.push(temp);
       })
       this.setState({
