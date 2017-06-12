@@ -2,59 +2,28 @@ const fs = require('fs');
 const PDFParser = require('pdf2json');
 const path = require('path');
 const request = require('request');
+const HashTable = require('./hashtable.js').HashTable;
+let Hash = require('../db/models/hash.js');
+let getIndexForKey = require('./hashtable.js').getIndexForKey;
 
 
 let parsePDF = (fileName, callback) => {
-  let technicalskills = {
-    a: [],
-    b: [],
-    c: [],
-    d: [],
-    e: [],
-    f: [],
-    g: [],
-    h: [],
-    i: [],
-    j: [],
-    k: [],
-    l: [],
-    m: [],
-    n: [],
-    o: [],
-    p: [],
-    q: [],
-    r: [],
-    s: [],
-    t: [],
-    u: [],
-    v: [],
-    w: [],
-    x: [],
-    y: [],
-    z: []
-  };
 
-// let skills = `algorithm, algorithms, angular, angular.js, angularjs, backbone, backbone, backbone.js, bluebird, \
-// bluebird.js, bookshelf, bootstrap, c#, c++, chai, css, css3, css4, d3, digital ocean, digitalOcean, docker, eclipse, \
-// es5, es6, express, express.js, git, grunt, gulp, heroku, highcharts, html, html5, jasmine, java, javascript, jekyll, jquery, \
-// knex, material ui, material-ui, mocha, mongo, mongodb, mongoose, mysql, node, node.js, passport, postgres, postgresql, python, python, \
-// react, react native, react router, react-native, react-router, react.js, redux, rest, ruby, sass, sequelize, socket, socket.io, sql, \
-// sqlite, underscore, underscore.js`;
+  let hash = new HashTable(); 
 
-  let skills = 'algorithm, algorithms, angular, angular.js, angularjs, backbone, backbone, backbone.js, bluebird, bluebird.js, bookshelf, bootstrap, c#, c++, chai, css, css3, css4, d3, digital ocean, digitalOcean, docker, eclipse, es5, es6, express, express.js, git, grunt, gulp, heroku, highcharts, html, html5, jasmine, java, javascript, jekyll, jquery, knex, material ui, material-ui, mocha, mongo, mongodb, mongoose, mysql, node, node.js, passport, postgres, postgresql, python, python, react, react native, react router, react-native, react-router, react.js, redux, rest, ruby, sass, sequelize, socket, socket.io, sql, sqlite, underscore, underscore.js';
-
-
-  skills.split(', ').forEach(skill => {
-    let firstLetter = skill[0];
-    technicalskills[firstLetter].push(skill);
-  });
+  new Hash({})
+    .fetch()
+    .then(model => {
+      hash.storage = JSON.parse(model.attributes.table);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
   let matchingSkills = [];
 
-
   let pdfParser = new PDFParser(this, 1);
   let pdfPipe = request({url: fileName, encoding: null}).pipe(pdfParser);
-
 
   pdfPipe.on('pdfParser_dataError', errData => console.error('ERROR!!!!!!!!!', errData.data));
   pdfPipe.on('pdfParser_dataReady', pdfData => {
@@ -70,22 +39,14 @@ let parsePDF = (fileName, callback) => {
     
     pdfNew.forEach(word => {
       word = word.toLowerCase();
-      let firstLetter = word[0];
-      let skillsByLetter = technicalskills[firstLetter];
-      if (skillsByLetter) {
-        skillsByLetter.forEach(skill => {
-          if (skill === word) {
-            if (!matchingSkills.includes(skill)) {
-              matchingSkills.push(skill);
-              return;
-            }
-          }
-        });
+      if (hash.retrieve(word)) {
+        if (!matchingSkills.includes(word)) {
+          matchingSkills.push(word);
+        }
       }
     });
     callback(matchingSkills);
   });
-
 };
 
 let pdfToText = (fileName, callback) => {

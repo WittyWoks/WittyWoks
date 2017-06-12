@@ -59,6 +59,11 @@ exports.up = function (knex, Promise) {
       table.string('url', 100).nullable();
       table.string('headline', 100).nullable();
     }),
+    
+    knex.schema.createTableIfNotExists('hash_table', function(table) {
+      table.increments('id').unsigned().primary();
+      table.string('table', 100000).nullable();
+    }),
   ]);
 };
 
