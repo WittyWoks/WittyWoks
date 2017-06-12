@@ -40,7 +40,9 @@ let parsePDF = (fileName, callback) => {
     pdfNew.forEach(word => {
       word = word.toLowerCase();
       if (hash.retrieve(word)) {
-        matchingSkills.push(word);
+        if (!matchingSkills.includes(word)) {
+          matchingSkills.push(word);
+        }
       }
     });
     callback(matchingSkills);
