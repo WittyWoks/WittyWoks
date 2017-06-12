@@ -14,19 +14,30 @@ import BarChart from './C3Components/BarChart.jsx';
 import PercentChart from './C3Components/PercentChart.jsx';
 import axios from 'axios';
 
+import {Tabs, Tab} from 'material-ui/Tabs';
+
+const styles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+};
 
 
-
-class Analytics extends React.Component {
+class JobHistory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       barChartDates: null,
       barChartJobsApplied: null,
       jobsAppliedTo: null,
-      loaded: false
+      loaded: false,
+      value: 'a',
     };
     this.fetchAllAppliedJob();
+    this.handleChange = this.handleChange.bind(this);
   }
 
   fetchAllAppliedJob() {
@@ -50,7 +61,7 @@ class Analytics extends React.Component {
           let xAxis = [];
 
           jobs.data.forEach((job) => {
-            let convertedDate = (new Date(job.created_at)).toDateString();
+            let convertedDate = (new Date(job.created_at)).toDateString().substring(0, 10);
             if (!datesObj[convertedDate]) {
               datesObj[convertedDate] = 1;
             } else {
@@ -63,14 +74,13 @@ class Analytics extends React.Component {
             xAxis.push(key);
           }
 
-          // console.log(xAxis);
-          // console.log(yAxis);
           context.setState({
             barChartDates: xAxis,
             barChartJobsApplied: yAxis,
             jobsAppliedTo: jobs.data,
             loaded: true
           });
+
         })
         .catch(err => {
           console.error('Error occured getting jobs', err);
@@ -79,8 +89,75 @@ class Analytics extends React.Component {
     });
   }
 
+  handleChange(value) {
+    this.setState({
+      value: value,
+    });
+  }
+
   render() {
     return (
+      <div className="container-fluid">
+        
+        {/* First Row */}
+        <div className="row">
+          <div className="col-sm-6">
+            <div className="col-sm-12">
+            { this.state.loaded === false ? 
+              <p>Loading...</p>
+             :
+             <div>
+                <h4>Application rate</h4>
+                <BarChart barChartData={this.state} />
+              </div>
+            }
+            </div>
+          </div>
+            
+          <div className="col-sm-6">
+            {this.state.loaded === false ?
+                <p>Loading...</p>
+              :
+                <div>
+                  <h4>List of jobs applied to</h4>
+                  <table className="table table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Company</th>
+                        <th>Job Title</th>
+                        <th>Location</th>
+                        <th>Posting</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.jobsAppliedTo.map((job, idx) => {
+                        let parsedJob = JSON.parse(job.job_data);
+                        return (
+                          <tr key={idx}>
+                            <th>{idx + 1}</th>
+                            <td>{parsedJob.indeed.company}</td>
+                            <td>{parsedJob.indeed.jobtitle}</td>
+                            <td>{parsedJob.indeed.city}</td>
+                            <td><a target="_blank" href={parsedJob.indeed.url}>Link</a></td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              }
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default JobHistory;
+
+
+/* All the old graphs originally implemented by Jeff are below
       <div>
         <div className="container wow fadeIn" data-wow-delay="1.5s">
           <div className="row justify-content-center">
@@ -159,8 +236,4 @@ class Analytics extends React.Component {
           </div>
         </div>
       </div>
-    );
-  }
-}
-
-export default Analytics;
+*/

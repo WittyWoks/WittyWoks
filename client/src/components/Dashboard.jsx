@@ -4,9 +4,9 @@ import DashboardHome from './DashboardHome.jsx';
 import Home from './Home.jsx';
 import JobList from './JobList.jsx';
 import CompanyInfo from './CompanyInfo.jsx';
-import Analytics from './Analytics.jsx';
+import JobHistory from './JobHistory.jsx';
 import Resume from './Resume.jsx';
-import Settings from './Settings.jsx';
+import SmartAnalysis from './SmartAnalysis.jsx';
 import Drawers from './Drawers.jsx';
 import $ from 'jquery';
 
@@ -76,9 +76,9 @@ class Dashboard extends React.Component {
           <Route exact path='/dashboard' component={DashboardHome} />
           <Route path="/jobs" component={JobList} />
           <Route path="/companyInfo" component={(props) => <CompanyInfo loggedIn={this.state.loggedIn} {...props} />} />
-          <Route path="/analytics" component={Analytics} />
+          <Route path="/jobhistory" component={JobHistory} />
           <Route path="/resume" component={Resume} />
-          <Route path="/settings" component={Settings} />
+          <Route path="/smartanalysis" component={SmartAnalysis} />
           <Route path='/home' component={Home} />
 
         </div>

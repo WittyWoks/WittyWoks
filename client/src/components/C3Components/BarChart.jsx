@@ -17,7 +17,7 @@ class LineChart extends React.Component {
         columns: [
           context.props.barChartData.barChartJobsApplied
         ],
-        type: 'bar'
+        type: 'bar',
       },
       bar: {
         width: {
@@ -34,7 +34,8 @@ class LineChart extends React.Component {
         y: {
           tick: { format: d3.format('d') }
         }
-      }
+      },
+
     });
   }
 

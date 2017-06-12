@@ -88,4 +88,18 @@ let parsePDF = (fileName, callback) => {
 
 };
 
+let pdfToText = (fileName, callback) => {
+  let pdfParser = new PDFParser(this, 1);
+  let pdfPipe = request({url: fileName, encoding: null}).pipe(pdfParser);
+
+  pdfPipe.on('pdfParser_dataError', errData => console.error('ERROR!!!!!!!!!', errData.data));
+  pdfPipe.on('pdfParser_dataReady', pdfData => {
+    let rawText = pdfParser.getRawTextContent();
+    callback(rawText);
+  });
+
+};
+
 module.exports.parsePDF = parsePDF;
+module.exports.pdfToText = pdfToText;
+

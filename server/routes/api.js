@@ -41,12 +41,12 @@ router.route('/resume')
     res.sendFile(path.join(__dirname, '../../public/index.html'));
   });
 
-router.route('/analytics')
+router.route('/jobhistory')
   .get((req, res) => {
     res.sendFile(path.join(__dirname, '../../public/index.html'));
   });
 
-router.route('/settings')
+router.route('/smartanalysis')
   .get((req, res) => {
     res.sendFile(path.join(__dirname, '../../public/index.html'));
   });
