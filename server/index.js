@@ -3,7 +3,7 @@ const app = require('./app');
 const db = require('../db');
 const PORT = process.env.PORT || 3000;
 const chron = require('./chron.js');
-// const hashtable = require('./hashtable.js');
+const hashtable = require('./hashtable.js');
 
 // // JC ADDED
 // const pg = require('pg');
