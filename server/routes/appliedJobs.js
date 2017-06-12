@@ -26,16 +26,17 @@ router.route('/urlParser')
 
     let keywords = req.body.skills;
     let keywordsLookUp = {};
+    let info = 0;
 
     keywords.forEach((index) => {
       keywordsLookUp[index] = 0;
     });
 
-    req.body.data.forEach((index, count) => {
+    req.body.data.forEach((index) => {
 
       let each = JSON.parse(index.job_data);
       let url = each['indeed']['url'];
-      console.log(url);
+
       new Crawler().configure({depth: 1})
       .crawl(url, function onSuccess(page) {
 
@@ -44,7 +45,7 @@ router.route('/urlParser')
         pageContent = pageContent.toLowerCase();
 
         for (let k in keywordsLookUp) {
-          
+
           let tempPage = pageContent.split(k).join('');
           let LengthDifference = pageContentLength - tempPage.length;
           let keywordLength = k.length;
@@ -59,12 +60,13 @@ router.route('/urlParser')
 
           let count = Math.floor(LengthDifference / keywordLength);
           keywordsLookUp[k] += count;
+          // console.log(keywordsLookUp);
         }
-
-        if (count === req.body.data.length-1) {
-          console.log(keywordsLookUp);
+        info++;
+        if (info === req.body.data.length) {
           res.end(JSON.stringify(keywordsLookUp));
-        }
+        };
       });
-    });
+    })
+
   })

@@ -15,8 +15,6 @@ import PercentChart from './C3Components/PercentChart.jsx';
 import axios from 'axios';
 
 
-
-
 class Analytics extends React.Component {
   constructor(props) {
     super(props);
@@ -31,14 +29,10 @@ class Analytics extends React.Component {
     };
     this.fetchAllAppliedJob();
 
-
-
   }
 
 
-
   fetchAllAppliedJob() {
-    this.getResume();
     let context = this;
     $.ajax({
       type: 'GET',
@@ -85,9 +79,6 @@ class Analytics extends React.Component {
             loaded: true
           });
 
-          console.log(context.state.allData);
-
-          this.urlParser(context.state.allData, this.state.skills);
         })
         .catch(err => {
           console.error('Error occured getting jobs', err);
@@ -96,51 +87,6 @@ class Analytics extends React.Component {
     });
   }
 
-  urlParser(DataArray, skills) {
-    $.ajax({
-      type: 'POST',
-      url: '/urlParser',
-      contentType: 'application/JSON',
-      data: JSON.stringify({
-        data: DataArray,
-        skills: skills
-      })
-    })
-    .done((ranking) => {
-      console.log(ranking);
-
-    })
-    .fail(err => {
-      console.error('Error occured getting jobs', err);
-    });
-  }
-
-    getResume() {
-      let context = this;
-      $.ajax({
-        type: 'GET',
-        url: '/user',
-        datatype: 'json'
-      })
-      .done((user) => {
-        $.ajax({
-          url: '/getResume',
-          type: 'GET',
-          data: {resume_id: user.resume_id},
-        })
-        .done((resume) => {
-          context.setState({
-            skills: resume.skills.split(',')
-          });
-        })
-        .fail(function(err) {
-          console.log('failed to GET', err);
-        });
-      })
-      .fail(function(err) {
-        console.log('failed to GET', err);
-      });
-    }
 
 
   render() {
