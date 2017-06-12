@@ -45,6 +45,12 @@
     },
     "REDIS_URL": {
       "required": true
+    },
+    "IBM_USER": {
+      "required": true
+    },
+    "IBM_PASS": {
+      "required": true
     }
   },
   "formation": {
