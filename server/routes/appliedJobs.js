@@ -2,7 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const appliedJobsController = require('../controllers').appliedJobs;
+const resumeController = require('../controllers').resume;
 const models = require('../../db/models');
+var Crawler = require("js-crawler");
+
 
 router.route('/ReturnJobsApplied')
   .post((req, res) => {
@@ -18,19 +21,50 @@ router.route('/ReturnJobsApplied')
 module.exports = router;
 
 
-router.route('/keyword')
-  .get((req,res) => {
-    console.log(req.user.id);
-    console.log('here!!!');
+router.route('/urlParser')
+  .post((req,res) => {
 
+    let keywords = req.body.skills;
+    let keywordsLookUp = {};
 
-    models.appliedJobs.where({'user_id' : req.user.id}).fetch()
-      .then((data) => {
-        if (!data) {
-          throw data;
+    keywords.forEach((index) => {
+      keywordsLookUp[index] = 0;
+    });
+
+    req.body.data.forEach((index, count) => {
+
+      let each = JSON.parse(index.job_data);
+      let url = each['indeed']['url'];
+      console.log(url);
+      new Crawler().configure({depth: 1})
+      .crawl(url, function onSuccess(page) {
+
+        let pageContent = page.content;
+        let pageContentLength = pageContent.length;
+        pageContent = pageContent.toLowerCase();
+
+        for (let k in keywordsLookUp) {
+          
+          let tempPage = pageContent.split(k).join('');
+          let LengthDifference = pageContentLength - tempPage.length;
+          let keywordLength = k.length;
+
+          if (k === 'css' && LengthDifference > 20) {
+            LengthDifference = 6;
+          }
+
+          if (k === 'javascript' && LengthDifference > 30) {
+            LengthDifference = 25
+          }
+
+          let count = Math.floor(LengthDifference / keywordLength);
+          keywordsLookUp[k] += count;
         }
-        console.log('here',data);
-      })
 
-
-  });
+        if (count === req.body.data.length-1) {
+          console.log(keywordsLookUp);
+          res.end(JSON.stringify(keywordsLookUp));
+        }
+      });
+    });
+  })
