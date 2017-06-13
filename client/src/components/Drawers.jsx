@@ -56,7 +56,7 @@ class Drawers extends React.Component {
       open: false,
       jobsAppliedTo: null,
       loaded: false,
-      gCalEvents:[]
+      gCalEvents: []
     };
     this.handleTogglePrimary = this.handleTogglePrimary.bind(this);
     this.handleToggleSecondary = this.handleToggleSecondary.bind(this);
@@ -73,7 +73,7 @@ class Drawers extends React.Component {
   getGcal() {
     let context = this;
     $.ajax({
-      type:'GET',
+      type: 'GET',
       url: '/gCalender',
       datatype: 'json'
     })
@@ -87,20 +87,24 @@ class Drawers extends React.Component {
         let start = index.start.dateTime;
         let end = index.end.dateTime;
 
-        let startYear, startMonth, startDay, startHour,startMinutes;
+        let startYear, startMonth, startDay, startHour, startMinutes;
         let endYear, endMonth, endDay, endHour, endMinutes;
 
-        startYear = Number(start.slice(0,4));
-        startMonth = Number(start.slice(5,7));
-        startDay = Number(start.slice(8,10));
-        startHour = Number(start.slice(11,13));
-        startMinutes = Number(start.slice(14,16));
+        if (start) {
+          startYear = Number(start.slice(0, 4));
+          startMonth = Number(start.slice(5, 7));
+          startDay = Number(start.slice(8, 10));
+          startHour = Number(start.slice(11, 13));
+          startMinutes = Number(start.slice(14, 16));
+        }
 
-        endYear = Number(end.slice(0,4));
-        endMonth = Number(end.slice(5,7));
-        endDay = Number(end.slice(8,10));
-        endHour = Number(start.slice(11,13));
-        endMinutes = Number(end.slice(14,16));
+        if (end) {
+          endYear = Number(end.slice(0, 4));
+          endMonth = Number(end.slice(5, 7));
+          endDay = Number(end.slice(8, 10));
+          endHour = Number(start.slice(11, 13));
+          endMinutes = Number(end.slice(14, 16));
+        }
 
         temp['title'] = index.summary;
         temp['start'] = new Date(startYear, startMonth, startDay, startHour, startMinutes, 0, 0);
@@ -108,15 +112,15 @@ class Drawers extends React.Component {
         temp['desc'] = 'index.description';
 
         storage.push(temp);
-      })
+      });
       this.setState({
         gCalEvents: storage
-      })
+      });
     })
     .catch(err => {
       console.log('did not get gcal');
-    })
-  };
+    });
+  }
 
 
   handleOpen() {
@@ -210,22 +214,22 @@ class Drawers extends React.Component {
       <button type="button" className="btn btn-default" onTouchTap={this.handleClose}>Cancel</button>,
       <a className="btn btn-primary" href="/auth/google"><i className="fa fa-google" aria-hidden="true"></i> Log In</a>
     ];
-  const events = [
-    {
+    const events = [
+      {
         start: '2015-07-20',
         end: '2015-07-02',
         eventClasses: 'optionalEvent',
         title: 'test event',
         description: 'This is a test description of an event',
-    },
-    {
+      },
+      {
         start: '2015-07-19',
         end: '2015-07-25',
         title: 'test event',
         description: 'This is a test description of an event',
         data: 'you can add what ever random data you may want to use later',
-    },
-];
+      },
+    ];
 
 
     return (
@@ -312,13 +316,12 @@ class Drawers extends React.Component {
           <Subheader style={styles.subheader}>Calendar</Subheader>
           </MenuItem>
             <div className="card text-center z-depth-2">
-                        <BigCalendar
-                        style={{height: '420px',
-                                width:'300px'}}
-                        events={this.state.gCalEvents}
-                        default={['week', 'agenda']}
-                        />
-                </div>
+              <BigCalendar
+                style={{height: '420px', width:'300px'}}
+                events={this.state.gCalEvents}
+                default={['week', 'agenda']}
+              />
+            </div>
           <Subheader style={styles.subheader}>Recently Applied</Subheader>
           <div className="container-fluid">
             <div className="row">
