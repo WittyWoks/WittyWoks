@@ -12,6 +12,8 @@
 #config/staging.json
 #config/test.json
 uploads/
+#config/default.js
+Gruntfile.js
 config/
 
 # OS X

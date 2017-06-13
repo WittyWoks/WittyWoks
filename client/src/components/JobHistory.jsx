@@ -51,10 +51,11 @@ class JobHistory extends React.Component {
       if (data.email) {
         axios.get('/ReturnJobsApplied', {
           params: {
-            google_id: data.id 
+            google_id: data.id
           }
         })
         .then((jobs) => {
+
           console.log('Success getting jobs!', jobs);
           let datesObj = {};
           let yAxis = ['Applied'];
@@ -164,7 +165,7 @@ export default JobHistory;
             <div className="card text-center z-depth-2">
               <div className="card-block">
                 <h3 className="card-header default-color-dark white-text">Applied Jobs</h3>
-                { this.state.loaded === false ? 
+                { this.state.loaded === false ?
                   <p>Loading...</p>
                  :
                   <BarChart barChartData={this.state} />

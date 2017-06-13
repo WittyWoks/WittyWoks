@@ -3,6 +3,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const models = require('../../db/models');
 
+
 const G_ID = process.env.G_ID || require('../../config/development.json')['passport'].Google.clientID;
 const G_SECRET = process.env.G_SECRET || require('../../config/development.json')['passport'].Google.clientSecret;
 const G_URL = process.env.G_URL || 'http://localhost:3000/auth/google/callback';
@@ -34,8 +35,10 @@ passport.use('google', new GoogleStrategy({
   callbackURL: G_URL
 },
   (accessToken, refreshToken, profile, done) => {
+    profile.accessToken = accessToken;
     getOrCreateOAuthProfile('google', profile, done);
-    console.log(accessToken);
+
+
   })
 );
 
@@ -65,7 +68,8 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
         last: oauthProfile.name.familyName,
         display: oauthProfile.displayName || `${oauthProfile.name.givenName} ${oauthProfile.name.familyName}`,
         email: oauthProfile.emails[0].value,
-        avatar: (oauthProfile.photos[0].value.split('?')[0] + '?sz=100')
+        avatar: (oauthProfile.photos[0].value.split('?')[0] + '?sz=100'),
+        token: oauthProfile.accessToken
       };
 
       if (profile) {
@@ -95,6 +99,7 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
     })
     .then(profile => {
       if (profile) {
+          console.log('in then profile');
         done(null, profile.serialize());
       }
     })

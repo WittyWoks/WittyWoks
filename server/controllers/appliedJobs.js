@@ -1,6 +1,7 @@
 const models = require('../../db/models');
 
 module.exports.create = (req, res) => {
+  console.log('in server',req)
   models.appliedJobs.forge({
     status: 'Applied',
     user_id: req.google_id,

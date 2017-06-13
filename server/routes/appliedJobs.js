@@ -2,6 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const appliedJobsController = require('../controllers').appliedJobs;
+const resumeController = require('../controllers').resume;
+const models = require('../../db/models');
+const Crawler = require("js-crawler");
+
 
 router.route('/ReturnJobsApplied')
   .post((req, res) => {
@@ -14,16 +18,55 @@ router.route('/ReturnJobsApplied')
   //   appliedJobsController.getAll(req, res)
   //   // res.json('HALLO');
   // })
-module.exports = router;
 
+router.route('/urlParser')
+  .post((req,res) => {
 
-router.route('/keyword')
-  .get((req,res) => {
-    console.log(req.user);
-    console.log('here!!!');
+    let keywords = req.body.skills;
+    let keywordsLookUp = {};
+    let info = 0;
 
-    appliedJobs.get
-    res.end('{python:200s}');
+    keywords.forEach((index) => {
+      keywordsLookUp[index] = 0;
+    });
 
+    req.body.data.forEach((index) => {
 
-  });
+      let each = JSON.parse(index.job_data);
+      let url = each['indeed']['url'];
+
+      new Crawler().configure({depth: 1})
+      .crawl(url, function onSuccess(page) {
+
+        let pageContent = page.content;
+        let pageContentLength = pageContent.length;
+        pageContent = pageContent.toLowerCase();
+
+        for (let k in keywordsLookUp) {
+
+          let tempPage = pageContent.split(k).join('');
+          let LengthDifference = pageContentLength - tempPage.length;
+          let keywordLength = k.length;
+
+          if (k === 'css' && LengthDifference > 20) {
+            LengthDifference = 6;
+          }
+
+          if (k === 'javascript' && LengthDifference > 30) {
+            LengthDifference = 25
+          }
+
+          let count = Math.floor(LengthDifference / keywordLength);
+          keywordsLookUp[k] += count;
+          // console.log(keywordsLookUp);
+        }
+        info++;
+        if (info === req.body.data.length) {
+          res.end(JSON.stringify(keywordsLookUp));
+        };
+      });
+    })
+
+  })
+
+  module.exports = router;

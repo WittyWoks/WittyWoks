@@ -4,6 +4,8 @@ import axios from 'axios';
 import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
 // import thumbs from '../../../public/assets/icons8-Thumb Up-48.png';
+import PercentChart from './C3Components/PercentChart.jsx';
+
 
 const styles = {
   jobs: {
@@ -25,7 +27,10 @@ class CompanyInfo extends React.Component {
     this.state = {
       jobs: [],
       open: false,
-      openSnack: false
+      openSnack: false,
+      skills: [],
+      wordMatch: null,
+      progressChart: false
     };
 
     this.searchGlassDoor = this.searchGlassDoor.bind(this);
@@ -38,6 +43,8 @@ class CompanyInfo extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
+    this.getResume();
     this.searchGlassDoor(this.props.location.state.company);
   }
 
@@ -48,7 +55,60 @@ class CompanyInfo extends React.Component {
   handleClose() {
     this.setState({open: false});
   }
-  
+
+  getResume() {
+    let context = this;
+    $.ajax({
+      type: 'GET',
+      url: '/user',
+      datatype: 'json'
+    })
+    .done((user) => {
+      $.ajax({
+        url: '/getResume',
+        type: 'GET',
+        data: {resume_id: user.resume_id},
+      })
+      .done((text) => {
+          context.setState({
+            skills: text.skills.split(','),
+          });
+          this.MatchRating();
+      })
+      .fail(function(err) {
+        console.log('failed to GET', err);
+      });
+    })
+  }
+
+
+  MatchRating() {
+    let context = this;
+    $.ajax({
+      type: 'POST',
+      url: '/jobMatchRanking',
+      contentType: 'application/JSON',
+      data: JSON.stringify({
+        data: this.props.location.state,
+        skills: context.state.skills
+      })
+    })
+    .done((data) => {
+      data = JSON.parse(data);
+      context.setState({
+        wordMatch: data
+      })
+      if(context.state.wordMatch !== null) {
+        context.setState({
+          progressChart: true
+        })
+      }
+     })
+    .fail(err => {
+      console.error(err);
+    });
+  }
+
   searchGlassDoor(search) {
     $.get('/glassDoor', {
       search: search
@@ -82,7 +142,7 @@ class CompanyInfo extends React.Component {
           glassDoor: context.state.jobs[0],
           indeed: context.props.location.state
         };
-        
+
         axios.post('/ReturnJobsApplied', {
           google_id: data.id,
           jobId: job.id,
@@ -154,18 +214,19 @@ class CompanyInfo extends React.Component {
                     <div className="col-sm-4">Work Life Balance: <strong>{job.workLifeBalanceRating || 'N/A'}</strong></div>
                     <div className="col-sm-4">Culture and Values: <strong>{job.cultureAndValuesRating || 'N/A'}</strong></div>
                   </div>
+                  {this.state.progressChart ? <PercentChart data ={this.state.wordMatch} /> : null}
                 </div>;
               }
-            }) : null} 
+            }) : null}
           </div>
           <div className="row justify-content-center">
             <div className="col-sm">
-              { this.props.loggedIn === false ? 
+              { this.props.loggedIn === false ?
                 <div>
                   <p>Did you apply to this job?</p>
-                  <img src="https://maxcdn.icons8.com/Android_L/PNG/512/Hands/thumb_up-512.png" 
+                  <img src="https://maxcdn.icons8.com/Android_L/PNG/512/Hands/thumb_up-512.png"
                     alt="Thumb"
-                    width="10%" 
+                    width="10%"
                     height="10%"
                     onClick={this.handleOpen}
                     />
@@ -173,11 +234,11 @@ class CompanyInfo extends React.Component {
               :
                 <div>
                   <p>Did you apply to this job?</p>
-                  <img src="https://maxcdn.icons8.com/Android_L/PNG/512/Hands/thumb_up-512.png" 
+                  <img src="https://maxcdn.icons8.com/Android_L/PNG/512/Hands/thumb_up-512.png"
                     alt="Thumb"
-                    width="10%" 
+                    width="10%"
                     height="10%"
-                    onClick={this.appliedJob} 
+                    onClick={this.appliedJob}
                     onTouchTap={this.handleTouchTap}
                     />
                 </div>

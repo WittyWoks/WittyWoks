@@ -16,11 +16,13 @@ app.use(middleware.flash());
 
 app.use(express.static(path.join(__dirname, '../public/dist')));
 
-// Added Routes 
+// Added Routes
 app.use('/', routes.auth);
 app.use('/', routes.api);
 app.use('/', routes.resume);
 app.use('/', routes.appliedJobs);
+app.use('/', routes.jobs);
+
 
 
 module.exports = app;
