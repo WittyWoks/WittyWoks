@@ -41,7 +41,7 @@ class DashboardHome extends React.Component {
       let jobsFromSessions = sessionStorage.getItem('totalJobs');
       let pageNumberFromSessions = sessionStorage.getItem('pageNumber');
       jobsFromSessions = JSON.parse(jobsFromSessions);
-      
+
       console.log('sessions happening');
       let filteredJobs = jobsFromSessions.filter((job, i) => {
         return i > pageNumberFromSessions * 10 && i < (pageNumberFromSessions + 1) * 10;
@@ -99,7 +99,7 @@ class DashboardHome extends React.Component {
       console.error('Error occured ', err);
     });
   }
-  
+
   sortJobsByTime() {
     let sortedJobs;
     if (this.state.sortedChron) {
@@ -118,12 +118,12 @@ class DashboardHome extends React.Component {
       totalJobs: sortedJobs,
       jobs: jobs,
       sortedChron: !this.state.sortedChron
-    }); 
-    
+    });
+
     sessionStorage.setItem('totalJobs', JSON.stringify(sortedJobs));
     sessionStorage.setItem('pageNumber', 0);
   }
-  
+
   changePage(page) {
     if (page > 2) {
       page = 2;
@@ -146,14 +146,12 @@ class DashboardHome extends React.Component {
     return (
       <div>
         <div className="row">
-          <div className="col-sm-8"> 
+          <div className="col-sm-8">
           </div>
           <div className="col-sm-4">
           </div>
         </div>
-        
-        <br /> 
-
+        <br />
         {/* First row */}
         <div className="container">
           <div className="row">
@@ -182,7 +180,7 @@ class DashboardHome extends React.Component {
               <div className="md-form">
                   <button> search jobs </button>
               </div>
-            </div>                                    
+            </div>
           </div>
           </form>
         </div>
@@ -213,7 +211,7 @@ class DashboardHome extends React.Component {
               </div>
             </div>
           <div className="row justify-content-center">
-            <div className="col-sm-3"> 
+            <div className="col-sm-3">
               <button onClick={ () => this.changePage(this.state.pageNumber - 1)}> back </button>
               <button onClick={ () => this.changePage(this.state.pageNumber + 1)}> next </button>
               <button onClick={ () => this.changePage(0)}> 1 </button>
