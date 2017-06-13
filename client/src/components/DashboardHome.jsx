@@ -73,12 +73,9 @@ class DashboardHome extends React.Component {
     e.preventDefault();
   }
 
-<<<<<<< HEAD
-  searchIndeed(search, location) {
-    let route;
-=======
+
   searchIndeed(search, location, radius) {
->>>>>>> added feature search by radius
+    let route;
     if (location === undefined) {
       route = '/indeedTopTen';
     } else {
