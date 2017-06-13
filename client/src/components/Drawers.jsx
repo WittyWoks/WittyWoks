@@ -315,12 +315,15 @@ class Drawers extends React.Component {
           <Subheader style={styles.subheader}>Calendar</Subheader>
           </MenuItem>
             <div className="card text-center z-depth-2">
-              <BigCalendar
-                style={{height: '420px', width: '300px'}}
-                events={this.state.gCalEvents}
-                default={['week', 'agenda']}
-              />
-            </div>
+
+                        <BigCalendar
+                        style={{height: '420px'}}
+                        events={this.state.gCalEvents}
+                        views={['month']}
+                        onSelectEvent={event => alert(event.title)}
+
+                        />
+                </div>
           <Subheader style={styles.subheader}>Recently Applied</Subheader>
           <div className="container-fluid">
             <div className="row">
