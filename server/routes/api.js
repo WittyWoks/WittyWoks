@@ -12,8 +12,8 @@ const Promise = require('bluebird');
 const S3_BUCKET = 'resumeswittywoks'; //BB ADDED
 const userInfo = require('../middleware/passport');
 const Gmail = require('node-gmail-api');
-var Base64 = require('js-base64').Base64;
-var utf8 = require('utf8');
+const Base64 = require('js-base64').Base64;
+const utf8 = require('utf8');
 const gcal = require('google-calendar');
 
 

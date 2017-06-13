@@ -24,8 +24,8 @@ class PercentChart extends React.Component {
     })
 
     // console.log(keywordExist);
-    console.log(total);
-    var chart = c3.generate({
+    // console.log(total);
+    let chart = c3.generate({
       bindto: '#percentChart',
       data: {
         columns: [['Matching Keywords', total]],
@@ -58,10 +58,10 @@ class PercentChart extends React.Component {
       },
       axis: {
         x: {
-        show: false
+          show: false
         },
         y: {
-        show: false
+          show: false
         }
       },
       bar: {

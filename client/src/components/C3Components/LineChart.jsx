@@ -30,7 +30,7 @@ class LineChart extends React.Component {
 
   componentDidMount() {
 
-    var barChart = c3.generate({
+    let barChart = c3.generate({
       bindto: '#linechart',
       data: {
         columns: [
