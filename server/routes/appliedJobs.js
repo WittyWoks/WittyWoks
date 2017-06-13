@@ -19,8 +19,6 @@ router.route('/ReturnJobsApplied')
   //   // res.json('HALLO');
   // })
 
-
-
 router.route('/urlParser')
   .post((req,res) => {
 

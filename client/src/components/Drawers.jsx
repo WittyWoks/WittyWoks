@@ -13,11 +13,11 @@ import Dialog from 'material-ui/Dialog';
 import axios from 'axios';
 import moment from 'moment';
 import BigCalendar from 'react-big-calendar';
-// a localizer for BigCalendar
 BigCalendar.momentLocalizer(moment);
 
-// this weird syntax is just a shorthand way of specifying loaders
 import calanderCss from 'react-big-calendar/lib/css/react-big-calendar.css';
+
+
 
 
 const styles = {
@@ -56,7 +56,7 @@ class Drawers extends React.Component {
       open: false,
       jobsAppliedTo: null,
       loaded: false,
-      gCalEvents:[],
+      gCalEvents:[]
     };
     this.handleTogglePrimary = this.handleTogglePrimary.bind(this);
     this.handleToggleSecondary = this.handleToggleSecondary.bind(this);
@@ -64,6 +64,7 @@ class Drawers extends React.Component {
     this.handleCloseSecondary = this.handleCloseSecondary.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+
     this.fetchAllAppliedJob();
     this.getGcal();
 

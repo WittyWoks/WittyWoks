@@ -35,15 +35,7 @@ class PercentChart extends React.Component {
         onmouseout: function (d, i) { console.log("onmouseout", d, i); }
       },
       gauge: {
-      //  label: {
-      //      format: function(value, ratio) {
-      //          return value;
-      //      },
-      //      show: false // to turn off the min/max labels.
-      //  },
-      //  min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
        max: keywordMap.length// 100 is default
-
       },
       color: {
         pattern: ['#60B044'], // the three color levels for the percentage values.
@@ -57,36 +49,6 @@ class PercentChart extends React.Component {
         height: 180
       }
     });
-
-    // setTimeout(function () {
-    //   chart.load({
-    //     columns: [['data', 10]]
-    //   });
-    // }, 1000);
-    //
-    // setTimeout(function () {
-    //   chart.load({
-    //     columns: [['data', 50]]
-    //   });
-    // }, 2000);
-    //
-    // setTimeout(function () {
-    // chart.load({
-    //     columns: [['data', 70]]
-    // });
-    // }, 3000);
-    //
-    // setTimeout(function () {
-    //   chart.load({
-    //     columns: [['data', 0]]
-    // });
-    // }, 4000);
-    //
-    // setTimeout(function () {
-    //   chart.load({
-    //     columns: [['data', 80]]
-    //   });
-    // }, 5000);
 
     let barChart = c3.generate({
       bindto: '#barMatchChart',
@@ -105,8 +67,8 @@ class PercentChart extends React.Component {
       bar: {
         width:{ratio: 1}
       }
-
     })
+
   }
 
 
