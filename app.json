@@ -45,13 +45,25 @@
     },
     "REDIS_URL": {
       "required": true
+    },
+    "IBM_PERSONALITY_USER": {
+      "required": true
+    },
+    "IBM_PERSONALITY_PASS": {
+      "required": true
+    },
+    "IBM_TONE_USER": {
+      "required": true
+    },
+    "IBM_TONE_PASS": {
+      "required": true
     }
   },
   "formation": {
   },
   "addons": [
     "heroku-postgresql",
-    "redistogo"
+    "heroku-redis"
   ],
   "buildpacks": [
     {
