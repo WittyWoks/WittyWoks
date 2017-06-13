@@ -4,7 +4,7 @@ const router = express.Router();
 const appliedJobsController = require('../controllers').appliedJobs;
 const resumeController = require('../controllers').resume;
 const models = require('../../db/models');
-var Crawler = require("js-crawler");
+const Crawler = require("js-crawler");
 
 
 router.route('/ReturnJobsApplied')
@@ -18,7 +18,7 @@ router.route('/ReturnJobsApplied')
   //   appliedJobsController.getAll(req, res)
   //   // res.json('HALLO');
   // })
-module.exports = router;
+
 
 
 router.route('/urlParser')
@@ -70,3 +70,5 @@ router.route('/urlParser')
     })
 
   })
+
+  module.exports = router;
