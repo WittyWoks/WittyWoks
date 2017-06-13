@@ -28,7 +28,8 @@ class DashboardHome extends React.Component {
       top10: [],
       sortedChron: true,
       totalJobs: [],
-      pageNumber: ''
+      pageNumber: '',
+      radius: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,12 +69,16 @@ class DashboardHome extends React.Component {
   }
 
   handleSubmit(e) {
-    this.searchIndeed(this.state.value, this.state.location);
+    this.searchIndeed(this.state.value, this.state.location, this.state.radius);
     e.preventDefault();
   }
 
+<<<<<<< HEAD
   searchIndeed(search, location) {
     let route;
+=======
+  searchIndeed(search, location, radius) {
+>>>>>>> added feature search by radius
     if (location === undefined) {
       route = '/indeedTopTen';
     } else {
@@ -82,7 +87,8 @@ class DashboardHome extends React.Component {
 
     $.get(route, {
       search: search,
-      location: location
+      location: location, 
+      radius: radius
     })
     .done((data) => {
       //store new results in sessionStorage
@@ -176,6 +182,10 @@ class DashboardHome extends React.Component {
               <div className="md-form">
                   <input type="text" id="location-search" name="location" value={this.state.location} onChange={this.handleChange}/>
                   <label htmlFor="job-search"> Location </label>
+              </div>
+              <div className="md-form">
+                  <input type="text" id="radius-search" name="radius" value={this.state.radius} onChange={this.handleChange}/>
+                  <label htmlFor="job-search"> Radius </label>
               </div>
             </div>
             <div className="col-sm-2">
