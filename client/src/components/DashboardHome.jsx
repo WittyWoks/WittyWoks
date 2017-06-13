@@ -62,6 +62,7 @@ class DashboardHome extends React.Component {
     let name = e.target.name;
     this.state[name] = e.target.value;
     this.setState(this.state);
+    this.searchIndeed(this.state.value, this.state.location);
   }
 
   handleSubmit(e) {
@@ -70,10 +71,11 @@ class DashboardHome extends React.Component {
   }
 
   searchIndeed(search, location) {
+    let route;
     if (location === undefined) {
-      var route = '/indeedTopTen';
+      route = '/indeedTopTen';
     } else {
-      var route = '/indeed';
+      route = '/indeed';
     }
 
     $.get(route, {
@@ -99,12 +101,13 @@ class DashboardHome extends React.Component {
   }
   
   sortJobsByTime() {
+    let sortedJobs;
     if (this.state.sortedChron) {
-      var sortedJobs = this.state.totalJobs.sort((a, b) => {
+      sortedJobs = this.state.totalJobs.sort((a, b) => {
         return Date.parse(b.date) - Date.parse(a.date);
       });
     } else {
-      var sortedJobs = this.state.totalJobs.sort((a, b) => {
+      sortedJobs = this.state.totalJobs.sort((a, b) => {
         return Date.parse(a.date) - Date.parse(b.date);
       });
     }
@@ -149,7 +152,7 @@ class DashboardHome extends React.Component {
           </div>
         </div>
         
-        <p>&nbsp;</p> 
+        <br /> 
 
         {/* First row */}
         <div className="container">
@@ -157,10 +160,10 @@ class DashboardHome extends React.Component {
             <button onClick={ () => this.sortJobsByTime()}> Sort By Time </button>
           </div>
           <div className="row">
-            <button onClick= { () => { this.searchIndeed('top jobs in us'); }}> Top Jobs in US </button>
+            <button onClick= { () => { this.searchIndeed('top jobs in us'); }}> Top Jobs in US </button>
           </div>
-          <p>&nbsp;</p> 
-          <p>&nbsp;</p> 
+          <br />
+          <br />
         <form onSubmit={this.handleSubmit} className="wow fadeInDown" data-wow-delay="0.2s">
           <div className="row justify-content-center">
             <div className="col-sm-6">
