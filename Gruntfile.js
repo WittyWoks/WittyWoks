@@ -16,6 +16,7 @@ module.exports = function(grunt) {
     eslint: {
       target: ['Gruntfile.js', 'client/**/*.js', 'db/**/*.js', 'server/**/*.js']
     },
+
     mochaTest: {
       test: {
         options: {
@@ -26,15 +27,12 @@ module.exports = function(grunt) {
     },
 
     pgcreatedb: {
-       default: {
+      default: {
         connection: {
-          user: config.connection.user,
-          password: config.connection.password,
-          host: config.connection.host,
-          port: config.connection.port,
-          database: 'template1'
+          url: "postgres://zoczpxqqxhgzik:6b090316713e6233265128b3156db8d1ec909a88169e2ea74432979bca04ee05@ec2-107-21-108-204.compute-1.amazonaws.com:5432/defj5ol4mk2p36?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"
         },
-        name: config.connection.database,
+        name: 'defj5ol4mk2p36'
+      },
       staging: {
         connection: {
           url: config.connection.url,
@@ -48,7 +46,6 @@ module.exports = function(grunt) {
         name: config.connection.database,
       },
     }
-  }
 
 
 
