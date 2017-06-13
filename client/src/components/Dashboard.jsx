@@ -43,7 +43,7 @@ class Dashboard extends React.Component {
     .done(function(data) {
       if (data.email) {
         context.setState({
-          name: 'Welcome Back, '+data.display +'!',
+          name: `Welcome Back, ${data.display}!`,
           avatar: data.avatar,
           nameOnly: data.display,
           loggedIn: true
