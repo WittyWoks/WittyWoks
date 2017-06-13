@@ -317,7 +317,7 @@ class Drawers extends React.Component {
           </MenuItem>
             <div className="card text-center z-depth-2">
               <BigCalendar
-                style={{height: '420px', width:'300px'}}
+                style={{height: '420px', width: '300px'}}
                 events={this.state.gCalEvents}
                 default={['week', 'agenda']}
               />
