@@ -62,7 +62,9 @@ class DashboardHome extends React.Component {
     let name = e.target.name;
     this.state[name] = e.target.value;
     this.setState(this.state);
-    this.searchIndeed(this.state.value, this.state.location);
+    setTimeout(() => {
+      this.searchIndeed(this.state.value, this.state.location);
+    }, 300);
   }
 
   handleSubmit(e) {
