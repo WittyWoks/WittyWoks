@@ -64,7 +64,7 @@ class DashboardHome extends React.Component {
     this.state[name] = e.target.value;
     this.setState(this.state);
     setTimeout(() => {
-      this.searchIndeed(this.state.value, this.state.location);
+      this.searchIndeed(this.state.value, this.state.location, this.state.radius);
     }, 300);
   }
 
@@ -180,9 +180,16 @@ class DashboardHome extends React.Component {
                   <input type="text" id="location-search" name="location" value={this.state.location} onChange={this.handleChange}/>
                   <label htmlFor="job-search"> Location </label>
               </div>
-              <div className="md-form">
-                  <input type="text" id="radius-search" name="radius" value={this.state.radius} onChange={this.handleChange}/>
-                  <label htmlFor="job-search"> Radius </label>
+              <div className="md-form"> Radius 
+                <div> </div>
+                <select name="radius" value={this.state.selectValue} onChange={this.handleChange}>
+                  <option value="0">0</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                </select>  
               </div>
             </div>
             <div className="col-sm-2">
