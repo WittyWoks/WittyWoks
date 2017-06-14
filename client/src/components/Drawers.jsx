@@ -13,6 +13,8 @@ import Dialog from 'material-ui/Dialog';
 import axios from 'axios';
 import moment from 'moment';
 import BigCalendar from 'react-big-calendar';
+import Snackbar from 'material-ui/Snackbar';
+
 BigCalendar.momentLocalizer(moment);
 
 import calanderCss from 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -45,6 +47,19 @@ const styles = {
     background: '#303030',
     color: '#999',
     fontWeight: 300,
+  },
+  snack: {
+    top: 0,
+    bottom: 'fixed',
+    height: 50,
+    maxWidth: 350
+  },
+  Calendar: {
+    width: 340,
+    borderRadius: 10,
+    paddingTop: 5,
+    paddingBottom: 5
+
   }
 };
 
@@ -57,7 +72,10 @@ class Drawers extends React.Component {
       open: false,
       jobsAppliedTo: null,
       loaded: false,
-      gCalEvents: []
+      gCalEvents:[],
+      openSnack: false,
+      calEvent: 'No event this day'
+
     };
     this.handleTogglePrimary = this.handleTogglePrimary.bind(this);
     this.handleToggleSecondary = this.handleToggleSecondary.bind(this);
@@ -65,6 +83,7 @@ class Drawers extends React.Component {
     this.handleCloseSecondary = this.handleCloseSecondary.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
 
     this.fetchAllAppliedJob();
     this.getGcal();
@@ -160,6 +179,32 @@ class Drawers extends React.Component {
     });
   }
 
+
+  handleRequestClose() {
+    console.log
+    this.setState({
+      openSnack: false
+    });
+  }
+
+  handleTouchTap(item) {
+
+    let time = item.start.toString().slice(4,11);
+    let title;
+    if (item.title.length > 30) {
+      title = item.title.slice(0,20) + '...'
+    } else {
+      title = item.title;
+    }
+
+    this.setState({
+      openSnack: true,
+      calEvent: title +' @'+ time
+    });
+  }
+
+
+
   fetchAllAppliedJob() {
     let context = this;
     $.ajax({
@@ -228,7 +273,6 @@ class Drawers extends React.Component {
         data: 'you can add what ever random data you may want to use later',
       },
     ];
-
 
     return (
       <div>
@@ -314,13 +358,12 @@ class Drawers extends React.Component {
         <MenuItem onTouchTap={this.handleCloseSecondary}>
           <Subheader style={styles.subheader}>Calendar</Subheader>
           </MenuItem>
-            <div className="card text-center z-depth-2">
-
+            <div style={styles.Calendar} className="container-fluid white">
                         <BigCalendar
                         style={{height: '420px'}}
                         events={this.state.gCalEvents}
                         views={['month']}
-                        onSelectEvent={event => alert(event.title)}
+                        onSelectEvent={event => this.handleTouchTap(event)}
 
                         />
                 </div>
@@ -353,6 +396,13 @@ class Drawers extends React.Component {
                 </tbody>
               </table>
             }
+              <Snackbar
+                style={styles.snack}
+                open={this.state.openSnack}
+                message={this.state.calEvent}
+                autoHideDuration={3000}
+                onRequestClose={this.handleRequestClose}
+              />
               </div>
             </div>
           </div>

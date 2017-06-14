@@ -51,7 +51,7 @@ class SmartAnalysis extends React.Component {
       skills: [],
       consumptionPreferences: null,
       needs: null,
-      personality: null, 
+      personality: null,
       values: null,
       summary: null,
       likely: [],
@@ -62,7 +62,7 @@ class SmartAnalysis extends React.Component {
       value: 'a'
     };
     this.fetchAllAppliedJob();
-    this.analyzeResume();
+    // this.analyzeResume();
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -70,7 +70,7 @@ class SmartAnalysis extends React.Component {
     this.setState({
       value: value,
     });
-  } 
+  }
 
   fetchAllAppliedJob() {
     this.getResume();
@@ -197,7 +197,7 @@ class SmartAnalysis extends React.Component {
       .done((resume) => {
         axios.get('/analyzeResume', {
           params: {
-            url: resume.resume_url 
+            url: resume.resume_url
           }
         })
         .then((personality) => {
@@ -215,7 +215,7 @@ class SmartAnalysis extends React.Component {
 
           context.setState({
             needs: personality.data.personality.main.needs,
-            personality: personality.data.personality.main.personality, 
+            personality: personality.data.personality.main.personality,
             values: personality.data.personality.main.values,
             summary: personality.data.personality.summary,
             emotionTones: personality.data.tone.main['document_tone']['tone_categories'][0].tones,
@@ -239,7 +239,7 @@ class SmartAnalysis extends React.Component {
       <div>
         <div className="container-fluid">
           <div className="row">
-            
+
             <div className="col-sm-6">
               <Card>
                 <CardTitle title="Keyword Analysis" subtitle="Skills pulled from your resume" style={styles.cardTitle} titleColor="#000000" subtitleColor="#000000"/>
@@ -283,7 +283,7 @@ class SmartAnalysis extends React.Component {
                               <span><i className="fa fa-times-circle-o" aria-hidden="true" style={styles.cross}></i> {dislike}<br/></span>
                             );
                           })}
-                          
+
                         </div>
                         }
                       </div>
@@ -377,7 +377,7 @@ class SmartAnalysis extends React.Component {
                   </Tabs>
                 </div>
                 </CardMedia>
-                
+
                 <CardText>
 
                 </CardText>
