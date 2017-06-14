@@ -28,7 +28,8 @@ class DashboardHome extends React.Component {
       top10: [],
       sortedChron: true,
       totalJobs: [],
-      pageNumber: ''
+      pageNumber: '',
+      radius: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -63,16 +64,17 @@ class DashboardHome extends React.Component {
     this.state[name] = e.target.value;
     this.setState(this.state);
     setTimeout(() => {
-      this.searchIndeed(this.state.value, this.state.location);
+      this.searchIndeed(this.state.value, this.state.location, this.state.radius);
     }, 300);
   }
 
   handleSubmit(e) {
-    this.searchIndeed(this.state.value, this.state.location);
+    this.searchIndeed(this.state.value, this.state.location, this.state.radius);
     e.preventDefault();
   }
 
-  searchIndeed(search, location) {
+
+  searchIndeed(search, location, radius) {
     let route;
     if (location === undefined) {
       route = '/indeedTopTen';
@@ -82,7 +84,8 @@ class DashboardHome extends React.Component {
 
     $.get(route, {
       search: search,
-      location: location
+      location: location, 
+      radius: radius
     })
     .done((data) => {
       //store new results in sessionStorage
@@ -176,6 +179,17 @@ class DashboardHome extends React.Component {
               <div className="md-form">
                   <input type="text" id="location-search" name="location" value={this.state.location} onChange={this.handleChange}/>
                   <label htmlFor="job-search"> Location </label>
+              </div>
+              <div className="md-form"> Radius 
+                <div> </div>
+                <select name="radius" value={this.state.selectValue} onChange={this.handleChange}>
+                  <option value="0">0</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                </select>  
               </div>
             </div>
             <div className="col-sm-2">

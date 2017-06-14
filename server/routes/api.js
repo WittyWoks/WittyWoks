@@ -74,7 +74,7 @@ router.route('/glassDoor')
 
 router.route('/indeed')
   .get((req, res) => {
-    getIndeedJobs(req.query.search, req.query.location)
+    getIndeedJobs(req.query.search, req.query.location, req.query.radius)
       .then(jobs => {
         res.send(jobs);
       });
