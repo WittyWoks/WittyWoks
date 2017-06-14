@@ -55,8 +55,6 @@ class JobHistory extends React.Component {
           }
         })
         .then((jobs) => {
-
-          console.log('Success getting jobs!', jobs);
           let datesObj = {};
           let yAxis = ['Applied'];
           let xAxis = [];

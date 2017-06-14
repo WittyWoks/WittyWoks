@@ -26,6 +26,9 @@ const styles = {
   wrapper: {
     display: 'flex',
     flexWrap: 'wrap'
+  },
+  card: {
+    background: '#424242'
   }
 };
 
@@ -71,7 +74,6 @@ class Resume extends React.Component {
           skills: resume.skills.split(','),
           file: resume.resume_url
         });
-        console.log('Skillset:', context.state.skills);
       })
       .fail(function(err) {
         console.log('failed to GET', err);
@@ -141,7 +143,6 @@ class Resume extends React.Component {
             type: 'POST',
             data: context.state.file,
             success: function(data) { 
-              console.log('Upload succeeded');
               context.setState({skills: data});
             },
             xhr: () => {
@@ -183,7 +184,7 @@ class Resume extends React.Component {
           <div className="row">
             {/* First column */}
             <div className="col-md-4 wow fadeInLeft" data-wow-delay="0.2s">
-              <div className="card">
+              <div className="card" style={styles.card}>
                   <h3 className="card-header">Upload a résumé</h3>
                   <div className="card-block">
                       <p className="card-text">Upload your résumé and we'll automatically grab your relevant job skills.</p>

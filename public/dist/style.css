@@ -1,9 +1,42 @@
 /* *************************
+* DARK THEME PROPERTIES
+************************** */
+
+.primary-text {
+  color: rgba(255, 255, 255, 1);
+}
+
+.secondary-text {
+  color: rgba(255, 255, 255, 0.7); 
+}
+
+.disabled-text {
+  color: rgba(255, 255, 255, 0.5); 
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #FFFFFF;
+    margin: 1em 0;
+    padding: 0; 
+}
+
+a {
+  color: #1DE9B6;
+}
+
+a:hover {
+  color: #00BFA5;
+}
+
+/* *************************
 * ELEMENT SPECIFIC PROPERTIES
 ************************** */
 
 body {
-  background: #F3F3F3;
+  background: #303030;
 }
 
 canvas { /*PDF Display*/
@@ -30,7 +63,7 @@ li {
 }
 
 .transition.fixed-top.opaque {
-  background-color: rgb(78, 84, 108);
+  background-color: rgb(33, 33, 33);
   border: none;
   transition: background-color 1s ease 0s;
 }
@@ -69,6 +102,38 @@ li {
   padding-top: 40px;
 }
 
+#contact {
+  padding-bottom: 100px;
+}
+
+.img-circular{
+ width: 200px;
+ height: 200px;
+ background-image: url('http://strawberry-fest.org/wp-content/uploads/2012/01/Coca-Cola-logo.jpg');
+ background-size: cover;
+ display: block;
+ border-top-left-radius: 100px;
+ -webkit-border-top-left-radius: 100px;
+ -moz-border-top-left-radius: 100px;
+ border-bottom-right-radius: 100px;
+ -webkit-border-bottom-right-radius: 100px;
+ -moz-border-bottom-right-radius: 100px;
+}
+
+.avatar {
+  position: relative;
+  top: 10px;
+  -webkit-box-shadow: 0 0 0 2px #fff, 0 0 0 3px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 0 0 2px #fff, 0 0 0 3px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+          box-shadow: 0 0 0 2px #fff, 0 0 0 3px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+}
+
+.footer {
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #212121;
+}
+
 /* May need this for iphone support
 .content-home {
   content:"";
@@ -97,12 +162,15 @@ li {
   box-shadow: none;
 }
 
+.page-footer {
+  margin-top: 60px;
+}
 /* *************************
 * MOBILE SPECIFIC PARAMS
 ************************** */
 @media only screen and (max-width: 768px) {
   .navbar {
-      background-color: #4E546C !important;
+      background-color: #212121 !important;
   }
   #job-search{
     font-size: 1.5em;
@@ -119,5 +187,6 @@ li {
 * CSS STYLING UTILITIES
 ************************** */
 .shade {
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.2);
 }
+

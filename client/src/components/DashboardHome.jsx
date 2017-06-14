@@ -43,7 +43,6 @@ class DashboardHome extends React.Component {
       let pageNumberFromSessions = sessionStorage.getItem('pageNumber');
       jobsFromSessions = JSON.parse(jobsFromSessions);
 
-      console.log('sessions happening');
       let filteredJobs = jobsFromSessions.filter((job, i) => {
         return i > pageNumberFromSessions * 10 && i < (pageNumberFromSessions + 1) * 10;
       });

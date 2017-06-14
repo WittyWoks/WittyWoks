@@ -89,7 +89,6 @@ class SmartAnalysis extends React.Component {
         })
         .then((jobs) => {
 
-          // console.log('Success getting jobs!', jobs);
           context.setState({
             allData: jobs.data
           });
@@ -111,8 +110,6 @@ class SmartAnalysis extends React.Component {
             xAxis.push(key);
           }
 
-          // console.log(xAxis);
-          // console.log(yAxis);
           context.setState({
             barChartDates: xAxis,
             barChartJobsApplied: yAxis,
@@ -204,7 +201,6 @@ class SmartAnalysis extends React.Component {
           }
         })
         .then((personality) => {
-          console.log('PERSONALITY', personality);
           let consumption = personality.data.personality.main.consumption_preferences;
           for (let i = 0; i < consumption.length; i++) {
             let category = consumption[i].consumption_preference_category_id;
@@ -260,6 +256,7 @@ class SmartAnalysis extends React.Component {
               <Card>
                 <CardTitle title="IBM Watson Analysis" subtitle="Smart analysis based on your resume" style={styles.cardTitle} titleColor="#000000" subtitleColor="#000000"/>
                 <CardMedia>
+                <div>
                   <Tabs
                     value={this.state.value}
                     onChange={this.handleChange}
@@ -378,6 +375,7 @@ class SmartAnalysis extends React.Component {
                       </div>
                     </Tab>
                   </Tabs>
+                </div>
                 </CardMedia>
                 
                 <CardText>
