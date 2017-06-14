@@ -43,7 +43,6 @@ class CompanyInfo extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     this.getResume();
     this.searchGlassDoor(this.props.location.state.company);
   }
@@ -70,15 +69,15 @@ class CompanyInfo extends React.Component {
         data: {resume_id: user.resume_id},
       })
       .done((text) => {
-          context.setState({
-            skills: text.skills.split(','),
-          });
-          this.MatchRating();
+        context.setState({
+          skills: text.skills.split(','),
+        });
+        this.MatchRating();
       })
       .fail(function(err) {
         console.log('failed to GET', err);
       });
-    })
+    });
   }
 
 
@@ -97,13 +96,13 @@ class CompanyInfo extends React.Component {
       data = JSON.parse(data);
       context.setState({
         wordMatch: data
-      })
-      if(context.state.wordMatch !== null) {
+      });
+      if (context.state.wordMatch !== null) {
         context.setState({
           progressChart: true
-        })
+        });
       }
-     })
+    })
     .fail(err => {
       console.error(err);
     });
@@ -149,7 +148,7 @@ class CompanyInfo extends React.Component {
           jobData: JSON.stringify(job)
         })
         .then(() => {
-          console.log('Success within adding this job!');
+          // console.log('Success within adding this job!');
         })
         .catch(err => {
           console.error('Error occured getting jobs', err);

@@ -14,8 +14,8 @@ import $ from 'jquery';
 const styles = {
   cardHero: {
     marginBottom: '30px',
-    background: '#E8E8E8',
-    color: '#434A54'
+    background: '#212121',
+    // color: '#434A54'
   }
 };
 
@@ -48,7 +48,6 @@ class Dashboard extends React.Component {
           nameOnly: data.display,
           loggedIn: true
         });
-        console.log('User data:', data);
       }
     })
     .fail(function(err) {
@@ -66,7 +65,7 @@ class Dashboard extends React.Component {
           <Drawers avatar={this.state.avatar} nameOnly={this.state.nameOnly} loggedIn={this.state.loggedIn} />
 
           {/* First row */}
-          <div className="card card-block" style={styles.cardHero}>
+          <div className="card card-block" style={styles.cardHero} className="primary-text">
             <div className="container">
               <h2 className="card-title">{this.state.name}</h2>
             </div>

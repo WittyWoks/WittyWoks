@@ -22,13 +22,14 @@ import calanderCss from 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const styles = {
   drawer: {
-    background: '#33414E'
+    background: '#212121'
   },
   overlay: {
     // background: 'none'
   },
   appBar: {
-    background: '#33414E'
+    background: '#212121',
+    // color: '#1DE9B6'
   },
   menuItem: {
     color: '#FFFFFF',
@@ -41,7 +42,7 @@ const styles = {
   user: {
     padding: '15px',
     marginLeft: 0,
-    background: '#2D3945',
+    background: '#303030',
     color: '#999',
     fontWeight: 300,
   }
@@ -118,7 +119,7 @@ class Drawers extends React.Component {
       });
     })
     .catch(err => {
-      console.log('did not get gcal');
+      console.log('Error, did not get GCal');
     });
   }
 
@@ -174,7 +175,6 @@ class Drawers extends React.Component {
           }
         })
         .then((jobs) => {
-          console.log('Success getting jobs! - inside drawer', jobs);
           let datesObj = {};
           let yAxis = ['Applied'];
           let xAxis = [];
@@ -193,8 +193,6 @@ class Drawers extends React.Component {
             xAxis.push(key);
           }
 
-          // console.log(xAxis);
-          // console.log(yAxis);
           context.setState({
             barChartDates: xAxis,
             barChartJobsApplied: yAxis,
@@ -238,6 +236,7 @@ class Drawers extends React.Component {
         {/* Navigation bar */}
         <AppBar
           title="BestFit"
+          titleStyle={styles.appBar}
           iconElementRight={<FlatButton label="Activity" />}
           onLeftIconButtonTouchTap={this.handleTogglePrimary}
           onRightIconButtonTouchTap={this.handleToggleSecondary}

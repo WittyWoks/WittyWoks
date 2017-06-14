@@ -23,7 +23,6 @@ class JobList extends React.Component {
       search: search
     })
     .done((data) => {
-      console.log('Job DATA', data);      
       this.setState({
         jobs: data
       });
