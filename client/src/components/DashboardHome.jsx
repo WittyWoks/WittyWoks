@@ -10,11 +10,12 @@ const styles = {
     color: 'white'
   },
   cardHeader: {
-    backgroundColor: '#E34724',
-    padding: '10px'
+    backgroundColor: '#1DE9B6',
+  
+    // padding: '10px'
   },
   cardBody: {
-    backgroundColor: '#F5F5F5'
+    backgroundColor: '#303030'
   }
 };
 
@@ -206,8 +207,8 @@ class DashboardHome extends React.Component {
             <div className="row justify-content-center">
               <div className="col-sm-8">
                 <div className="card">
-                  <div style={styles.cardHeader}>
-                      <h4 className="card-title text-center" style={styles.jobs}>Jobs</h4>
+                  <div style={styles.cardHeader} className="text-center primary-text card-header" >
+                      Jobs
                   </div>
                   <div className="card-block" style={styles.cardBody}>
                       <div className="list-group">

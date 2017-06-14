@@ -170,9 +170,9 @@ li {
 ************************** */
 @media only screen and (max-width: 768px) {
   .navbar {
-      background-color: #212121 !important;
+    background-color: #212121 !important;
   }
-  #job-search{
+  #job-search {
     font-size: 1.5em;
   }
   .card {
@@ -190,3 +190,15 @@ li {
   background: rgba(0,0,0,0.2);
 }
 
+
+.card-bg {
+  background-color: #424242
+}
+
+.card-bg:hover {
+  background-color: #00BFA5;
+}
+
+.card-header {
+  font-size: 200%;
+}
