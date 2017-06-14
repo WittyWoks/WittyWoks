@@ -63,7 +63,7 @@ class HomePage extends React.Component {
                 <div className="card-block">
                   <h4 className="card-title primary-text">Easy job searching</h4>
                   <hr/>
-                  <p className="card-text secondary-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p className="card-text secondary-text">Easily and quickly search for amazing job opportunities that interest you in your desired location.</p>
                 </div>
               </div>
             </div>
@@ -73,7 +73,7 @@ class HomePage extends React.Component {
                 <div className="card-block text-center" style={styles.card}>
                   <h4 className="card-title primary-text">Resume insight</h4>
                   <hr/>
-                  <p className="card-text secondary-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p className="card-text secondary-text">Upload your resume and let IBM Watson provide you with objective personality and tone feedback.</p>
                 </div>
               </div>
             </div>
@@ -83,7 +83,7 @@ class HomePage extends React.Component {
                 <div className="card-block text-center" style={styles.card}>
                   <h4 className="card-title primary-text">Skills metrics</h4>
                   <hr/>
-                  <p className="card-text secondary-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p className="card-text secondary-text">Quickly analyze how your skillset matches up with the skills required for the job you're interested in.</p>
                 </div>
               </div>
             </div>
@@ -93,7 +93,7 @@ class HomePage extends React.Component {
                 <div className="card-block text-center" style={styles.card}>
                   <h4 className="card-title primary-text">Application tracker</h4>
                   <hr/>
-                  <p className="card-text secondary-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p className="card-text secondary-text">Keep an eye on how many job's you've applied to each day. We'll even keep track of the jobs you've applied to.</p>
                 </div>
               </div>
             </div>
