@@ -41,7 +41,11 @@ class PercentChart extends React.Component {
       },
       size: {
         height: 180
+      },
+      title: {
+        text: 'Skills Match'
       }
+
     });
   
     setTimeout(function () {
@@ -57,7 +61,6 @@ class PercentChart extends React.Component {
     return (
       <div>
       <div id="percentChart"></div>
-      {/*<div id="barMatchChart"></div>*/}
       </div>
     );
   }
