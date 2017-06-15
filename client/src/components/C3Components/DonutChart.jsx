@@ -30,6 +30,7 @@ class DonutChart extends React.Component {
       }
     });
 
+
     setTimeout(function () {
       chart.load({
         columns: secondGroup
@@ -41,7 +42,10 @@ class DonutChart extends React.Component {
         ids: wordCountArray
       });
     }, 4500);
+
+
   }
+
 
   render() {
     return (

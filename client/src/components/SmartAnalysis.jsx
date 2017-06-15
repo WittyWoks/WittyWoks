@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import DonutChart from './C3Components/DonutChart.jsx';
+import KeywordBarChart from './C3Components/KeywordBarChart.jsx';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import LinearProgress from 'material-ui/LinearProgress';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
@@ -42,6 +43,7 @@ class SmartAnalysis extends React.Component {
     super(props);
     this.state = {
       loaded: false,
+      loaded0: false,
       barChartDates: null,
       barChartJobsApplied: null,
       jobsAppliedTo: null,
@@ -59,17 +61,31 @@ class SmartAnalysis extends React.Component {
       emotionTones: null,
       languageTones: null,
       socialTones: null,
-      value: 'a'
+      value: 'a',
+      value0: 'd',
+      keywordBar: false
     };
     this.fetchAllAppliedJob();
     // this.analyzeResume();
     this.handleChange = this.handleChange.bind(this);
+    this.handleChange0 = this.handleChange0.bind(this);
   }
 
   handleChange(value) {
     this.setState({
       value: value,
     });
+  }
+
+  handleChange0(value) {
+    this.setState({
+      value0: value,
+    });
+  }
+  keywordRender() {
+    this.setState({
+      keywordBar: true
+    })
   }
 
   fetchAllAppliedJob() {
@@ -118,6 +134,7 @@ class SmartAnalysis extends React.Component {
 
 
           this.urlParser(context.state.allData, this.state.skills);
+
         })
         .catch(err => {
           console.error('Error occured getting jobs', err);
@@ -244,11 +261,52 @@ class SmartAnalysis extends React.Component {
               <Card>
                 <CardTitle title="Keyword Analysis" subtitle="Skills pulled from your resume" style={styles.cardTitle} titleColor="#000000" subtitleColor="#000000"/>
                 <CardMedia>
+                <div>
+                  <Tabs
+                    value={this.state.value0}
+                    onChange={this.handleChange0}
+                    tabItemContainerStyle={styles.tab}
+                    inkBarStyle={styles.inkBar}
+                  >
+                    <Tab label="Summary" value="d">
+                      <div className="container-fluid">
+                        <h4 style={styles.headline}>Keywords tracker by Percentage</h4>
+                        {this.state.donutChart?
+
+                          <DonutChart ranking={this.state.keywordsRanking} />
+                        :
+                        <div>
+                        <p>Loading...</p>
+                        </div>
+                        }
+                      </div>
+                    </Tab>
+                    <Tab label="Detailed" value="e" onClick={this.keywordRender.bind(this)}>
+                      <div className="container-fluid">
+                        <h4 style={styles.headline}>Keywords Tracker by Count</h4>
+                        {this.state.donutChart && this.state.keywordBar?
+                          <KeywordBarChart ranking={this.state.keywordsRanking}/>
+                        :
+                        <p>Loading...</p>
+                        }
+                      </div>
+                    </Tab>
+                    <Tab label="Stats" value="f">
+                      <div className="container-fluid">
+                        <h4 style={styles.headline}>Data Details</h4>
+                        {this.state.donutChart === true ?
+                        <DonutChart ranking={this.state.keywordsRanking} />
+                        :
+                        <p>Loading...</p>
+
+
+
+                        }
+                      </div>
+                    </Tab>
+                  </Tabs>
+                </div>
                 </CardMedia>
-                <CardText>
-                  <h4>Keywords tracker</h4>
-                  {this.state.donutChart ? <DonutChart ranking={this.state.keywordsRanking} /> : null}
-                </CardText>
               </Card>
             </div>
 
