@@ -90,11 +90,9 @@ router.route('/analyzeResume')
       //     res.json(payload);
       //   }
       // });
-      
+
     });
 
   });
 
 module.exports = router;
-
-
