@@ -40,6 +40,7 @@ const styles = {
   subheader: {
     color: '#999',
     fontWeight: 300
+
   },
   user: {
     padding: '15px',
@@ -56,9 +57,9 @@ const styles = {
   },
   Calendar: {
     width: 340,
-    borderRadius: 10,
     paddingTop: 5,
-    paddingBottom: 5
+    paddingBottom: 5,
+    background: '#676767'
 
   }
 };
@@ -358,9 +359,9 @@ class Drawers extends React.Component {
         <MenuItem onTouchTap={this.handleCloseSecondary}>
           <Subheader style={styles.subheader}>Calendar</Subheader>
           </MenuItem>
-            <div style={styles.Calendar} className="container-fluid white">
+            <div style={styles.Calendar} className="card-block shade">
                         <BigCalendar
-                        style={{height: '420px'}}
+                        style={{height: '420px', color: 'white'}}
                         events={this.state.gCalEvents}
                         views={['month']}
                         onSelectEvent={event => this.handleTouchTap(event)}
@@ -368,7 +369,7 @@ class Drawers extends React.Component {
                         />
                 </div>
           <Subheader style={styles.subheader}>Recently Applied</Subheader>
-          <div className="container-fluid">
+          <div className="ccard-block shade">
             <div className="row">
               <div className="col-sm-12">
             {this.state.loaded === false ?
