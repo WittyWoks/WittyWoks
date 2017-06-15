@@ -31,6 +31,10 @@ a:hover {
   color: #00BFA5;
 }
 
+img {
+  /*border: 1px solid #000000;*/
+}
+
 /* *************************
 * ELEMENT SPECIFIC PROPERTIES
 ************************** */
@@ -165,6 +169,17 @@ li {
 .page-footer {
   margin-top: 60px;
 }
+
+/* *************************
+* JOBLIST ENTRY
+************************** */
+#job-ratings li {
+  margin-left: 0px !important;
+}
+
+.equal-height {
+  height: 30vh;
+}
 /* *************************
 * MOBILE SPECIFIC PARAMS
 ************************** */
@@ -187,7 +202,7 @@ li {
 * CSS STYLING UTILITIES
 ************************** */
 .shade {
-  background: rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.2);
 }
 
 
