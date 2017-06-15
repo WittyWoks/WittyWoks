@@ -24,7 +24,7 @@ hr {
 }
 
 a {
-  color: #1DE9B6;
+  color: green;
 }
 
 a:hover {
@@ -158,9 +158,6 @@ li {
 * DASHBOARD HOME
 ************************** */
 
-#job-search{
-  font-size: 2.5em;
-}
 
 .list-group {
   box-shadow: none;
@@ -217,3 +214,18 @@ li {
 .card-header {
   font-size: 200%;
 }
+
+.md-form label.active {
+  transform: translateY(-90%),
+  border-bottom: '1 px solid green'
+} 
+
+.active {
+  color: #1DE9B6, 
+  border-bottom: '1 px solid green'
+}
+
+.rounded {
+  border-radius: 25px;
+}
+
