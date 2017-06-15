@@ -25,7 +25,7 @@ class PercentChart extends React.Component {
     let chart = c3.generate({
       bindto: '#percentChart',
       data: {
-        columns: [['Matching Keywords', total]],
+        columns: [['Matching Keywords', 0]],
         type: 'gauge',
       },
       gauge: {
@@ -43,34 +43,21 @@ class PercentChart extends React.Component {
         height: 180
       }
     });
-
-    let barChart = c3.generate({
-      bindto: '#barMatchChart',
-      data: {
-        columns: keywordExist,
-        type: 'bar'
-      },
-      axis: {
-        x: {
-          show: false
-        },
-        y: {
-          show: false
-        }
-      },
-      bar: {
-        width: {ratio: 1}
-      }
-    });
-
+  
+    setTimeout(function () {
+      chart.load({
+        columns: [['Matching Keywords', total]]
+      });
+    }, 1000);
   }
+
 
 
   render() {
     return (
       <div>
       <div id="percentChart"></div>
-      <div id="barMatchChart"></div>
+      {/*<div id="barMatchChart"></div>*/}
       </div>
     );
   }

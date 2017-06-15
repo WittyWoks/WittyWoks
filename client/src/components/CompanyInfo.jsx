@@ -3,9 +3,8 @@ import $ from 'jquery';
 import axios from 'axios';
 import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
-// import thumbs from '../../../public/assets/icons8-Thumb Up-48.png';
 import PercentChart from './C3Components/PercentChart.jsx';
-
+import Chip from 'material-ui/Chip';
 
 const styles = {
   jobs: {
@@ -15,10 +14,17 @@ const styles = {
     backgroundColor: '#E34724',
     padding: '10px'
   },
-  cardBody: {
-    backgroundColor: '#F5F5F5'
+  card: {
+    backgroundColor: '#424242'
+  },
+  chip: {
+    margin: 4
+  },
+  wrapper: {
+    display: 'flex',
+    flexWrap: 'wrap'
   }
-};
+};  
 
 class CompanyInfo extends React.Component {
   constructor(props) {
@@ -30,7 +36,9 @@ class CompanyInfo extends React.Component {
       openSnack: false,
       skills: [],
       wordMatch: null,
-      progressChart: false
+      progressChart: false,
+      matchingSkills: [],
+      loaded: false
     };
 
     this.searchGlassDoor = this.searchGlassDoor.bind(this);
@@ -80,7 +88,6 @@ class CompanyInfo extends React.Component {
     });
   }
 
-
   MatchRating() {
     let context = this;
     $.ajax({
@@ -95,13 +102,21 @@ class CompanyInfo extends React.Component {
     .done((data) => {
       data = JSON.parse(data);
       context.setState({
-        wordMatch: data
+        wordMatch: data,
       });
       if (context.state.wordMatch !== null) {
         context.setState({
           progressChart: true
         });
       }
+      for (let key in context.state.wordMatch) {
+        if (context.state.wordMatch[key] > 0) {
+          context.state.matchingSkills.push(key);
+        }
+      }
+      context.setState({
+        loaded: true,
+      });
     })
     .fail(err => {
       console.error(err);
@@ -176,6 +191,15 @@ class CompanyInfo extends React.Component {
     });
   }
 
+  // Needed to render skills chips (Material-UI component)
+  renderChip(data) {
+    return (
+      <Chip style={styles.chip} key={Math.random() * 1000}>
+        {data}
+      </Chip>
+    );
+  }
+
   render() {
 
     const jobInfo = this.props.location.state;
@@ -186,80 +210,65 @@ class CompanyInfo extends React.Component {
 
     return (
       <div className="container wow fadeIn" data-wow-delay="0.2s">
+        
+        {/*
         <div className="card">
-          <div style={styles.cardHeader}>
-            <h4 className="card-title text-center" style={styles.jobs}>Company Info</h4>
-            <button onClick={this.goBack}>Go Back</button>
-          </div>
-          <br/>
-          {/* Single Job Listing */}
-          <div className="row justify-content-center">
-            {this.state.jobs.length ? this.state.jobs.map((job, i) => {
-              if (i === 0) {
-                return <div className="col-sm-4 col-sm-offset-5" key={Math.random() * 1000}>
-                  <div className="card">
-                    <img src={job.squareLogo} className="image-fluid card-img-top" alt="Image Not Found" />
-                  </div>
-                  <div className="card-block text-center">
-                    <h2 className="media-heading">{job.name}</h2>
-                    <h4>{jobInfo.jobtitle}</h4>
-                    <p>{jobInfo.snippet}</p>
-                    <a className="btn btn-warning" role="button" href={`${jobInfo.url}`} target="blank">Apply Now!</a>
-                  </div>
-
-                  {/* Company Ratings */}
-                  <div className="row">
-                    <div className="col-sm-4">Overall Rating: <strong>{job.overallRating || 'N/A'}</strong></div>
-                    <div className="col-sm-4">Work Life Balance: <strong>{job.workLifeBalanceRating || 'N/A'}</strong></div>
-                    <div className="col-sm-4">Culture and Values: <strong>{job.cultureAndValuesRating || 'N/A'}</strong></div>
-                  </div>
-                  {this.state.progressChart ? <PercentChart data ={this.state.wordMatch} /> : null}
-                </div>;
-              }
-            }) : null}
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-sm">
-              { this.props.loggedIn === false ?
-                <div>
-                  <p>Did you apply to this job?</p>
-                  <img src="https://maxcdn.icons8.com/Android_L/PNG/512/Hands/thumb_up-512.png"
-                    alt="Thumb"
-                    width="10%"
-                    height="10%"
-                    onClick={this.handleOpen}
-                    />
-                </div>
-              :
-                <div>
-                  <p>Did you apply to this job?</p>
-                  <img src="https://maxcdn.icons8.com/Android_L/PNG/512/Hands/thumb_up-512.png"
-                    alt="Thumb"
-                    width="10%"
-                    height="10%"
-                    onClick={this.appliedJob}
-                    onTouchTap={this.handleTouchTap}
-                    />
-                </div>
-              }
-              <Dialog
-                title="Log in to continue"
-                actions={actions}
-                modal={false}
-                open={this.state.open}
-                onRequestClose={this.handleClose}
-              >
-                Please log in to use this feature.
-              </Dialog>
-              <Snackbar
-                open={this.state.openSnack}
-                message="Yay! You've applied to this job!"
-                autoHideDuration={4000}
-                onRequestClose={this.handleRequestClose}
-              />
+          <div className="row">
+            <div className="col-sm-6">
+              <img className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%282%29.jpg" alt="Card image cap" />
+            </div>
+            <div className="col-sm-6">
+              <h3>Testing</h3>
             </div>
           </div>
+            <div className="card-block">
+              <h4 className="card-title">Card title</h4>
+              <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" className="btn btn-primary">Button</a>
+            </div>
         </div>
+        */}
+          {this.state.jobs.length && this.state.loaded === true ? this.state.jobs.map((job, i) => {
+            if (i === 0) {
+              return (
+                <div className="card-group">
+                    <div className="card" style={styles.card}>
+                        <div className="equal-height shade">
+                          <img className="img-fluid mx-auto d-block z-depth-3" src={job.squareLogo} alt={job.name} size="125"/>
+                        </div>
+                        <div className="card-block">
+                            <h4 className="card-title primary-text">{job.name}</h4>
+                            <h6 className="card-text secondary-text">{jobInfo.jobtitle}</h6>
+                            <p className="card-text secondary-text">{jobInfo.snippet}</p>
+                            <a className="btn btn-primary" role="button" href={`${jobInfo.url}`} target="blank">Apply Now!</a>
+                            <a className="btn btn-default"><i className="fa fa-thumbs-up left"></i> Applied!</a>
+                            <p className="card-text disabled-text"><small className="text-muted">Posted {jobInfo.formattedRelativeTime}</small></p>
+                        </div>
+                    </div>
+                    <div className="card" style={styles.card}>
+                      <div className="equal-height shade">
+                        {this.state.progressChart ? <PercentChart data ={this.state.wordMatch} /> : null}
+                      </div>
+                        <div className="card-block">
+                            <h4 className="card-title primary-text">Card title</h4>
+                            <p className="card-text secondary-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                        </div>
+                    </div>
+                    <div className="card" style={styles.card}>
+                      <div  className="equal-height shade">
+                          <div style={styles.wrapper}>
+                            {this.state.matchingSkills.map(this.renderChip, this)}
+                          </div>
+                          </div>
+                        <div className="card-block">
+                            <h4 className="card-title primary-text">Card title</h4>
+                            <p className="card-text secondary-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                        </div>
+                    </div>
+                </div>
+              );
+            }
+          }) : null}
       </div>
     );
   }
