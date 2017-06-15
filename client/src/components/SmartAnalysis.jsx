@@ -28,14 +28,34 @@ const styles = {
     background: '#607d8b'
   },
   tab: {
-    background: '#607d8b'
+    background: '#676767',
+    color: 'rgba(255, 255, 255, 0.7)',
+    bottom:0
   },
   inkBar: {
-    background: '#d500f9'
+    background: '#1DE9B6',
+    bottom:0
   },
   tabBody: {
     background: '#F5F5F6'
-  }
+  },
+    jobs: {
+      color: 'white'
+    },
+    cardHeader: {
+      backgroundColor: '#424242',
+      padding: '10px'
+    },
+    card: {
+      backgroundColor: '#424242'
+    },
+    chip: {
+      margin: 4
+    },
+    wrapper: {
+      display: 'flex',
+      flexWrap: 'wrap'
+    },
 };
 
 class SmartAnalysis extends React.Component {
@@ -82,6 +102,7 @@ class SmartAnalysis extends React.Component {
       value0: value,
     });
   }
+
   keywordRender() {
     this.setState({
       keywordBar: true
@@ -212,6 +233,7 @@ class SmartAnalysis extends React.Component {
         data: {resume_id: user.resume_id},
       })
       .done((resume) => {
+
         axios.get('/analyzeResume', {
           params: {
             url: resume.resume_url
@@ -253,68 +275,37 @@ class SmartAnalysis extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="container-fluid">
-          <div className="row">
-
-            <div className="col-sm-6">
-              <Card>
-                <CardTitle title="Keyword Analysis" subtitle="Skills pulled from your resume" style={styles.cardTitle} titleColor="#000000" subtitleColor="#000000"/>
-                <CardMedia>
-                <div>
-                  <Tabs
-                    value={this.state.value0}
-                    onChange={this.handleChange0}
-                    tabItemContainerStyle={styles.tab}
-                    inkBarStyle={styles.inkBar}
-                  >
-                    <Tab label="Summary" value="d">
-                      <div className="container-fluid">
-                        <h4 style={styles.headline}>Keywords tracker by Percentage</h4>
-                        {this.state.donutChart?
-
-                          <DonutChart ranking={this.state.keywordsRanking} />
-                        :
-                        <div>
-                        <p>Loading...</p>
-                        </div>
-                        }
-                      </div>
-                    </Tab>
-                    <Tab label="Detailed" value="e" onClick={this.keywordRender.bind(this)}>
-                      <div className="container-fluid">
-                        <h4 style={styles.headline}>Keywords Tracker by Count</h4>
-                        {this.state.donutChart && this.state.keywordBar?
-                          <KeywordBarChart ranking={this.state.keywordsRanking}/>
-                        :
-                        <p>Loading...</p>
-                        }
-                      </div>
-                    </Tab>
-                    <Tab label="Stats" value="f">
-                      <div className="container-fluid">
-                        <h4 style={styles.headline}>Data Details</h4>
-                        {this.state.donutChart === true ?
-                        <DonutChart ranking={this.state.keywordsRanking} />
-                        :
-                        <p>Loading...</p>
-
-
-
-                        }
-                      </div>
-                    </Tab>
-                  </Tabs>
-                </div>
-                </CardMedia>
-              </Card>
+      <div className="container wow fadeIn" data-wow-delay="0.2s">
+        <div className="card-group">
+          <div className="card" style={styles.card}>
+            <div className="col-height col-md-auto shade">
+              <Tabs
+                value={this.state.value0}
+                onChange={this.handleChange0}
+                tabItemContainerStyle={styles.tab}
+                inkBarStyle={styles.inkBar}
+              >
+               <Tab label="Summary" value="d">
+                 {this.state.donutChart ? <DonutChart ranking={this.state.keywordsRanking} /> : <p>Loading...</p>}
+               </Tab>
+                <Tab label="Detailed" value="e" onClick={this.keywordRender.bind(this)}>
+                  <h4 style={styles.headline}>Keywords Tracker by Count</h4>
+                    {this.state.donutChart && this.state.keywordBar ? <KeywordBarChart ranking={this.state.keywordsRanking}/> : <p>Loading...</p>}
+                </Tab>
+                  <Tab label="Stats" value="f">
+                    <h4 style={styles.headline}>Data Details</h4>
+                    {this.state.donutChart === true ? <DonutChart ranking={this.state.keywordsRanking} /> : <p>Loading...</p> }
+                  </Tab>
+              </Tabs>
             </div>
-
-            <div className="col-sm-6">
-              <Card>
-                <CardTitle title="IBM Watson Analysis" subtitle="Smart analysis based on your resume" style={styles.cardTitle} titleColor="#000000" subtitleColor="#000000"/>
-                <CardMedia>
-                <div>
+              <div className="card-block">
+                <h4 className="card-title primary-text">Keyword Analysis</h4>
+              </div>
+          </div>
+          </div>
+                <div className="card-group">
+                  <div className="card" style={styles.card}>
+                    <div className="equal-height shade">
                   <Tabs
                     value={this.state.value}
                     onChange={this.handleChange}
@@ -433,17 +424,17 @@ class SmartAnalysis extends React.Component {
                       </div>
                     </Tab>
                   </Tabs>
-                </div>
-                </CardMedia>
 
-                <CardText>
 
-                </CardText>
-              </Card>
-            </div>
+                    </div>
 
+                  <div className="card-block">
+                    <h4 className="card-title primary-text">IBM Watson Analysis</h4>
+                    <h6 className="card-text secondary-text">Smart analysis based on your resume</h6>
+                  </div>
+                  </div>
           </div>
-        </div>
+
       </div>
     );
   }
