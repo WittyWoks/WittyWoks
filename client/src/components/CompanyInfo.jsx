@@ -7,13 +7,6 @@ import PercentChart from './C3Components/PercentChart.jsx';
 import Chip from 'material-ui/Chip';
 
 const styles = {
-  jobs: {
-    color: 'white'
-  },
-  cardHeader: {
-    backgroundColor: '#E34724',
-    padding: '10px'
-  },
   card: {
     backgroundColor: '#424242'
   },
@@ -48,6 +41,7 @@ class CompanyInfo extends React.Component {
     this.goBack = this.goBack.bind(this);
     this.handleTouchTap = this.handleTouchTap.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
+    console.log('in constructor', this.props.location.state);
   }
 
   componentDidMount() {
@@ -137,6 +131,7 @@ class CompanyInfo extends React.Component {
           jobs: data
         });
       }
+      console.log('Arrays are here', data);
     })
     .fail(err => {
       throw err;
@@ -210,65 +205,74 @@ class CompanyInfo extends React.Component {
 
     return (
       <div className="container wow fadeIn" data-wow-delay="0.2s">
-        
-        {/*
-        <div className="card">
-          <div className="row">
-            <div className="col-sm-6">
-              <img className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%282%29.jpg" alt="Card image cap" />
-            </div>
-            <div className="col-sm-6">
-              <h3>Testing</h3>
-            </div>
-          </div>
-            <div className="card-block">
-              <h4 className="card-title">Card title</h4>
-              <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" className="btn btn-primary">Button</a>
-            </div>
-        </div>
-        */}
-          {this.state.jobs.length && this.state.loaded === true ? this.state.jobs.map((job, i) => {
-            if (i === 0) {
-              return (
-                <div className="card-group">
-                    <div className="card" style={styles.card}>
-                        <div className="equal-height shade">
-                          <img className="img-fluid mx-auto d-block z-depth-3" src={job.squareLogo} alt={job.name} size="125"/>
-                        </div>
-                        <div className="card-block">
-                            <h4 className="card-title primary-text">{job.name}</h4>
-                            <h6 className="card-text secondary-text">{jobInfo.jobtitle}</h6>
-                            <p className="card-text secondary-text">{jobInfo.snippet}</p>
-                            <a className="btn btn-primary" role="button" href={`${jobInfo.url}`} target="blank">Apply Now!</a>
-                            <a className="btn btn-default"><i className="fa fa-thumbs-up left"></i> Applied!</a>
-                            <p className="card-text disabled-text"><small className="text-muted">Posted {jobInfo.formattedRelativeTime}</small></p>
-                        </div>
-                    </div>
-                    <div className="card" style={styles.card}>
-                      <div className="equal-height shade">
+        {this.state.jobs.length && this.state.loaded === true ? this.state.jobs.map((job, i) => {
+          if (i === 0) {
+            return (
+              <div className="card-group">
+                
+                {/* Card one */}
+                <div className="card" style={styles.card}>
+                  <div className="equal-height card-block">
+                    <img className="img-fluid mx-auto d-block z-depth-3" src={job.squareLogo} alt={job.name} size="125"/>
+                  </div>
+                  <hr/>
+                  <div className="card-block">
+                    <h4 className="card-title primary-text">{jobInfo.company}<span><h6><small className="text-muted">{jobInfo.formattedLocation}</small></h6></span></h4>
+                    <h6 className="card-text secondary-text">{jobInfo.jobtitle}</h6>
+                    <p className="card-text secondary-text">{jobInfo.snippet}</p>
+                    <a className="btn btn-primary" role="button" href={`${jobInfo.url}`} target="blank">Apply Now!</a>
+                    <a className="btn btn-default"><i className="fa fa-thumbs-up left"></i> Applied!</a>
+                    <p className="card-text disabled-text"><small className="text-muted">Posted {jobInfo.formattedRelativeTime}</small></p>
+                  </div>
+                </div>
+
+                {/* Card two */}
+                <div className="card" style={styles.card}>
+                  <div className="equal-height card-block">
+                    <p className="secondary-text">Overall Rating <span className="badge badge-primary badge-pill">{job.overallRating || 'N/A'}</span></p>
+                    <p className="secondary-text">Work Life Balance <span className="badge badge-primary badge-pill">{job.workLifeBalanceRating || 'N/A'}</span></p>
+                    <p className="secondary-text">Culture and Values <span className="badge badge-primary badge-pill">{job.cultureAndValuesRating || 'N/A'}</span></p>
+                    <p className="secondary-text">Career Opportunities <span className="badge badge-primary badge-pill">{job.careerOpportunitiesRating || 'N/A'}</span></p>
+                    <p className="secondary-text">Compensation & Benfits <span className="badge badge-primary badge-pill">{job.compensationAndBenefitsRating || 'N/A'}</span></p>
+                    { job.name ?
+                        <h6 className="secondary-text disabled-text">
+                          {job.name} is led by CEO <a target="_blank" href={'http://www.google.com/search?q=' + job.ceo.name + ' ' + job.name}>{job.ceo.name}</a>
+                        </h6>
+                      :
+                      null
+                    }
+                  </div>
+                  <hr/>
+                  <div className="card-block">
+                    <h4 className="card-title primary-text">{jobInfo.company}<span><h6><small className="text-muted">{jobInfo.formattedLocation}</small></h6></span></h4>
+                    <h6 className="card-text secondary-text">{jobInfo.jobtitle}</h6>
+                    <p className="card-text secondary-text">{jobInfo.snippet}</p>
+                    <a className="btn btn-primary" role="button" href={`${jobInfo.url}`} target="blank">Apply Now!</a>
+                    <a className="btn btn-default"><i className="fa fa-thumbs-up left"></i> Applied!</a>
+                    <p className="card-text disabled-text"><small className="text-muted">Posted {jobInfo.formattedRelativeTime}</small></p>
+                  </div>
+                </div>
+
+                {/* Card three */}
+                <div className="card" style={styles.card}>
+                  <div className="equal-height">
+                      <div style={styles.wrapper}>
                         {this.state.progressChart ? <PercentChart data ={this.state.wordMatch} /> : null}
+                        {this.state.matchingSkills.map(this.renderChip, this)}
+                        <p className="card-text disabled-text"><small className="text-muted"></small></p>
                       </div>
-                        <div className="card-block">
-                            <h4 className="card-title primary-text">Card title</h4>
-                            <p className="card-text secondary-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                        </div>
-                    </div>
-                    <div className="card" style={styles.card}>
-                      <div  className="equal-height shade">
-                          <div style={styles.wrapper}>
-                            {this.state.matchingSkills.map(this.renderChip, this)}
-                          </div>
-                          </div>
-                        <div className="card-block">
-                            <h4 className="card-title primary-text">Card title</h4>
-                            <p className="card-text secondary-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                        </div>
+                      </div>
+                      <hr/>
+                    <div className="card-block">
+                        <h4 className="card-title primary-text">Card title</h4>
+                        <p className="card-text secondary-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
                     </div>
                 </div>
-              );
-            }
-          }) : null}
+
+              </div>
+            );
+          }
+        }) : null}
       </div>
     );
   }
