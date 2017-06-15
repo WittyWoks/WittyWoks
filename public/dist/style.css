@@ -24,7 +24,7 @@ hr {
 }
 
 a {
-  color: green;
+  color: #1DE9B6;
 }
 
 a:hover {
@@ -170,13 +170,33 @@ li {
 /* *************************
 * JOBLIST ENTRY
 ************************** */
-#job-ratings li {
-  margin-left: 0px !important;
+#job-ratings {
+  padding-left: 25px;
+  padding-top: 30px;
 }
 
-.equal-height {
-  height: 40vh;
+#job-logo {
+  padding-top: 30px;
 }
+
+#skills-graph {
+  padding-top: 30px;
+}
+.equal-height {
+  height: 250px;
+}
+
+.fab {
+  margin: 0px;
+  top: 120px;
+  right: auto;
+  bottom: auto;
+  left: 140px;
+  z-index: 1;
+  position: fixed;
+}
+
+
 /* *************************
 * MOBILE SPECIFIC PARAMS
 ************************** */
@@ -184,15 +204,29 @@ li {
   .navbar {
     background-color: #212121 !important;
   }
+
+  .fab {
+    margin: 0px !important;
+    top: auto !important;
+    right: 20px !important;
+    bottom: 20px !important;
+    left: auto !important;
+    z-index: 1 !important;
+    position: fixed !important;
+  }
+
   #job-search {
     font-size: 1.5em;
   }
+
   .card {
     margin-bottom: 20px;
   }
+
   li {
     margin-left: 0;
   }
+
 }
 
 /* *************************
