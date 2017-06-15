@@ -191,7 +191,7 @@ class CompanyInfo extends React.Component {
 
   handleRequestClose() {
     this.setState({
-      openSnack: false,
+      openSnack: false
     });
   }
 

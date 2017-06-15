@@ -52,6 +52,11 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
     .then(oauthAccount => {
 
       if (oauthAccount) {
+
+        let update = {
+          token: oauthProfile.accessToken
+        };
+
         throw oauthAccount;
       }
 
@@ -63,6 +68,7 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
       return models.Profile.where({ email: oauthProfile.emails[0].value }).fetch();
     })
     .then(profile => {
+      
       let profileInfo = {
         first: oauthProfile.name.givenName,
         last: oauthProfile.name.familyName,
@@ -99,7 +105,11 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
     })
     .then(profile => {
       if (profile) {
-          console.log('in then profile');
+          console.log('in then profile!!!!!!', profile);
+
+          if (profile.token !== oauthProfile.accessToken) {
+             profile.save({token: oauthProfile.accessToken}, { method: 'update' });
+          }
         done(null, profile.serialize());
       }
     })

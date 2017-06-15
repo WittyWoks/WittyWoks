@@ -28,7 +28,8 @@ class DonutChart extends React.Component {
       donut: {
         title: 'Keywords'
       }
-    });
+    })
+
 
     setTimeout(function () {
       chart.load({
@@ -41,7 +42,10 @@ class DonutChart extends React.Component {
         ids: wordCountArray
       });
     }, 4500);
+
+
   }
+
 
   render() {
     return (
