@@ -29,6 +29,9 @@ const styles = {
   },
   card: {
     background: '#424242'
+  },
+  div: {
+    height: '100px'
   }
 };
 
@@ -178,66 +181,60 @@ class Resume extends React.Component {
   render() {
     return (
       <div>
-        <div className="container-fluid">
-          
-          {/* First row */}
+        <div className="container">
           <div className="row">
-            {/* First column */}
-            <div className="col-md-4 wow fadeInLeft" data-wow-delay="0.2s">
-              <div className="card" style={styles.card}>
-                  <h3 className="card-header">Upload a résumé</h3>
-                  <div className="card-block">
-                      <p className="card-text">Upload your résumé and we'll automatically grab your relevant job skills.</p>
-                      <RaisedButton
-                        label="Upload Résumé"
-                        labelPosition="before"
-                        style={styles.button}
-                        containerElement="label"
-                      >
-                        <input type="file" name="upload" style={styles.exampleImageInput} onChange={(e) => this.fileUpload(e)} />
-                      </RaisedButton>
-                      <LinearProgress id="test" className="progress-bar" mode="determinate" value={this.state.completed} />
+            {/* Resume Column */}
+            <div className="col-md-6 mb-r">
+              { this.state.file === null ? 
+                <ReactPDF
+                  file={this.state.file} 
+                  onDocumentLoad={this.onDocumentCompleted}
+                  onPageLoad={this.onPageCompleted}
+                />
+              :
+              <a target="_blank" href={this.state.file}>
+                <ReactPDF
+                  file={this.state.file} 
+                  onDocumentLoad={this.onDocumentCompleted}
+                  onPageLoad={this.onPageCompleted}
+                />
+              </a>
+              }
+            </div>
+
+            {/* Text Column */}
+            <div className="col-md-5 offset-md-1">
+              {/* Upload Row */}
+              <div className="row">
+                <div className="col-1 mr-1">
+                    <i className="fa fa-upload fa-2x secondary-text" aria-hidden="true"></i>
+                </div>
+                <div className="col-10">
+                  <h4 className="feature-title highlight-text">Upload</h4>
+                  <p className="secondary-text">Upload your résumé and we'll automatically grab your relevant job skills.</p>
+                  <a className="btn btn-default">Upload<input type="file" name="upload" style={styles.exampleImageInput} onChange={(e) => this.fileUpload(e)} /></a>
+
+                  <LinearProgress id="test" className="progress-bar" mode="determinate" value={this.state.completed} />
+                </div>
+              </div>
+
+              <div style={styles.div}></div>
+
+              {/* Skills Row */} 
+              <div className="row">
+                <div className="col-1 mr-1">
+                  <i className="fa fa-eye fa-2x secondary-text"></i>
+                </div>
+                <div className="col-10">
+                  <h4 className="feature-title highlight-text">Review</h4>
+                  <p className="secondary-text">Technical skills extracted from your résumé.</p>
+                  <div style={styles.wrapper}>
+                    {this.state.skills.map(this.renderChip, this)}
                   </div>
+                </div>
               </div>
             </div>
 
-            {/* Second column */}
-            <div className="col-md-4 wow fadeInDown" data-wow-delay="0.2s">
-              <div className="card">
-                  <h3 className="card-header">Your skills</h3>
-                  <div className="card-block">
-                      <p className="card-text">Technical skills extracted from your résumé.</p>
-
-                      <div style={styles.wrapper}>
-                        {this.state.skills.map(this.renderChip, this)}
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            {/* Third column */}
-            <div className="col-md-4 wow fadeInRight" data-wow-delay="0.2s">
-              <div className="card">
-                  <h3 className="card-header">Your résumé</h3>
-                  <div className="card-block">
-                    { this.state.file === null ? 
-                      <ReactPDF
-                        file={this.state.file} 
-                        onDocumentLoad={this.onDocumentCompleted}
-                        onPageLoad={this.onPageCompleted}
-                      />
-                    :
-                    <a target="_blank" href={this.state.file}>
-                      <ReactPDF
-                        file={this.state.file} 
-                        onDocumentLoad={this.onDocumentCompleted}
-                        onPageLoad={this.onPageCompleted}
-                      />
-                    </a>
-                    }
-                  </div>
-              </div>
-            </div>
           </div>
 
         </div>

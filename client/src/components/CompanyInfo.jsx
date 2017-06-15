@@ -230,7 +230,7 @@ class CompanyInfo extends React.Component {
                   </div>
                   <hr/>
                   <div className="card-block">
-                    <h4 className="card-title primary-text">{jobInfo.company}<span><h6><small className="text-muted">{jobInfo.formattedLocation}</small></h6></span></h4>
+                    <h4 className="card-title highlight-text">{jobInfo.company}<span><h6><small className="text-muted">{jobInfo.formattedLocation}</small></h6></span></h4>
                     <h6 className="card-text secondary-text">{jobInfo.jobtitle}</h6>
                     <p className="card-text secondary-text">{jobInfo.snippet}</p>
                     <a className="btn btn-primary" role="button" href={`${jobInfo.url}`} target="blank">Apply Now!</a>
@@ -252,7 +252,7 @@ class CompanyInfo extends React.Component {
                     <p className="secondary-text">Culture and Values <span className="badge badge-primary badge-pill">{job.cultureAndValuesRating || 'N/A'}</span></p>
                     <p className="secondary-text">Career Opportunities <span className="badge badge-primary badge-pill">{job.careerOpportunitiesRating || 'N/A'}</span></p>
                     <p className="secondary-text">Compensation & Benfits <span className="badge badge-primary badge-pill">{job.compensationAndBenefitsRating || 'N/A'}</span></p>
-                    { job.name ?
+                    { job.ceo ?
                         <h6 className="secondary-text disabled-text">
                           {job.name} is led by CEO <a target="_blank" href={'http://www.google.com/search?q=' + job.ceo.name + ' ' + job.name}>{job.ceo.name}</a>
                         </h6>
@@ -262,7 +262,7 @@ class CompanyInfo extends React.Component {
                   </div>
                   <hr/>
                   <div className="card-block">
-                    <h4 className="card-title primary-text">Company ratings</h4>
+                    <h4 className="card-title highlight-text">Company ratings</h4>
                     { job.numberOfRatings && job.ratingDescription ?
                       <p className="card-text secondary-text">
                         Located in {jobInfo.formattedLocation}, {jobInfo.company} is a company in the {job.industryName} industry. 
@@ -291,7 +291,7 @@ class CompanyInfo extends React.Component {
                       </div>
                       <hr/>
                     <div className="card-block">
-                        <h4 className="card-title primary-text">Skills match</h4>
+                        <h4 className="card-title highlight-text">Skills match</h4>
                         { this.props.loggedIn ?
                           <p className="card-text secondary-text">
                             After examining your resume and {jobInfo.company}'s posting, your resume matched
