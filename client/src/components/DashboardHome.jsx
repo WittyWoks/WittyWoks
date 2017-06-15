@@ -10,7 +10,7 @@ const styles = {
     color: 'white'
   },
   cardHeader: {
-    backgroundColor: '#1DE9B6',
+    backgroundColor: '#00BFA5'
   
     // padding: '10px'
   },
@@ -150,52 +150,25 @@ class DashboardHome extends React.Component {
   render() {
     return (
       <div>
-        <div className="row">
-          <div className="col-sm-8">
-          </div>
-          <div className="col-sm-4">
-          </div>
-        </div>
-        <br />
         {/* First row */}
+        <br />
+        <br />
+
         <div className="container">
-          <div className="row">
-            <button onClick={ () => this.sortJobsByTime()}> Sort By Time </button>
-          </div>
-          <div className="row">
-            <button onClick= { () => { this.searchIndeed('top jobs in us'); }}> Top Jobs in US </button>
-          </div>
-          <br />
-          <br />
         <form onSubmit={this.handleSubmit} className="wow fadeInDown" data-wow-delay="0.2s">
           <div className="row justify-content-center">
             <div className="col-sm-6">
               <div className="md-form">
-                  <input type="text" id="job-search" name="value" value={this.state.value} onChange={this.handleChange}/>
-                  <label htmlFor="job-search">Search jobs</label>
+                  <input className="primary-text" type="text" id="job-search" name="value" style={{fontSize: '30px'}} value={this.state.value} onChange={this.handleChange}/>
+                  <label htmlFor="job-search" style={{fontSize: '27px', top: '-8px'}} >Search jobs</label>
               </div>
             </div>
-            <div className="col-sm-2">
+            <div className="col-sm-6">
               <div className="md-form">
-                  <input type="text" id="location-search" name="location" value={this.state.location} onChange={this.handleChange}/>
-                  <label htmlFor="job-search"> Location </label>
+                  <input className="primary-text" type="text" id="location-search" name="location" style={{fontSize: '30px'}} value={this.state.location} onChange={this.handleChange}/>
+                  <label htmlFor="location-search" style={{fontSize: '27px', top: '-8px'}}> Location </label>
               </div>
-              <div className="md-form"> Radius 
-                <div> </div>
-                <select name="radius" value={this.state.selectValue} onChange={this.handleChange}>
-                  <option value="0">0</option>
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                  <option value="20">20</option>
-                  <option value="30">30</option>
-                </select>  
-              </div>
-            </div>
-            <div className="col-sm-2">
-              <div className="md-form">
-                  <button> search jobs </button>
-              </div>
+
             </div>
           </div>
           </form>
@@ -203,13 +176,43 @@ class DashboardHome extends React.Component {
 
         {/* Second row */}
         <section>
-          <div className="container wow fadeIn" data-wow-delay="0.5s">
+          <div className="container-fluid wow fadeIn" data-wow-delay="0.5s">
             <div className="row justify-content-center">
-              <div className="col-sm-8">
+            <div className="col-sm-3"> 
+              <div className="md-form"> Radius 
+                <div >
+                <h3 className="primary-text"> FILTER RESULTS BY: </h3>
+                <br />
+                  <div> 
+                    <h4 className="primary-text"> Sort By: </h4>
+                    <button className="btn btn-default btn-sm" onClick={ () => this.sortJobsByTime()}> Time </button>
+                    <h4 className="primary-text"> Distance: </h4>
+                    <div>
+                      <select name="radius" value={this.state.selectValue} onChange={this.handleChange}>
+                        <option value="0">Exact location only</option>
+                        <option value="5">within 5 miles</option>
+                        <option value="10">within 10 miles</option>
+                        <option value="15">within 15 miles</option>
+                        <option value="20">within 20 miles</option>
+                        <option value="50">within 50 miles</option>
+                        <option value="100">within 100 miles</option>
+                      </select>  
+                    </div>
+                  </div>
+                </div>
+              </div>    
+            <div>
+              <h4 className="primary-text"> Top Jobs in the US </h4>
+              <button className="btn btn-default btn-sm" onClick= { () => { this.searchIndeed('top jobs in us'); }}> Top Jobs </button>        
+            </div>
+            </div>
+              <div className="col-sm-7"> 
                 <div className="card">
                   <div style={styles.cardHeader} className="text-center primary-text card-header" >
                       Jobs
                   </div>
+ 
+                  <div className="row justify-content-center">
                   <div className="card-block" style={styles.cardBody}>
                       <div className="list-group">
                         {this.state.jobs.length ? this.state.jobs.map(job => {
@@ -224,17 +227,22 @@ class DashboardHome extends React.Component {
                     </div>
                   </div>
                 </div>
+                  <div className="row justify-content-center" style={{background: "#303030"}}>
+                    {this.state.pageNumber > 0 ?
+                      <button className="btn btn-default btn-sm rounded" onClick={ () => this.changePage(this.state.pageNumber - 1)}> back </button>
+                    : null }
+                    <button className="btn btn-default btn-sm rounded" onClick={ () => this.changePage(0)}> 1 </button>
+                    <button className="btn btn-default btn-sm rounded" onClick={ () => this.changePage(1)}> 2 </button>
+                    <button className="btn btn-default btn-sm rounded" onClick={ () => this.changePage(2)}> 3 </button>
+                    {this.state.pageNumber < 2 ?
+                      <button className="btn btn-default btn-sm rounded" onClick={ () => this.changePage(this.state.pageNumber + 1)}> next </button>
+                    : null }
+                    
+                  </div>
+               
+                </div>
               </div>
             </div>
-          <div className="row justify-content-center">
-            <div className="col-sm-3">
-              <button onClick={ () => this.changePage(this.state.pageNumber - 1)}> back </button>
-              <button onClick={ () => this.changePage(this.state.pageNumber + 1)}> next </button>
-              <button onClick={ () => this.changePage(0)}> 1 </button>
-              <button onClick={ () => this.changePage(1)}> 2 </button>
-              <button onClick={ () => this.changePage(2)}> 3 </button>
-            </div>
-          </div>
           </div>
         </section>
       </div>
