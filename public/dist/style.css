@@ -320,3 +320,14 @@ li {
   height: 200px;
   overflow:hidden;
 }
+
+.jobHistoryRow th {
+  color: #00BFA5
+}
+.jobHistoryRow2 td, th {
+  color: rgba(255, 255, 255, 1);
+}
+
+.tick text { stroke: rgba(255, 255, 255, 1) }
+.c3-legend-item text { stroke: rgba(255, 255, 255, 1); }
+

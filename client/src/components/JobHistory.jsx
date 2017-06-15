@@ -101,27 +101,29 @@ class JobHistory extends React.Component {
         {/* First Row */}
         <div className="row">
           <div className="col-sm-6">
-            <div className="col-sm-12">
-            { this.state.loaded === false ? 
-              <p>Loading...</p>
-             :
-             <div>
-                <h4>Application rate</h4>
-                <BarChart barChartData={this.state} />
+            <div className="card" style={{backgroundColor: '#424242'}}>
+              <div className="col-sm-12">
+              { this.state.loaded === false ? 
+                <p>Loading...</p>
+               :
+               <div>
+                  <h4 className="card-header primary-text" style=  {{backgroundColor: '#424242'}}>Application Rate</h4>
+                  <BarChart barChartData={this.state} />
+                </div>
+              }
               </div>
-            }
             </div>
           </div>
-            
           <div className="col-sm-6">
+            <div className="card" style={{backgroundColor: '#424242'}}>
             {this.state.loaded === false ?
                 <p>Loading...</p>
               :
                 <div>
-                  <h4>List of jobs applied to</h4>
-                  <table className="table table-striped table-sm">
+                  <h4 className="primary-text card-header" style={{backgroundColor: '#424242'}}>Jobs Applied To </h4>
+                  <table className="table table-striped table-sm primary-text">
                     <thead>
-                      <tr>
+                      <tr className="jobHistoryRow">
                         <th>#</th>
                         <th>Company</th>
                         <th>Job Title</th>
@@ -133,12 +135,12 @@ class JobHistory extends React.Component {
                       {this.state.jobsAppliedTo.map((job, idx) => {
                         let parsedJob = JSON.parse(job.job_data);
                         return (
-                          <tr key={idx}>
+                          <tr key={idx} className="jobHistoryRow2">
                             <th>{idx + 1}</th>
                             <td>{parsedJob.indeed.company}</td>
                             <td>{parsedJob.indeed.jobtitle}</td>
                             <td>{parsedJob.indeed.city}</td>
-                            <td><a target="_blank" href={parsedJob.indeed.url}>Link</a></td>
+                            <td><a target="_blank" href={parsedJob.indeed.url} className="primary-text" >Link</a></td>
                           </tr>
                         );
                       })}
@@ -146,6 +148,7 @@ class JobHistory extends React.Component {
                   </table>
                 </div>
               }
+              </div>
           </div>
         </div>
       </div>

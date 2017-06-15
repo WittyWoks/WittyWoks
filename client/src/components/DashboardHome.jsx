@@ -43,7 +43,7 @@ class DashboardHome extends React.Component {
 
   componentWillMount() {
     //if this.state.jobs has no entires, get entries from sessions instead
-    if (!this.state.jobs.length && sessionStorage.totalJobs) {
+    if (!this.state.jobs.length && sessionStorage.totalJobs && JSON.parse(sessionStorage.totalJobs).length > 0) {
       let jobsFromSessions = sessionStorage.getItem('totalJobs');
       let pageNumberFromSessions = sessionStorage.getItem('pageNumber');
       jobsFromSessions = JSON.parse(jobsFromSessions);

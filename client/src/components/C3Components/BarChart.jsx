@@ -26,6 +26,9 @@ class LineChart extends React.Component {
         // or
         //width: 100 // this makes bar width 100
       },
+      color: {
+        pattern: ['#00BFA5'], // the three color levels for the percentage values.
+      },
       axis: {
         x: {
           type: 'category',
