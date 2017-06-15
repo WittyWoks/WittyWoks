@@ -11,10 +11,15 @@ class KeywordBarChart extends React.Component {
     let keyword = ['x'];
     let unsortedKeywordCount =['Keywords'];
     let unsortedKeywords = ['x'];
+    let totalData = 0;
+
 
     for (let i in this.props.ranking) {
       wordCountArray.push([i, this.props.ranking[i]]);
+      totalData += this.props.ranking[i];
     }
+    console.log(totalData);
+
 
     wordCountArray.forEach((index) => {
       unsortedKeywordCount.push(index[1]);
@@ -29,6 +34,9 @@ class KeywordBarChart extends React.Component {
       keywordsCount.push(index[1]);
       keyword.push(index[0]);
     })
+
+    keywordsCount[0] = keywordsCount[0] + ' (' + totalData+ ' Word Matches)';
+    unsortedKeywordCount[0] = unsortedKeywordCount[0] + ' (' + totalData+ ' Word Matches)';
 
     let chart = c3.generate({
       bindto: '#keyword',
@@ -45,7 +53,8 @@ class KeywordBarChart extends React.Component {
       },
       axis: {
         x: {
-          type: 'category'
+          type: 'category',
+          stroke: '#fff'
 
         },
         y: {

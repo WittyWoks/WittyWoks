@@ -38,7 +38,7 @@ const styles = {
     fontWeight: 300
   },
   subheader: {
-    color: '#999',
+    color: 'white',
     fontWeight: 300
 
   },
@@ -356,18 +356,18 @@ class Drawers extends React.Component {
           onRequestChange={(openSecondary) => this.setState({openSecondary})}
           containerStyle={styles.drawer}
         >
-        <MenuItem onTouchTap={this.handleCloseSecondary}>
+        <div onTouchTap={this.handleCloseSecondary}>
           <Subheader style={styles.subheader}>Calendar</Subheader>
-          </MenuItem>
+          </div>
             <div style={styles.Calendar} className="card-block shade">
-                        <BigCalendar
-                        style={{height: '420px', color: 'white'}}
-                        events={this.state.gCalEvents}
-                        views={['month']}
-                        onSelectEvent={event => this.handleTouchTap(event)}
+              <BigCalendar
+              style={{height: '420px', color: 'white'}}
+              events={this.state.gCalEvents}
+              views={['month']}
+              onSelectEvent={event => this.handleTouchTap(event)}
 
-                        />
-                </div>
+              />
+            </div>
           <Subheader style={styles.subheader}>Recently Applied</Subheader>
           <div className="ccard-block shade">
             <div className="row">

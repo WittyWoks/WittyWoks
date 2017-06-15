@@ -47,7 +47,8 @@ const styles = {
       padding: '10px'
     },
     card: {
-      backgroundColor: '#424242'
+      backgroundColor: '#424242',
+      maxWidth: '500'
     },
     chip: {
       margin: 4
@@ -86,20 +87,19 @@ class SmartAnalysis extends React.Component {
       keywordBar: false
     };
     this.fetchAllAppliedJob();
-    // this.analyzeResume();
-    this.handleChange = this.handleChange.bind(this);
-    this.handleChange0 = this.handleChange0.bind(this);
-  }
+    this.analyzeResume();
 
-  handleChange(value) {
-    this.setState({
-      value: value,
-    });
+    // C3 Card
+    this.handleChange0 = this.handleChange0.bind(this);
+    this.keywordRender = this.keywordRender.bind(this)
+
+    // IBM Card
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange0(value) {
     this.setState({
-      value0: value,
+      value0: value
     });
   }
 
@@ -107,6 +107,12 @@ class SmartAnalysis extends React.Component {
     this.setState({
       keywordBar: true
     })
+  }
+
+  handleChange(value) {
+    this.setState({
+      value: value
+    });
   }
 
   fetchAllAppliedJob() {
@@ -153,9 +159,7 @@ class SmartAnalysis extends React.Component {
             jobsAppliedTo: jobs.data,
           });
 
-
           this.urlParser(context.state.allData, this.state.skills);
-
         })
         .catch(err => {
           console.error('Error occured getting jobs', err);
@@ -233,13 +237,14 @@ class SmartAnalysis extends React.Component {
         data: {resume_id: user.resume_id},
       })
       .done((resume) => {
-
+        console.log('line240');
         axios.get('/analyzeResume', {
           params: {
             url: resume.resume_url
           }
         })
         .then((personality) => {
+          console.log('line247');
           let consumption = personality.data.personality.main.consumption_preferences;
           for (let i = 0; i < consumption.length; i++) {
             let category = consumption[i].consumption_preference_category_id;
@@ -251,7 +256,6 @@ class SmartAnalysis extends React.Component {
               }
             }
           }
-
           context.setState({
             needs: personality.data.personality.main.needs,
             personality: personality.data.personality.main.personality,
@@ -277,164 +281,167 @@ class SmartAnalysis extends React.Component {
     return (
       <div className="container wow fadeIn" data-wow-delay="0.2s">
         <div className="card-group">
+
+          {/*C3 Card*/}
           <div className="card" style={styles.card}>
-            <div className="col-height col-md-auto shade">
+            <div className="analysisCard shade">
+
               <Tabs
                 value={this.state.value0}
                 onChange={this.handleChange0}
                 tabItemContainerStyle={styles.tab}
                 inkBarStyle={styles.inkBar}
               >
+
                <Tab label="Summary" value="d">
+                <div className="container-fluid">
                  {this.state.donutChart ? <DonutChart ranking={this.state.keywordsRanking} /> : <p>Loading...</p>}
+                </div>
                </Tab>
-                <Tab label="Detailed" value="e" onClick={this.keywordRender.bind(this)}>
-                  <h4 style={styles.headline}>Keywords Tracker by Count</h4>
-                    {this.state.donutChart && this.state.keywordBar ? <KeywordBarChart ranking={this.state.keywordsRanking}/> : <p>Loading...</p>}
+
+                <Tab label="Count" value="e" onClick={this.keywordRender.bind(this)}>
+                  <div className="container-fluid">
+                    <h4 style={styles.headline}>Keywords Tracker by Count</h4>
+                      {this.state.donutChart && this.state.keywordBar ? <KeywordBarChart ranking={this.state.keywordsRanking}/> : <p>Loading...</p>}
+                  </div>
+
                 </Tab>
-                  <Tab label="Stats" value="f">
-                    <h4 style={styles.headline}>Data Details</h4>
-                    {this.state.donutChart === true ? <DonutChart ranking={this.state.keywordsRanking} /> : <p>Loading...</p> }
-                  </Tab>
               </Tabs>
+
             </div>
               <div className="card-block">
                 <h4 className="card-title primary-text">Keyword Analysis</h4>
               </div>
           </div>
-          </div>
-                <div className="card-group">
-                  <div className="card" style={styles.card}>
-                    <div className="equal-height shade">
-                  <Tabs
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    tabItemContainerStyle={styles.tab}
-                    inkBarStyle={styles.inkBar}
+
+            {/*IBM Card*/}
+            <div className="card" style={styles.card}>
+              <div className="analysisCard shade">
+                <Tabs
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  tabItemContainerStyle={styles.tab}
+                  inkBarStyle={styles.inkBar}
                   >
-                    <Tab label="Summary" value="a">
-                      <div className="container-fluid">
-                        <h4 style={styles.headline}>Your Personality Analysis</h4>
-                        {this.state.loaded === false ?
-                          <p>Loading...</p>
-                        :
-                        <div>
-                          <p>{this.state.summary}</p>
-                          <h4>You are likely to:</h4>
-                          {this.state.likely.map((like) => {
-                            return (
-                              <span><i className="fa fa-check-circle-o" aria-hidden="true" style={styles.check}></i> {like}<br/></span>
-                            );
-                          })}
-                          <h4>You are unlikely to:</h4>
-                          {this.state.unlikely.map((dislike) => {
-                            return (
-                              <span><i className="fa fa-times-circle-o" aria-hidden="true" style={styles.cross}></i> {dislike}<br/></span>
-                            );
-                          })}
-
-                        </div>
-                        }
-                      </div>
-                    </Tab>
-                    <Tab label="Tone" value="b">
-                      <div className="container-fluid">
-                        <h4 style={styles.headline}>Resume Tone</h4>
-                        {this.state.loaded === false ?
-                          <p>Loading...</p>
-                        :
-                        <div>
-                          <h6> &#60; .5 = not likely present</h6>
-                          <h6> &#62; .5 = likely present</h6>
-                          <h6> &#62; .75 = very likely present </h6>
-                          <div className="row">
-                            <div className="col-sm-4">
-                              <h4>Emotions</h4>
-                              {this.state.emotionTones.map((emotion) => {
-                                return (
-                                  <p><LinearProgress mode="determinate" value={emotion.score * 100} />{emotion.tone_name}: {emotion.score.toFixed(2)} <span style={styles.rating}>{emotion.score.toFixed(2) < 0.5 ? 'NOT LIKELY' : emotion.score.toFixed(2) > 0.75 ? 'VERY LIKELY' : 'LIKELY'}</span></p>
-                                );
-                              })}
-                            </div>
-                            <div className="col-sm-4">
-                              <h4>Language Style</h4>
-                              {this.state.languageTones.map((emotion) => {
-                                return (
-                                  <p><LinearProgress mode="determinate" value={emotion.score * 100} />{emotion.tone_name}: {emotion.score.toFixed(2)} <span style={styles.rating}>{emotion.score.toFixed(2) < 0.5 ? 'NOT LIKELY' : emotion.score.toFixed(2) > 0.75 ? 'VERY LIKELY' : 'LIKELY'}</span></p>
-                                );
-                              })}
-                            </div>
-                            <div className="col-sm-4">
-                              <h4>Social Tendencies</h4>
-                              {this.state.socialTones.map((emotion) => {
-                                return (
-                                  <p><LinearProgress mode="determinate" value={emotion.score * 100} />{emotion.tone_name}: {emotion.score.toFixed(2)} <span style={styles.rating}>{emotion.score.toFixed(2) < 0.5 ? 'NOT LIKELY' : emotion.score.toFixed(2) > 0.75 ? 'VERY LIKELY' : 'LIKELY'}</span></p>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        </div>
-                        }
-                      </div>
-                    </Tab>
-                    <Tab label="Portrait" value="c">
-                      <div className="container-fluid">
-                        <h4 style={styles.headline}>Personality Portrait</h4>
-                        {this.state.loaded === false ?
-                          <p>Loading...</p>
-                        :
-                        <div>
-                          <div className="row">
-                            <div className="col-sm-4">
-                              <h4>Needs</h4>
-                              {this.state.needs.map((trait) => {
-                                return (
-                                  <div>
-                                    <p><LinearProgress mode="determinate" value={trait.percentile * 100} />{trait.name}: {Math.floor(trait.percentile * 100)}%</p>
-                                  </div>
-                                );
-                              })}
-                            </div>
-
-                            <div className="col-sm-4">
-                              <h4>Personality</h4>
-                              {this.state.personality.map((trait) => {
-                                return (
-                                  <div>
-                                    <p><LinearProgress mode="determinate" value={trait.percentile * 100} />{trait.name}: {Math.floor(trait.percentile * 100)}%</p>
-                                  </div>
-                                );
-                              })}
-                            </div>
-
-                            <div className="col-sm-4">
-                              <h4>Values</h4>
-                              {this.state.values.map((trait) => {
-                                return (
-                                  <div>
-                                    <p><LinearProgress mode="determinate" value={trait.percentile * 100} />{trait.name}: {Math.floor(trait.percentile * 100)}%</p>
-                                  </div>
-                                );
-                              })}
-                            </div>
-
-                          </div>
-                        </div>
-                        }
-                      </div>
-                    </Tab>
-                  </Tabs>
-
+                <Tab label="Summary" value="a">
+                  <div className="container-fluid">
+                    <h4 style={styles.headline}>Your Personality Analysis</h4>
+                    {this.state.loaded === false ?
+                      <p>Loading...</p>
+                    :
+                    <div>
+                      <p>{this.state.summary}</p>
+                      <h4>You are likely to:</h4>
+                      {this.state.likely.map((like) => {
+                        return (
+                          <span><i className="fa fa-check-circle-o" aria-hidden="true" style={styles.check}></i> {like}<br/></span>
+                        );
+                      })}
+                      <h4>You are unlikely to:</h4>
+                      {this.state.unlikely.map((dislike) => {
+                        return (
+                          <span><i className="fa fa-times-circle-o" aria-hidden="true" style={styles.cross}></i> {dislike}<br/></span>
+                        );
+                      })}
 
                     </div>
+                    }
+                  </div>
+                </Tab>
+                <Tab label="Tone" value="b">
+                  <div className="container-fluid">
+                    <h4 style={styles.headline}>Resume Tone</h4>
+                    {this.state.loaded === false ?
+                      <p>Loading...</p>
+                    :
+                    <div>
+                      <h6> &#60; .5 = not likely present</h6>
+                      <h6> &#62; .5 = likely present</h6>
+                      <h6> &#62; .75 = very likely present </h6>
+                      <div className="row">
+                        <div className="col-sm-4">
+                          <h4>Emotions</h4>
+                          {this.state.emotionTones.map((emotion) => {
+                            return (
+                              <p><LinearProgress mode="determinate" value={emotion.score * 100} />{emotion.tone_name}: {emotion.score.toFixed(2)} <span style={styles.rating}>{emotion.score.toFixed(2) < 0.5 ? 'NOT LIKELY' : emotion.score.toFixed(2) > 0.75 ? 'VERY LIKELY' : 'LIKELY'}</span></p>
+                            );
+                          })}
+                        </div>
+                        <div className="col-sm-4">
+                          <h4>Language Style</h4>
+                          {this.state.languageTones.map((emotion) => {
+                            return (
+                              <p><LinearProgress mode="determinate" value={emotion.score * 100} />{emotion.tone_name}: {emotion.score.toFixed(2)} <span style={styles.rating}>{emotion.score.toFixed(2) < 0.5 ? 'NOT LIKELY' : emotion.score.toFixed(2) > 0.75 ? 'VERY LIKELY' : 'LIKELY'}</span></p>
+                            );
+                          })}
+                        </div>
+                        <div className="col-sm-4">
+                          <h4>Social Tendencies</h4>
+                          {this.state.socialTones.map((emotion) => {
+                            return (
+                              <p><LinearProgress mode="determinate" value={emotion.score * 100} />{emotion.tone_name}: {emotion.score.toFixed(2)} <span style={styles.rating}>{emotion.score.toFixed(2) < 0.5 ? 'NOT LIKELY' : emotion.score.toFixed(2) > 0.75 ? 'VERY LIKELY' : 'LIKELY'}</span></p>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                    }
+                  </div>
+                </Tab>
+                <Tab label="Portrait" value="c">
+                  <div className="container-fluid">
+                    <h4 style={styles.headline}>Personality Portrait</h4>
+                    {this.state.loaded === false ?
+                      <p>Loading...</p>
+                    :
+                    <div>
+                      <div className="row">
+                        <div className="col-sm-4">
+                          <h4>Needs</h4>
+                          {this.state.needs.map((trait) => {
+                            return (
+                              <div>
+                                <p><LinearProgress mode="determinate" value={trait.percentile * 100} />{trait.name}: {Math.floor(trait.percentile * 100)}%</p>
+                              </div>
+                            );
+                          })}
+                        </div>
 
-                  <div className="card-block">
-                    <h4 className="card-title primary-text">IBM Watson Analysis</h4>
-                    <h6 className="card-text secondary-text">Smart analysis based on your resume</h6>
+                        <div className="col-sm-4">
+                          <h4>Personality</h4>
+                          {this.state.personality.map((trait) => {
+                            return (
+                              <div>
+                                <p><LinearProgress mode="determinate" value={trait.percentile * 100} />{trait.name}: {Math.floor(trait.percentile * 100)}%</p>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        <div className="col-sm-4">
+                          <h4>Values</h4>
+                          {this.state.values.map((trait) => {
+                            return (
+                              <div>
+                                <p><LinearProgress mode="determinate" value={trait.percentile * 100} />{trait.name}: {Math.floor(trait.percentile * 100)}%</p>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                      </div>
+                    </div>
+                    }
                   </div>
-                  </div>
+                </Tab>
+              </Tabs>
+            </div>
+              <div className="card-block">
+                <h4 className="card-title primary-text">IBM Watson Analysis</h4>
+                <h6 className="card-text secondary-text">Smart analysis based on your resume</h6>
+              </div>
+            </div>
           </div>
-
       </div>
     );
   }

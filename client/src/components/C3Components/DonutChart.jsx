@@ -28,7 +28,7 @@ class DonutChart extends React.Component {
       donut: {
         title: 'Keywords'
       }
-    });
+    })
 
 
     setTimeout(function () {
