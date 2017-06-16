@@ -13,6 +13,9 @@ const styles = {
   },
   card: {
     background: '#424242'
+  },
+  hero: {
+    display: 'inline'
   }
 };
 
@@ -26,17 +29,19 @@ class HomePage extends React.Component {
     return (
       <div>
         <Navbar />
-        <div className="view hm-black-strong" id="home">
+
+        <div className="view hm-black-strong container-fluid" id="home">
           <div className="mask">
-            <div className="row vert-center">
-              <div className="col text-center align-self-center">
-                <div className="">
-                  <h1 className="display-1 hero wow fadeInDown" data-wow-delay="0.2s"><img id="ico" src="https://res.cloudinary.com/jescobedo/image/upload/v1497566173/noun_683905_cc_ujoyqs.svg" align="middle" width="125"/>BestFit</h1>
+            <div className="row h-100 justify-content-center text-center">
+                <div className="col-sm-4 my-auto">
+                  <div className="hero wow fadeInDown" data-wow-delay="0.2s">
+                    <img src="https://res.cloudinary.com/jescobedo/image/upload/v1497587577/puzzle_wugv86.png" id="icon"/>
+                    <h1 style={styles.hero} className="display-1">BestFit</h1>
+                  </div>
+                  <p className="sub-hero wow fadeIn" data-wow-delay="0.2s">Your one stop autoshop for your job search</p>
+                  <a style={styles.hidden} className="btn btn-primary btn-lg wow fadeInLeft" data-wow-delay="0.6s" href="/auth/google"><i className="fa fa-google" aria-hidden="true"></i> Log In</a>
+                  <Link style={styles.hidden} className="btn btn-default btn-lg wow fadeInRight" data-wow-delay="0.6s" to="/dashboard"> Guest </Link>
                 </div>
-                <p className="sub-hero wow fadeIn" data-wow-delay="0.2s">Your one stop autoshop for your job search</p>
-                <a style={styles.hidden} className="btn btn-primary btn-lg wow fadeInLeft" data-wow-delay="0.6s" href="/auth/google"><i className="fa fa-google" aria-hidden="true"></i> Log In</a>
-                <Link style={styles.hidden} className="btn btn-default btn-lg wow fadeInRight" data-wow-delay="0.6s" to="/dashboard"> Guest </Link>
-              </div>
             </div>
           </div>
         </div>

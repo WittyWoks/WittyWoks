@@ -21,7 +21,7 @@ const styles = {
     paddingLeft: '25px'
   },
   snackbar: {
-    background: '#1DE9B6',
+    background: '#212121',
   },
   login: {
     height: '200px'
