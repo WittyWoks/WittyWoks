@@ -138,16 +138,16 @@ class JobHistory extends React.Component {
                       <br />
                         {this.state.jobsAppliedTo.map((job, idx) => {
                           let parsedJob = JSON.parse(job.job_data);
-                          let jobs = parsedJob.indeed;
+                          let jobIndeed = parsedJob.indeed;
                           return (
-                            <div className="media mb-1" onClick={() => { this.goToJob(jobs.url); }}>
+                            <div className="media mb-1 newHover" onClick={() => { this.goToJob(jobIndeed.url); }}>
                               <a className="media-left waves-light">
                                   <img className="rounded-circle" style={{height: '100px'}} src={parsedJob.glassDoor.squareLogo} alt="Generic placeholder image" />
                               </a>
                               <div className="media-body">
-                                  <h4 className="media-heading">{jobs.company}</h4>
-                                  <div> {jobs.jobtitle} </div>
-                                  <div> {jobs.city} </div>
+                                  <h4 className="media-heading">{jobIndeed.company}</h4>
+                                  <div> {jobIndeed.jobtitle} </div>
+                                  <div> {jobIndeed.city} </div>
                               </div>
                             </div>
                           );

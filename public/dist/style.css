@@ -340,7 +340,7 @@ li {
 .tick text { stroke: rgba(255, 255, 255, 1) }
 .c3-legend-item text { stroke: rgba(255, 255, 255, 1); }
 
-.media:hover, .mb-1:hover {
+.newHover:hover {
   background-color: #212121
 }
 
@@ -357,6 +357,13 @@ li {
 }
 
 
+
 .load-centered {
   margin: 0 auto;
 }
+
+.hoverDash:hover {
+  background-color: #737373
+}
+
+
