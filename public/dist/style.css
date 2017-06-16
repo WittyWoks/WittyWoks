@@ -7,7 +7,7 @@
 }
 
 .secondary-text {
-  color: rgba(255, 255, 255, 0.7); 
+  color: rgba(255, 255, 255, 0.7);
   font-weight: 200;
 }
 
@@ -16,7 +16,11 @@
 }
 
 .highlight-text {
-  color: rgb(29, 233, 182); 
+  color: rgb(29, 233, 182);
+}
+
+.analysisCard {
+  height: 450px;
 }
 
 hr {
@@ -297,4 +301,15 @@ li {
 
 .rounded {
   border-radius: 25px;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+    padding-top: 5cm;
+}
+
+.recentlyApplied {
+  height: 200px;
+  overflow:hidden;
 }
