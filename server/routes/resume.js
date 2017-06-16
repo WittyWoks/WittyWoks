@@ -61,7 +61,7 @@ router.route('/analyzeResume')
         version_date: '2017-05-26'
       });
 
-      // Watson send text
+      // // Watson send text
       personality_insights.profile({
         text: rawText,
         consumption_preferences: true

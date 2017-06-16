@@ -65,7 +65,7 @@ class KeywordBarChart extends React.Component {
         }
       },
       padding: {
-        bottom: 130
+        bottom: 20
       }
     });
 

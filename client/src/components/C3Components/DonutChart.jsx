@@ -16,19 +16,18 @@ class DonutChart extends React.Component {
       return num1[1] - num2[1];
     });
 
-    let largestRank = wordCountArray.slice(wordCountArray.length-3, wordCountArray.length);
-    let secondGroup = wordCountArray.slice(0, wordCountArray.length-3);
+    let largestRank = wordCountArray.slice(wordCountArray.length - 3, wordCountArray.length);
+    let secondGroup = wordCountArray.slice(0, wordCountArray.length - 3);
 
     let chart = c3.generate({
       bindto: '#donutChart',
       data: {
         columns: largestRank,
-        type : 'donut',
+        type: 'donut',
       },
       donut: {
-        title: 'Keywords'
       }
-    })
+    });
 
 
     setTimeout(function () {

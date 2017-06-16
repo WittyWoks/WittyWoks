@@ -73,7 +73,7 @@ class SmartAnalysis extends React.Component {
       keywordBar: true
     };
     this.fetchAllAppliedJob();
-    // this.analyzeResume();
+    this.analyzeResume();
 
     // C3 Card
     this.handleChange0 = this.handleChange0.bind(this);
@@ -268,21 +268,26 @@ class SmartAnalysis extends React.Component {
   render() {
     return (
       <div>
-        <div className="container wow fadeIn" data-wow-delay="0.2s">
+        <section className="container wow fadeIn" data-wow-delay="0.2s">
           <div className="divider-new">
             <h2 className="h2-responsive primary-text">Smart Analysis</h2>
           </div>
 
-          <div className="row">
-            <div className="col-sm-6">
-              {this.state.donutChart ? <DonutChart ranking={this.state.keywordsRanking} /> : <p className="disabled-text">Loading...</p>}
+          <div className="card-deck">
+            <div className="card wow fadeIn" style={styles.card} data-wow-delay="2s">
+              <div className="card-block">
+                {this.state.donutChart ? <DonutChart ranking={this.state.keywordsRanking} /> : <p className="disabled-text">Loading...</p>}
+              </div>
             </div>
-            <div className="col-sm-6">
-              {this.state.donutChart && this.state.keywordBar ? <KeywordBarChart ranking={this.state.keywordsRanking}/> : <p className="disabled-text">Loading...</p>}
+            <div className="card wow fadeIn" style={styles.card} data-wow-delay="2s">
+              <div className="card-block">
+                {this.state.donutChart && this.state.keywordBar ? <KeywordBarChart ranking={this.state.keywordsRanking}/> : <p className="disabled-text">Loading...</p>}
+              </div>
             </div>
           </div>
+
           <div className="row">
-            <div className="text-center secondary-text">
+            <div className="text-center secondary-text mt-4 wow fadeIn" data-wow-delay="3s">
               <p>The following skills were extracted from your résumé and compared
               with the skillset required on the jobs you applied for. If a skill on
               your resume appears in a job posting, our algorithm will tally it and
@@ -290,22 +295,23 @@ class SmartAnalysis extends React.Component {
               interest you the most.</p>
             </div>
           </div>
-        </div>
+        </section>
 
-        <section id="offer" className="container wow fadeIn">
+        <section className="container wow fadeIn" data-wow-delay="4s">
           <div className="divider-new">
             <h2 className="h2-responsive primary-text">IBM Watson</h2>
           </div>
 
-          <div className="wow fadeIn text-center secondary-text">
+          <div className="wow fadeIn secondary-text">
             {this.state.loaded === false ?
               <p className="disabled-text">Loading...</p>
             :
             <div>
-              <p className="secondary-text">{this.state.summary}</p>
-              <div className="row">
+              <p className="text-center secondary-text">{this.state.summary}</p>
+              <div className="row mt-4">
                 <div className="col-sm-6">
-                  <h4 className="primary-text">You are likely to:</h4>
+                <hr className="hr-mobile"/>
+                  <h4 className="text-center primary-text">You are likely to:</h4>
                   {this.state.likely.map((like) => {
                     return (
                       <List>
@@ -313,9 +319,10 @@ class SmartAnalysis extends React.Component {
                       </List>
                     );
                   })}
+                <hr className="hr-mobile"/>
                 </div>
                 <div className="col-sm-6">
-                  <h4 className="primary-text">You are unlikely to:</h4>
+                  <h4 className="primary-text text-center">You are unlikely to:</h4>
                   {this.state.unlikely.map((dislike) => {
                     return (
                       <List>
@@ -328,11 +335,12 @@ class SmartAnalysis extends React.Component {
             </div>
             }
           </div>
-          <div className="row">
+          <hr className="hr-mobile"/>
+          <div className="row mt-4">
             <div className="col-sm-12">
               <div className="card-deck">
                 <div className="card" style={styles.card}>
-                    <img className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%2813%29.jpg" alt="Card image cap"/>
+                    <img className="img-fluid" src="https://res.cloudinary.com/jescobedo/image/upload/v1497581584/kai-oberhauser-68896_zzaexn.jpg" alt="Card image cap" />
                     <div className="card-block">
                         <h4 className="card-title primary-text">Resume Tone</h4>
                         {this.state.loaded === false ?
@@ -356,7 +364,7 @@ class SmartAnalysis extends React.Component {
                     </div>
                 </div>
                 <div className="card" style={styles.card}>
-                    <img className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%2840%29.jpg" alt="Card image cap"/>
+                    <img className="img-fluid" src="https://res.cloudinary.com/jescobedo/image/upload/v1497581693/gonard-fluit-269139_p2kxsr.jpg" alt="Card image cap"/>
                     <div className="card-block">
                         <h4 className="card-title primary-text">Language Style</h4>
                         {this.state.loaded === false ?
