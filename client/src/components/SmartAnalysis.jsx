@@ -73,7 +73,7 @@ class SmartAnalysis extends React.Component {
       keywordBar: true
     };
     this.fetchAllAppliedJob();
-    // this.analyzeResume();
+    this.analyzeResume();
 
     // C3 Card
     this.handleChange0 = this.handleChange0.bind(this);
@@ -297,7 +297,7 @@ class SmartAnalysis extends React.Component {
           </div>
         </section>
 
-        <section className="container wow fadeIn">
+        <section className="container wow fadeIn" data-wow-delay="4s">
           <div className="divider-new">
             <h2 className="h2-responsive primary-text">IBM Watson</h2>
           </div>
@@ -310,6 +310,7 @@ class SmartAnalysis extends React.Component {
               <p className="text-center secondary-text">{this.state.summary}</p>
               <div className="row mt-4">
                 <div className="col-sm-6">
+                <hr className="hr-mobile"/>
                   <h4 className="text-center primary-text">You are likely to:</h4>
                   {this.state.likely.map((like) => {
                     return (
@@ -318,6 +319,7 @@ class SmartAnalysis extends React.Component {
                       </List>
                     );
                   })}
+                <hr className="hr-mobile"/>
                 </div>
                 <div className="col-sm-6">
                   <h4 className="primary-text text-center">You are unlikely to:</h4>
@@ -333,6 +335,7 @@ class SmartAnalysis extends React.Component {
             </div>
             }
           </div>
+          <hr className="hr-mobile"/>
           <div className="row mt-4">
             <div className="col-sm-12">
               <div className="card-deck">

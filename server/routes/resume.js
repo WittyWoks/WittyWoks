@@ -62,19 +62,19 @@ router.route('/analyzeResume')
       });
 
       // // Watson send text
-      // personality_insights.profile({
-      //   text: rawText,
-      //   consumption_preferences: true
-      // },
-      // function (err, response) {
-      //   if (err) {
-      //     console.log('error:', err);
-      //   } else {
-      //     personalitySummary = v3EnglishTextSummaries.getSummary(response);
-      //     payload.personality.main = response;
-      //     payload.personality.summary = personalitySummary;
-      //   }
-      // });
+      personality_insights.profile({
+        text: rawText,
+        consumption_preferences: true
+      },
+      function (err, response) {
+        if (err) {
+          console.log('error:', err);
+        } else {
+          personalitySummary = v3EnglishTextSummaries.getSummary(response);
+          payload.personality.main = response;
+          payload.personality.summary = personalitySummary;
+        }
+      });
 
       let params = {
         text: rawText,
@@ -82,14 +82,14 @@ router.route('/analyzeResume')
         sentences: false
       };
 
-      // tone_analyzer.tone(params, function(error, response) {
-      //   if (error) {
-      //     console.log('error:', error);
-      //   } else {
-      //     payload.tone.main = response;
-      //     res.json(payload);
-      //   }
-      // });
+      tone_analyzer.tone(params, function(error, response) {
+        if (error) {
+          console.log('error:', error);
+        } else {
+          payload.tone.main = response;
+          res.json(payload);
+        }
+      });
 
     });
 
