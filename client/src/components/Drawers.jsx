@@ -104,10 +104,8 @@ class Drawers extends React.Component {
 
       data.items.forEach((index) => {
 
-        console.log('line107', index);
         let temp = {};
         let start = index.updated;
-
         let startYear, startMonth, startDay, startHour, startMinutes;
 
         if (start) {
@@ -125,7 +123,6 @@ class Drawers extends React.Component {
 
         storage.push(temp);
       });
-      console.log(storage);
       this.setState({
         gCalEvents: storage
       });
@@ -134,7 +131,6 @@ class Drawers extends React.Component {
       console.log('Error, did not get GCal');
     });
   }
-
 
   handleOpen() {
     this.setState({open: true});
