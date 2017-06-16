@@ -268,21 +268,26 @@ class SmartAnalysis extends React.Component {
   render() {
     return (
       <div>
-        <div className="container wow fadeIn" data-wow-delay="0.2s">
+        <section className="container wow fadeIn" data-wow-delay="0.2s">
           <div className="divider-new">
             <h2 className="h2-responsive primary-text">Smart Analysis</h2>
           </div>
 
-          <div className="row">
-            <div className="col-sm-6">
-              {this.state.donutChart ? <DonutChart ranking={this.state.keywordsRanking} /> : <p className="disabled-text">Loading...</p>}
+          <div className="card-deck">
+            <div className="card wow fadeIn" style={styles.card} data-wow-delay="2s">
+              <div className="card-block">
+                {this.state.donutChart ? <DonutChart ranking={this.state.keywordsRanking} /> : <p className="disabled-text">Loading...</p>}
+              </div>
             </div>
-            <div className="col-sm-6">
-              {this.state.donutChart && this.state.keywordBar ? <KeywordBarChart ranking={this.state.keywordsRanking}/> : <p className="disabled-text">Loading...</p>}
+            <div className="card wow fadeIn" style={styles.card} data-wow-delay="2s">
+              <div className="card-block">
+                {this.state.donutChart && this.state.keywordBar ? <KeywordBarChart ranking={this.state.keywordsRanking}/> : <p className="disabled-text">Loading...</p>}
+              </div>
             </div>
           </div>
+
           <div className="row">
-            <div className="text-center secondary-text">
+            <div className="text-center secondary-text mt-4 wow fadeIn" data-wow-delay="3s">
               <p>The following skills were extracted from your résumé and compared
               with the skillset required on the jobs you applied for. If a skill on
               your resume appears in a job posting, our algorithm will tally it and
@@ -290,22 +295,22 @@ class SmartAnalysis extends React.Component {
               interest you the most.</p>
             </div>
           </div>
-        </div>
+        </section>
 
-        <section id="offer" className="container wow fadeIn">
+        <section className="container wow fadeIn">
           <div className="divider-new">
             <h2 className="h2-responsive primary-text">IBM Watson</h2>
           </div>
 
-          <div className="wow fadeIn text-center secondary-text">
+          <div className="wow fadeIn secondary-text">
             {this.state.loaded === false ?
               <p className="disabled-text">Loading...</p>
             :
             <div>
-              <p className="secondary-text">{this.state.summary}</p>
-              <div className="row">
+              <p className="text-center secondary-text">{this.state.summary}</p>
+              <div className="row mt-4">
                 <div className="col-sm-6">
-                  <h4 className="primary-text">You are likely to:</h4>
+                  <h4 className="text-center primary-text">You are likely to:</h4>
                   {this.state.likely.map((like) => {
                     return (
                       <List>
@@ -315,7 +320,7 @@ class SmartAnalysis extends React.Component {
                   })}
                 </div>
                 <div className="col-sm-6">
-                  <h4 className="primary-text">You are unlikely to:</h4>
+                  <h4 className="primary-text text-center">You are unlikely to:</h4>
                   {this.state.unlikely.map((dislike) => {
                     return (
                       <List>
@@ -328,7 +333,7 @@ class SmartAnalysis extends React.Component {
             </div>
             }
           </div>
-          <div className="row">
+          <div className="row mt-4">
             <div className="col-sm-12">
               <div className="card-deck">
                 <div className="card" style={styles.card}>
