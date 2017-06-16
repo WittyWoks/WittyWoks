@@ -15,11 +15,6 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-.analysisCard {
-  height: 450px;
-  
-}
-
 .highlight-text {
   color: rgb(29, 233, 182); 
 }
@@ -148,6 +143,10 @@ li {
   background-color: #212121;
 }
 
+#logo {
+  height: 100px;
+}
+
 /* May need this for iphone support
 .content-home {
   content:"";
@@ -206,6 +205,21 @@ li {
   position: fixed;
 }
 
+/* *************************
+* SMART ANALYSIS PROPERTIES
+************************** */
+
+.emotion-rating {
+  font-weight: 200;
+  font-size: 0.8em;
+  color: #1DE9B6;
+}
+
+.analysisCard {
+  height: 450px;
+  overflow-y: scroll;
+}
+
 
 /* *************************
 * MOBILE SPECIFIC PARAMS
@@ -231,6 +245,12 @@ li {
 
   .card {
     margin-bottom: 20px;
+  }
+
+  .emotion-rating {
+    font-weight: 200;
+    font-size: 0.8em;
+    color: #1DE9B6;
   }
 
   li {

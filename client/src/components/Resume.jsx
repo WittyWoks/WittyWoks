@@ -5,6 +5,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 import Chip from 'material-ui/Chip';
 import ReactPDF from 'react-pdf';
 import $ from 'jquery';
+import CircularProgress from 'material-ui/CircularProgress';
 
 const styles = {
   button: {
@@ -31,7 +32,12 @@ const styles = {
     background: '#424242'
   },
   div: {
-    height: '100px'
+    height: '50px'
+  },
+  circular: {
+    // visibility: 'hidden',
+    top: '15px',
+    left: '10px'
   }
 };
 
@@ -106,10 +112,12 @@ class Resume extends React.Component {
 
   // Update progress bar on file upload
   progress(completed) {
+    styles.circular.visibility = 'visible';
     if (completed > 100) {
       this.setState({completed: 100});
     } else {
       this.setState({completed});
+      styles.circular.visibility = 'hidden';
     }
   }
 
@@ -182,6 +190,9 @@ class Resume extends React.Component {
     return (
       <div>
         <div className="container">
+        <div className="divider-new">
+          <h2 className="h2-responsive primary-text">Résumé</h2>
+        </div>
           <div className="row">
             {/* Resume Column */}
             <div className="col-md-6 mb-r">
@@ -201,9 +212,9 @@ class Resume extends React.Component {
               </a>
               }
             </div>
-
             {/* Text Column */}
             <div className="col-md-5 offset-md-1">
+            <hr className="hr-mobile"/>
               {/* Upload Row */}
               <div className="row">
                 <div className="col-1 mr-1">
@@ -213,13 +224,11 @@ class Resume extends React.Component {
                   <h4 className="feature-title highlight-text">Upload</h4>
                   <p className="secondary-text">Upload your résumé and we'll automatically grab your relevant job skills.</p>
                   <a className="btn btn-default">Upload<input type="file" name="upload" style={styles.exampleImageInput} onChange={(e) => this.fileUpload(e)} /></a>
-
-                  <LinearProgress id="test" className="progress-bar" mode="determinate" value={this.state.completed} />
+                  <CircularProgress mode="determinate" value={this.state.completed} style={styles.circular}/>
                 </div>
               </div>
-
               <div style={styles.div}></div>
-
+              <hr className="hr-mobile"/>
               {/* Skills Row */} 
               <div className="row">
                 <div className="col-1 mr-1">

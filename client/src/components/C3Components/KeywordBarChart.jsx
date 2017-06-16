@@ -9,7 +9,7 @@ class KeywordBarChart extends React.Component {
     let wordCountArray = [];
     let keywordsCount = ['Keywords'];
     let keyword = ['x'];
-    let unsortedKeywordCount =['Keywords'];
+    let unsortedKeywordCount = ['Keywords'];
     let unsortedKeywords = ['x'];
     let totalData = 0;
 
@@ -24,7 +24,7 @@ class KeywordBarChart extends React.Component {
     wordCountArray.forEach((index) => {
       unsortedKeywordCount.push(index[1]);
       unsortedKeywords.push(index[0]);
-    })
+    });
 
     wordCountArray.sort((num1, num2) => {
       return num2[1] - num1[1];
@@ -33,15 +33,15 @@ class KeywordBarChart extends React.Component {
     wordCountArray.forEach((index) => {
       keywordsCount.push(index[1]);
       keyword.push(index[0]);
-    })
+    });
 
-    keywordsCount[0] = keywordsCount[0] + ' (' + totalData+ ' Word Matches)';
-    unsortedKeywordCount[0] = unsortedKeywordCount[0] + ' (' + totalData+ ' Word Matches)';
+    keywordsCount[0] = keywordsCount[0] + ' (' + totalData + ' Word Matches)';
+    unsortedKeywordCount[0] = unsortedKeywordCount[0] + ' (' + totalData + ' Word Matches)';
 
     let chart = c3.generate({
       bindto: '#keyword',
       data: {
-        x : 'x',
+        x: 'x',
         columns: [
           unsortedKeywords,
           unsortedKeywordCount
@@ -49,13 +49,16 @@ class KeywordBarChart extends React.Component {
         type: 'bar',
         colors: {
           Keywords: '#1DE9B6'
-          }
+        }
       },
       axis: {
         x: {
           type: 'category',
-          stroke: '#fff'
-
+          stroke: '#fff',
+          tick: {
+            rotate: 75,
+            multiline: false
+          }
         },
         y: {
           show: false
@@ -66,24 +69,23 @@ class KeywordBarChart extends React.Component {
       }
     });
 
-  setTimeout(function () {
-    chart.load({
-      columns: [
-        keyword,
-        keywordsCount
-      ],
-      axis: {
-        x: {
-          type: 'category'
+    setTimeout(function () {
+      chart.load({
+        columns: [
+          keyword,
+          keywordsCount
+        ],
+        axis: {
+          x: {
+            type: 'category'
+          }
+        },
+        transition: {
+          duration: 5000
         }
-      },
-      transition: {
-        duration: 5000
-      }
-    });
-  }, 2000);
-
-}
+      });
+    }, 2000);
+  }
 
 
   render() {

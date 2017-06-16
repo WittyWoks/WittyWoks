@@ -64,12 +64,12 @@ class Dashboard extends React.Component {
           {/* Dashboard Drawer (menus) */}
           <Drawers avatar={this.state.avatar} nameOnly={this.state.nameOnly} loggedIn={this.state.loggedIn} />
 
-          {/* First row */}
+          {/* First row 
           <div className="card card-block" style={styles.cardHero} className="primary-text">
             <div className="container">
               <h2 className="card-title">{this.state.name}</h2>
             </div>
-          </div>
+          </div>*/}
 
           {/* React Router Routes */}
           <Route exact path='/dashboard' component={DashboardHome} />
