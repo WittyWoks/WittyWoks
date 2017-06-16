@@ -34,13 +34,20 @@ const styles = {
     // color: '#1DE9B6'
   },
   menuItem: {
-    color: '#FFFFFF',
-    fontWeight: 300
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontWeight: 200
   },
   subheader: {
-    color: 'white',
+    color: 'rgba(255, 255, 255, 0.5)',
     fontWeight: 300
-
+  },
+  icon: {
+    primary: {
+      color: '#1DE9B6'
+    },
+    alternate: {
+      color: '#FFAF36'
+    }
   },
   user: {
     padding: '15px',
@@ -117,8 +124,8 @@ class Drawers extends React.Component {
         }
 
         temp['title'] = index.summary;
-        temp['start'] = new Date(startYear, startMonth -1, startDay, startHour, 0, 0, 0);
-        temp['end'] = new Date(startYear, startMonth -1 , startDay, startHour, 1, 0, 0);
+        temp['start'] = new Date(startYear, startMonth - 1, startDay, startHour, 0, 0, 0);
+        temp['end'] = new Date(startYear, startMonth - 1, startDay, startHour, 1, 0, 0);
         temp['desc'] = 'index.description';
 
         storage.push(temp);
@@ -182,17 +189,17 @@ class Drawers extends React.Component {
 
   handleTouchTap(item) {
 
-    let time = item.start.toString().slice(4,11);
+    let time = item.start.toString().slice(4, 11);
     let title;
     if (item.title.length > 30) {
-      title = item.title.slice(0,20) + '...';
+      title = item.title.slice(0, 20) + '...';
     } else {
       title = item.title;
     }
 
     this.setState({
       openSnack: true,
-      calEvent: title +' @'+ time
+      calEvent: title + ' @' + time
     });
   }
 
@@ -272,7 +279,7 @@ class Drawers extends React.Component {
 
         {/* Navigation bar */}
         <AppBar
-          title="BestFit"
+          title={<img src="https://res.cloudinary.com/jescobedo/image/upload/v1497587577/puzzle_wugv86.png" width="50" height="auto" alt=""/>}
           titleStyle={styles.appBar}
           iconElementRight={<FlatButton label="Activity" />}
           onLeftIconButtonTouchTap={this.handleTogglePrimary}
@@ -296,7 +303,7 @@ class Drawers extends React.Component {
                   { this.props.nameOnly === 'Guest' ?
                     <i className="fa fa-user-circle fa-5x" aria-hidden="true" > </i>
                    :
-                    <img src={this.props.avatar} className="img-fluid rounded-circle" />
+                    <img src={this.props.avatar} className="img-fluid rounded-circle drawer-avatar" />
                   }
                 </div>
                 <br/>
@@ -304,24 +311,24 @@ class Drawers extends React.Component {
               </div>
             </li>
             <Subheader style={styles.subheader}>BESTFIT</Subheader>
-            <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-home" aria-hidden="true"></i>} containerElement={<Link to="/dashboard" className="router-link-color"></Link>}>Home</MenuItem>
+            <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i style={styles.icon.primary} className="fa fa-home" aria-hidden="true"></i>} containerElement={<Link to="/dashboard" className="router-link-color"></Link>}>Home</MenuItem>
             { this.props.loggedIn === false ?
-              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-list" aria-hidden="true"></i>}>Job History</MenuItem>
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i style={styles.icon.primary} className="fa fa-list" aria-hidden="true"></i>}>Job History</MenuItem>
              :
-              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-list" aria-hidden="true"></i>} containerElement={<Link to="/jobhistory" className="router-link-color"></Link>}>Job History</MenuItem>
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i style={styles.icon.primary} className="fa fa-list" aria-hidden="true"></i>} containerElement={<Link to="/jobhistory" className="router-link-color"></Link>}>Job History</MenuItem>
             }
             { this.props.loggedIn === false ?
-              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-pencil" aria-hidden="true"></i>}>Résumé</MenuItem>
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i style={styles.icon.primary} className="fa fa-pencil" aria-hidden="true"></i>}>Résumé</MenuItem>
              :
-              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-pencil" aria-hidden="true"></i>} containerElement={<Link to="/resume" className="router-link-color"></Link>}>Résumé</MenuItem>
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i style={styles.icon.primary} className="fa fa-pencil" aria-hidden="true"></i>} containerElement={<Link to="/resume" className="router-link-color"></Link>}>Résumé</MenuItem>
             }
             { this.props.loggedIn === false ?
-              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i className="fa fa-area-chart" aria-hidden="true"></i>}>Smart Analysis</MenuItem>
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleOpen} leftIcon={<i style={styles.icon.primary} className="fa fa-area-chart" aria-hidden="true"></i>}>Smart Analysis</MenuItem>
              :
-              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-area-chart" aria-hidden="true"></i>} containerElement={<Link to="/smartanalysis" className="router-link-color"></Link>}>Smart Analysis</MenuItem>
+              <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i style={styles.icon.primary} className="fa fa-area-chart" aria-hidden="true"></i>} containerElement={<Link to="/smartanalysis" className="router-link-color"></Link>}>Smart Analysis</MenuItem>
             }
             <Subheader style={styles.subheader}>SIGN OUT</Subheader>
-            <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i className="fa fa-sign-out" aria-hidden="true"></i>} href="/logout">Sign Out</MenuItem>
+            <MenuItem style={styles.menuItem} onTouchTap={this.handleClosePrimary} leftIcon={<i style={styles.icon.alternate} className="fa fa-sign-out" aria-hidden="true"></i>} href="/logout">Sign Out</MenuItem>
             <Dialog
               title="Log in to continue"
               actions={actions}
