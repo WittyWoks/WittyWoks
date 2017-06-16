@@ -94,64 +94,72 @@ class JobHistory extends React.Component {
     });
   }
 
+  goToJob(url) {
+    window.location = url;
+  }
+
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container">
         
         {/* First Row */}
-        <div className="row">
-          <div className="col-sm-6">
-            <div className="col-sm-12">
-            { this.state.loaded === false ? 
-              <p>Loading...</p>
-             :
-             <div>
-                <h4>Application rate</h4>
-                <BarChart barChartData={this.state} />
+        <div className="row ">
+          <div className="col-sm-8">
+
+              <div className="col-sm-12">
+              { this.state.loaded === false ? 
+                <p>Loading...</p>
+               :
+               <div>
+                  <div className="divider-new">
+                    <h4 className="primary-text" style={{fontSize: '45px'}}>Application Rate</h4>
+                  </div>
+                    <br />
+                    <BarChart barChartData={this.state} />
               </div>
-            }
-            </div>
+              }
+              </div>
+         
           </div>
-            
-          <div className="col-sm-6">
+        </div>
+        <br />
+        <br />
+        {/* Second Row */}
+        <div className="row">
+          <div className="col-sm-8">
+
             {this.state.loaded === false ?
                 <p>Loading...</p>
               :
-                <div>
-                  <h4>List of jobs applied to</h4>
-                  <table className="table table-striped table-sm">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Company</th>
-                        <th>Job Title</th>
-                        <th>Location</th>
-                        <th>Posting</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.state.jobsAppliedTo.map((job, idx) => {
-                        let parsedJob = JSON.parse(job.job_data);
-                        return (
-                          <tr key={idx}>
-                            <th>{idx + 1}</th>
-                            <td>{parsedJob.indeed.company}</td>
-                            <td>{parsedJob.indeed.jobtitle}</td>
-                            <td>{parsedJob.indeed.city}</td>
-                            <td><a target="_blank" href={parsedJob.indeed.url}>Link</a></td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                <div className="primary-text">
+                  <div className="divider-new">
+                    <h4 className="primary-text" style={{fontSize: '45px'}}>Jobs Applied To </h4>
+                  </div>
+                      <br />
+                        {this.state.jobsAppliedTo.map((job, idx) => {
+                          let parsedJob = JSON.parse(job.job_data);
+                          let jobs = parsedJob.indeed;
+                          return (
+                            <div className="media mb-1" onClick={() => { this.goToJob(jobs.url); }}>
+                              <a className="media-left waves-light">
+                                  <img className="rounded-circle" style={{height: '100px'}} src={parsedJob.glassDoor.squareLogo} alt="Generic placeholder image" />
+                              </a>
+                              <div className="media-body">
+                                  <h4 className="media-heading">{jobs.company}</h4>
+                                  <div> {jobs.jobtitle} </div>
+                                  <div> {jobs.city} </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                 </div>
-              }
+            }
           </div>
         </div>
       </div>
     );
   }
-}
+} 
 
 export default JobHistory;
 
@@ -227,7 +235,7 @@ export default JobHistory;
                         <td><a target="_blank" href={parsedJob.indeed.url}>Link</a></td>
                       </tr>
                     );
-                  })}
+        
                 </tbody>
               </table>
             }
