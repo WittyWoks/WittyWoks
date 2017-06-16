@@ -23,7 +23,7 @@ class DonutChart extends React.Component {
       bindto: '#donutChart',
       data: {
         columns: largestRank,
-        type : 'donut',
+        type: 'donut',
       },
       donut: {
       }
