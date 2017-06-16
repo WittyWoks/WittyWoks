@@ -72,7 +72,7 @@ class Drawers extends React.Component {
       open: false,
       jobsAppliedTo: null,
       loaded: false,
-      gCalEvents:[],
+      gCalEvents: [],
       openSnack: false,
       calEvent: 'No event this day'
 
@@ -131,6 +131,11 @@ class Drawers extends React.Component {
       console.log('Error, did not get GCal');
     });
   }
+  
+  goToJob(url) {
+    window.location = url;
+  }
+
 
   handleOpen() {
     this.setState({open: true});
@@ -170,7 +175,6 @@ class Drawers extends React.Component {
 
 
   handleRequestClose() {
-    console.log
     this.setState({
       openSnack: false
     });
@@ -181,7 +185,7 @@ class Drawers extends React.Component {
     let time = item.start.toString().slice(4,11);
     let title;
     if (item.title.length > 30) {
-      title = item.title.slice(0,20) + '...'
+      title = item.title.slice(0,20) + '...';
     } else {
       title = item.title;
     }
@@ -345,34 +349,33 @@ class Drawers extends React.Component {
           containerStyle={styles.drawer}
         >
           <Subheader style={styles.subheader}>Recently Applied</Subheader>
-          <div className="container shade">
+          <div>
            <div className="recentlyApplied">
             <div className="row">
               <div className="col-sm-12">
             {this.state.loaded === false ?
               <p>Loading...</p>
             :
-              <table className="table table-sm">
-                <thead>
-                  <tr>
-                    <th>Company</th>
-                    <th>Job Title</th>
-                    <th>Posting</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.jobsAppliedTo.map((job, idx) => {
+              <div >
+                  {this.state.jobsAppliedTo.filter((job, index) => {
+                    return index > 3;
+                  }).map((job, idx) => {
                     let parsedJob = JSON.parse(job.job_data);
+                    let jobIndeed = parsedJob.indeed;
                     return (
-                      <tr key={idx}>
-                        <td>{parsedJob.indeed.company}</td>
-                        <td>{parsedJob.indeed.jobtitle}</td>
-                        <td><a target="_blank" href={parsedJob.indeed.url}>Link</a></td>
-                      </tr>
+                            <div className="media mb-1 hoverDash primary-text" onClick={() => { this.goToJob(jobIndeed.url); }}>
+                              <a className="media-left waves-light">
+                                  <img className="rounded-circle" style={{height: '45px'}} src={parsedJob.glassDoor.squareLogo} alt="Generic placeholder image" />
+                              </a>
+                              <div className="media-body seconday-text" style={{fontSize: '8px'}}>
+                                  <h6 className="media-heading">{jobIndeed.company}</h6>
+                                  <div> {jobIndeed.jobtitle} </div>
+                                  <div> {jobIndeed.city} </div>
+                              </div>
+                            </div>
                     );
                   })}
-                </tbody>
-              </table>
+              </div>
             }
 
               </div>
