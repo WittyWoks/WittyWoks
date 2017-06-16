@@ -158,6 +158,9 @@ li {
   height: 100px;
 }
 
+#icon {
+  fill: white;
+}
 /* May need this for iphone support
 .content-home {
   content:"";
