@@ -73,7 +73,7 @@ class SmartAnalysis extends React.Component {
       keywordBar: true
     };
     this.fetchAllAppliedJob();
-    this.analyzeResume();
+    // this.analyzeResume();
 
     // C3 Card
     this.handleChange0 = this.handleChange0.bind(this);
@@ -272,7 +272,7 @@ class SmartAnalysis extends React.Component {
           <div className="divider-new">
             <h2 className="h2-responsive primary-text">Smart Analysis</h2>
           </div>
-        
+
           <div className="row">
             <div className="col-sm-6">
               {this.state.donutChart ? <DonutChart ranking={this.state.keywordsRanking} /> : <p className="disabled-text">Loading...</p>}

@@ -50,13 +50,12 @@ const styles = {
     fontWeight: 300,
   },
   snack: {
-    top: 0,
-    bottom: 'fixed',
+    position: 'fixed',
     height: 50,
-    maxWidth: 350
+    maxWidth: '100%'
   },
   Calendar: {
-    width: 340,
+    width: 300,
     paddingTop: 5,
     paddingBottom: 5,
     background: '#676767'
@@ -356,20 +355,9 @@ class Drawers extends React.Component {
           onRequestChange={(openSecondary) => this.setState({openSecondary})}
           containerStyle={styles.drawer}
         >
-        <div onTouchTap={this.handleCloseSecondary}>
-          <Subheader style={styles.subheader}>Calendar</Subheader>
-          </div>
-            <div style={styles.Calendar} className="card-block shade">
-              <BigCalendar
-              style={{height: '420px', color: 'white'}}
-              events={this.state.gCalEvents}
-              views={['month']}
-              onSelectEvent={event => this.handleTouchTap(event)}
-
-              />
-            </div>
           <Subheader style={styles.subheader}>Recently Applied</Subheader>
-          <div className="ccard-block shade">
+          <div className="container shade">
+           <div className="recentlyApplied">
             <div className="row">
               <div className="col-sm-12">
             {this.state.loaded === false ?
@@ -397,16 +385,31 @@ class Drawers extends React.Component {
                 </tbody>
               </table>
             }
-              <Snackbar
-                style={styles.snack}
-                open={this.state.openSnack}
-                message={this.state.calEvent}
-                autoHideDuration={3000}
-                onRequestClose={this.handleRequestClose}
-              />
+
+              </div>
               </div>
             </div>
           </div>
+        <div onTouchTap={this.handleCloseSecondary}>
+          <Subheader style={styles.subheader}>Calendar</Subheader>
+          </div>
+            <div style={styles.Calendar} className="container shade">
+              <BigCalendar
+              style={{height: '420px', color: 'white'}}
+              events={this.state.gCalEvents}
+              views={['month']}
+              onSelectEvent={event => this.handleTouchTap(event)}
+
+              />
+            </div>
+            <Snackbar
+              style={styles.snack}
+              open={this.state.openSnack}
+              message={this.state.calEvent}
+              autoHideDuration={3000}
+              onRequestClose={this.handleRequestClose}
+            />
+
         </Drawer>
 
       </div>
