@@ -131,7 +131,7 @@ class Drawers extends React.Component {
       console.log('Error, did not get GCal');
     });
   }
-  
+
   goToJob(url) {
     window.location = url;
   }
@@ -365,7 +365,7 @@ class Drawers extends React.Component {
                     return (
                             <div className="media mb-1 hoverDash primary-text" onClick={() => { this.goToJob(jobIndeed.url); }}>
                               <a className="media-left waves-light">
-                                  <img className="rounded-circle" style={{height: '45px'}} src={parsedJob.glassDoor.squareLogo} alt="Generic placeholder image" />
+                                  <img className="rounded-circle" style={{height: '45px'}} src={parsedJob.glassDoor.squareLogo} alt="No Image" />
                               </a>
                               <div className="media-body seconday-text" style={{fontSize: '8px'}}>
                                   <h6 className="media-heading">{jobIndeed.company}</h6>

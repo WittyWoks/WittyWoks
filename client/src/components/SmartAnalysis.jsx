@@ -74,7 +74,7 @@ class SmartAnalysis extends React.Component {
       keywordBar: true
     };
     this.fetchAllAppliedJob();
-    // this.analyzeResume();
+    this.analyzeResume();
 
     // C3 Card
     this.handleChange0 = this.handleChange0.bind(this);
