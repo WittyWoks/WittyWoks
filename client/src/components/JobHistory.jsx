@@ -13,6 +13,7 @@ import PieChart from './C3Components/PieChart.jsx';
 import BarChart from './C3Components/BarChart.jsx';
 import PercentChart from './C3Components/PercentChart.jsx';
 import axios from 'axios';
+import Loader from 'halogen/SkewLoader';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 
@@ -22,6 +23,10 @@ const styles = {
     paddingTop: 16,
     marginBottom: 12,
     fontWeight: 400,
+  },
+  card: {
+    backgroundColor: '#424242',
+    // maxWidth: '500'
   },
 };
 
@@ -100,41 +105,48 @@ class JobHistory extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        
-        {/* First Row */}
-        <div className="row ">
-          <div className="col-sm-8">
-
-              <div className="col-sm-12">
-              { this.state.loaded === false ? 
-                <p>Loading...</p>
-               :
-               <div>
-                  <div className="divider-new">
-                    <h4 className="primary-text" style={{fontSize: '45px'}}>Application Rate</h4>
-                  </div>
-                    <br />
-                    <BarChart barChartData={this.state} />
-              </div>
-              }
-              </div>
-         
+      <div>
+        <section className="container wow fadeIn" data-wow-delay="0.2s">
+          <div className="divider-new">
+            <h2 className="h2-responsive primary-text">Application Rate</h2>
           </div>
-        </div>
+
+          {/* First Row */}
+
+          <div className="card-deck">
+            <div className="card wow fadeIn" style={styles.card} data-wow-delay="2s">
+              <div className="card-block">
+                {this.state.loaded === false ?
+                  <div className="row">
+                    <div className="col-lg-1 load-centered">
+                      <Loader color="#26A65B" size="16px" margin="4px" position='center'/>
+                    </div>
+                  </div>
+                  :
+                 <BarChart barChartData={this.state} />
+                }
+              </div>
+            </div>
+          </div>
+        </section>
+
+
         <br />
         <br />
         {/* Second Row */}
-        <div className="row">
-          <div className="col-sm-8">
-
+        <section className="container wow fadeIn" data-wow-delay="4s">
+          <div className="divider-new">
+            <h2 className="h2-responsive primary-text">Jobs Applied To</h2>
+          </div>
+          <div className="wow fadeIn secondary-text" style={styles.card}>
             {this.state.loaded === false ?
-                <p>Loading...</p>
+              <div className="row">
+                <div className="col-lg-1 load-centered">
+                  <Loader color="#26A65B" size="16px" margin="4px" position='center'/>
+                </div>
+              </div>
               :
                 <div className="primary-text">
-                  <div className="divider-new">
-                    <h4 className="primary-text" style={{fontSize: '45px'}}>Jobs Applied To </h4>
-                  </div>
                       <br />
                         {this.state.jobsAppliedTo.map((job, idx) => {
                           let parsedJob = JSON.parse(job.job_data);
@@ -142,7 +154,7 @@ class JobHistory extends React.Component {
                           return (
                             <div className="media mb-1 newHover" onClick={() => { this.goToJob(jobIndeed.url); }}>
                               <a className="media-left waves-light">
-                                  <img className="rounded-circle" style={{height: '100px'}} src={parsedJob.glassDoor.squareLogo} alt="Generic placeholder image" />
+                                  <img className="rounded-circle" style={{height: '80px'}} src={parsedJob.glassDoor.squareLogo} alt="No Image" />
                               </a>
                               <div className="media-body">
                                   <h4 className="media-heading">{jobIndeed.company}</h4>
@@ -154,12 +166,12 @@ class JobHistory extends React.Component {
                         })}
                 </div>
             }
-          </div>
-        </div>
+            </div>
+          </section>
       </div>
     );
   }
-} 
+}
 
 export default JobHistory;
 
@@ -235,12 +247,12 @@ export default JobHistory;
                         <td><a target="_blank" href={parsedJob.indeed.url}>Link</a></td>
                       </tr>
                     );
-        
+
                 </tbody>
               </table>
             }
             </div>
-          </div>
-        </div>
-      </div>
+
+
+
 */
