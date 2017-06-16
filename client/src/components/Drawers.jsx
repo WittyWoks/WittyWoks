@@ -279,7 +279,7 @@ class Drawers extends React.Component {
 
         {/* Navigation bar */}
         <AppBar
-          title={<img src="https://res.cloudinary.com/jescobedo/image/upload/v1497587577/puzzle_wugv86.png" width="50" height="auto" alt=""/>}
+          title="BestFit"
           titleStyle={styles.appBar}
           iconElementRight={<FlatButton label="Activity" />}
           onLeftIconButtonTouchTap={this.handleTogglePrimary}
