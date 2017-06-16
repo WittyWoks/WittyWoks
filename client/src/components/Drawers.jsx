@@ -349,7 +349,7 @@ class Drawers extends React.Component {
           containerStyle={styles.drawer}
         >
           <Subheader style={styles.subheader}>Recently Applied</Subheader>
-          <div className="container shade">
+          <div>
            <div className="recentlyApplied">
             <div className="row">
               <div className="col-sm-12">
@@ -363,11 +363,11 @@ class Drawers extends React.Component {
                     let parsedJob = JSON.parse(job.job_data);
                     let jobIndeed = parsedJob.indeed;
                     return (
-                            <div className="media mb-1 hoverDash" onClick={() => { this.goToJob(jobIndeed.url); }}>
+                            <div className="media mb-1 hoverDash primary-text" onClick={() => { this.goToJob(jobIndeed.url); }}>
                               <a className="media-left waves-light">
                                   <img className="rounded-circle" style={{height: '45px'}} src={parsedJob.glassDoor.squareLogo} alt="Generic placeholder image" />
                               </a>
-                              <div className="media-body" style={{fontSize: '8px'}}>
+                              <div className="media-body seconday-text" style={{fontSize: '8px'}}>
                                   <h6 className="media-heading">{jobIndeed.company}</h6>
                                   <div> {jobIndeed.jobtitle} </div>
                                   <div> {jobIndeed.city} </div>
