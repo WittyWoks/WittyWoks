@@ -23,6 +23,13 @@
   height: 450px;
 }
 
+.rbc-event {
+  background-color: #1DE9B6 !important;
+}
+.rbc-toolbar button {
+  color: white !important;
+  border: 1px solid white !important;
+}
 hr {
     display: block;
     height: 1px;
