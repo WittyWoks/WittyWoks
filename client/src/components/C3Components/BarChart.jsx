@@ -11,13 +11,24 @@ class LineChart extends React.Component {
 
   componentDidMount() {
     let context = this;
-    var barChart = c3.generate({
+    let jobs = context.props.barChartData.barChartJobsApplied;
+    let total = 0;
+
+    if (jobs.length > 0) {
+      for (let i = 1; i <jobs.length; i++) {
+        total += jobs[i];
+      }
+    }
+
+    jobs[0] = jobs[0]+ ' (Total: ' + total + ')';
+
+    let barChart = c3.generate({
       bindto: '#linechart',
       data: {
         columns: [
           context.props.barChartData.barChartJobsApplied
         ],
-        type: 'bar',
+        type: 'line',
       },
       bar: {
         width: {
@@ -35,11 +46,19 @@ class LineChart extends React.Component {
           categories: context.props.barChartData.barChartDates
         },
         y: {
-          tick: { format: d3.format('d') }
+          show: false
         }
       },
 
     });
+
+    setTimeout(function () {
+      barChart.transform('bar');
+    }, 3000);
+
+    setTimeout(function () {
+      barChart.transform('area');
+    }, 5000);
   }
 
   render() {

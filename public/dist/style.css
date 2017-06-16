@@ -328,6 +328,7 @@ li {
 .recentlyApplied {
   height: 200px;
   overflow:hidden;
+  margin-left: 10px;
 }
 
 .jobHistoryRow th {
@@ -365,5 +366,3 @@ li {
 .hoverDash:hover {
   background-color: #737373
 }
-
-
