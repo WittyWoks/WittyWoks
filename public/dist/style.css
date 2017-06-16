@@ -237,12 +237,12 @@ li {
   overflow-y: scroll;
 }
 
-.tick text { 
+.tick text {
   stroke: rgba(255, 255, 255, 1);
   font-weight: 100;
 }
-.c3-legend-item text { 
-  stroke: rgba(255, 255, 255, 1); 
+.c3-legend-item text {
+  stroke: rgba(255, 255, 255, 1);
   font-weight: 100;
 }
 
@@ -356,3 +356,7 @@ li {
     margin-right:-4px;
 }
 
+
+.load-centered {
+  margin: 0 auto;
+}
