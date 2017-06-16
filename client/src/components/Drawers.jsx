@@ -103,12 +103,12 @@ class Drawers extends React.Component {
       data = JSON.parse(data);
 
       data.items.forEach((index) => {
+
+        console.log('line107', index);
         let temp = {};
-        let start = index.start.dateTime;
-        let end = index.end.dateTime;
+        let start = index.updated;
 
         let startYear, startMonth, startDay, startHour, startMinutes;
-        let endYear, endMonth, endDay, endHour, endMinutes;
 
         if (start) {
           startYear = Number(start.slice(0, 4));
@@ -118,21 +118,14 @@ class Drawers extends React.Component {
           startMinutes = Number(start.slice(14, 16));
         }
 
-        if (end) {
-          endYear = Number(end.slice(0, 4));
-          endMonth = Number(end.slice(5, 7));
-          endDay = Number(end.slice(8, 10));
-          endHour = Number(start.slice(11, 13));
-          endMinutes = Number(end.slice(14, 16));
-        }
-
         temp['title'] = index.summary;
-        temp['start'] = new Date(startYear, startMonth, startDay, startHour, startMinutes, 0, 0);
-        temp['end'] = new Date(endYear, endMonth, endDay, endHour, endMinutes, 0, 0);
+        temp['start'] = new Date(startYear, startMonth -1, startDay, startHour, 0, 0, 0);
+        temp['end'] = new Date(startYear, startMonth -1 , startDay, startHour, 1, 0, 0);
         temp['desc'] = 'index.description';
 
         storage.push(temp);
       });
+      console.log(storage);
       this.setState({
         gCalEvents: storage
       });
