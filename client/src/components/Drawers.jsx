@@ -199,7 +199,7 @@ class Drawers extends React.Component {
 
     this.setState({
       openSnack: true,
-      calEvent: title +' @' + time
+      calEvent: title + ' @' + time
     });
   }
 
