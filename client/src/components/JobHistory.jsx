@@ -94,67 +94,72 @@ class JobHistory extends React.Component {
     });
   }
 
+  goToJob(url) {
+    window.location = url;
+  }
+
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container">
         
         {/* First Row */}
-        <div className="row">
-          <div className="col-sm-6">
-            <div className="card" style={{backgroundColor: '#424242'}}>
+        <div className="row ">
+          <div className="col-sm-8">
+
               <div className="col-sm-12">
               { this.state.loaded === false ? 
                 <p>Loading...</p>
                :
                <div>
-                  <h4 className="card-header primary-text" style=  {{backgroundColor: '#424242'}}>Application Rate</h4>
-                  <BarChart barChartData={this.state} />
-                </div>
+                  <div className="divider-new">
+                    <h4 className="primary-text" style={{fontSize: '45px'}}>Application Rate</h4>
+                  </div>
+                    <br />
+                    <BarChart barChartData={this.state} />
+              </div>
               }
               </div>
-            </div>
+         
           </div>
-          <div className="col-sm-6">
-            <div className="card" style={{backgroundColor: '#424242'}}>
+        </div>
+        <br />
+        <br />
+        {/* Second Row */}
+        <div className="row">
+          <div className="col-sm-8">
+
             {this.state.loaded === false ?
                 <p>Loading...</p>
               :
-                <div>
-                  <h4 className="primary-text card-header" style={{backgroundColor: '#424242'}}>Jobs Applied To </h4>
-                  <table className="table table-striped table-sm primary-text">
-                    <thead>
-                      <tr className="jobHistoryRow">
-                        <th>#</th>
-                        <th>Company</th>
-                        <th>Job Title</th>
-                        <th>Location</th>
-                        <th>Posting</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.state.jobsAppliedTo.map((job, idx) => {
-                        let parsedJob = JSON.parse(job.job_data);
-                        return (
-                          <tr key={idx} className="jobHistoryRow2">
-                            <th>{idx + 1}</th>
-                            <td>{parsedJob.indeed.company}</td>
-                            <td>{parsedJob.indeed.jobtitle}</td>
-                            <td>{parsedJob.indeed.city}</td>
-                            <td><a target="_blank" href={parsedJob.indeed.url} className="primary-text" >Link</a></td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                <div className="primary-text">
+                  <div className="divider-new">
+                    <h4 className="primary-text" style={{fontSize: '45px'}}>Jobs Applied To </h4>
+                  </div>
+                      <br />
+                        {this.state.jobsAppliedTo.map((job, idx) => {
+                          let parsedJob = JSON.parse(job.job_data);
+                          let jobs = parsedJob.indeed;
+                          return (
+                            <div className="media mb-1" onClick={() => { this.goToJob(jobs.url); }}>
+                              <a className="media-left waves-light">
+                                  <img className="rounded-circle" style={{height: '100px'}} src={parsedJob.glassDoor.squareLogo} alt="Generic placeholder image" />
+                              </a>
+                              <div className="media-body">
+                                  <h4 className="media-heading">{jobs.company}</h4>
+                                  <div> {jobs.jobtitle} </div>
+                                  <div> {jobs.city} </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                 </div>
-              }
-              </div>
+            }
           </div>
         </div>
       </div>
     );
   }
-}
+} 
 
 export default JobHistory;
 
@@ -230,7 +235,7 @@ export default JobHistory;
                         <td><a target="_blank" href={parsedJob.indeed.url}>Link</a></td>
                       </tr>
                     );
-                  })}
+                  })}"{"glassDoor":{"id":471,"name":"Neiman Marcus","website":"www.neimanmarcus.com","isEEP":false,"exactMatch":false,"industry":"Department, Clothing, & Shoe Stores","numberOfRatings":908,"squareLogo":"https://media.glassdoor.com/sqll/471/neiman-marcus-squarelogo.png","overallRating":"3.1","ratingDescription":"OK","cultureAndValuesRating":"3.0","seniorLeadershipRating":"2.7","compensationAndBenefitsRating":"3.0","careerOpportunitiesRating":"2.7","workLifeBalanceRating":"2.9","recommendToFriendRating":49,"sectorId":10022,"sectorName":"Retail","industryId":200105,"industryName":"Department, Clothing, & Shoe Stores","featuredReview":{"attributionURL":"http://www.glassdoor.com/Reviews/Employee-Review-Neiman-Marcus-RVW15406516.htm","id":15406516,"currentJob":true,"reviewDateTime":"2017-06-09 09:04:09.167","jobTitle":"Employee","location":"","headline":"Employees are great to work with","pros":"Friendly working environment at this company","cons":"no cons for me here","overall":4,"overallNumeric":4},"ceo":{"name":"Karen W. Katz","title":"President, CEO, and Director","numberOfRatings":439,"pctApprove":74,"pctDisapprove":26,"image":{"src":"https://media.glassdoor.com/people/sqll/471/neiman-marcus-karen-w-katz.png","height":200,"width":200}}},"indeed":{"jobtitle":"Junior Commercial Real Estate Agent","company":"Marcus & Millichap","city":"San Francisco","state":"CA","country":"US","language":"en","formattedLocation":"San Francisco, CA","source":"Marcus & Millichap","date":"Fri, 28 Apr 2017 05:17:36 GMT","snippet":"And seven-figures within your first ten years. This is a unique opportunity working directly with an experienced, highly successful Senior agent(s) in one of...","url":"https://www.indeed.com/viewjob?jk=32b9c1654d06a6b0&qd=0wCtTIOMpXku87cxKGc85J3RpYL0SzdVzAXyc7SAHESKeFcf3QCr16BftLIezYtJcHPwrN_mn3Vp3iHanA-VLLcfZ38MRnr1AL9f-B29AeaQhwggWUZEvHtN5OcDtAPb&indpubnum=2321237742722632&chnl=%3Crequired%3E&atk=1bimdl7voaeoo90e","onmousedown":"indeed_clk(this,'7952');","jobkey":"32b9c1654d06a6b0","sponsored":false,"expired":false,"indeedApply":true,"formattedLocationFull":"San Francisco, CA","formattedRelativeTime":"30+ days ago","stations":""}}"
                 </tbody>
               </table>
             }
