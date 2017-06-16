@@ -16,6 +16,10 @@ const styles = {
   },
   cardBody: {
     backgroundColor: '#303030'
+  },
+
+  prefixColor: {
+    color: '#00BFA5'
   }
 };
 
@@ -155,22 +159,24 @@ class DashboardHome extends React.Component {
         <br />
 
         <div className="container">
-        <form onSubmit={this.handleSubmit} className="wow fadeInDown" data-wow-delay="0.2s">
-          <div className="row justify-content-center">
-            <div className="col-sm-6">
-              <div className="md-form">
-                  <input className="primary-text" type="text" id="job-search" name="value" style={{fontSize: '30px'}} value={this.state.value} onChange={this.handleChange}/>
-                  <label htmlFor="job-search" style={{fontSize: '27px', top: '-8px'}} >Search jobs</label>
+          <form onSubmit={this.handleSubmit} className="wow fadeInDown" data-wow-delay="0.2s">
+            <div className="row justify-content-center">
+              <div className="col-sm-6">
+                <div className="md-form">
+                  <i className="fa fa-search prefix" style={styles.prefixColor} aria-hidden="true"></i>
+                  <input className="primary-text" placeholder="Search Jobs" type="text" id="job-search" name="value" style={{fontSize: '30px'}} value={this.state.value} onChange={this.handleChange}/>
+                  <label htmlFor="job-search" style={{fontSize: '27px', top: '-8px'}} ></label>
+                </div>
               </div>
-            </div>
-            <div className="col-sm-6">
-              <div className="md-form">
-                  <input className="primary-text" type="text" id="location-search" name="location" style={{fontSize: '30px'}} value={this.state.location} onChange={this.handleChange}/>
-                  <label htmlFor="location-search" style={{fontSize: '27px', top: '-8px'}}> Location </label>
-              </div>
+              <div className="col-sm-6">
+                <div className="md-form">
+                  <i className="fa fa-map-marker prefix" style={styles.prefixColor} aria-hidden="true"></i>
+                  <input className="primary-text" placeholder="Location" type="text" id="location-search" name="location" style={{fontSize: '30px'}} value={this.state.location} onChange={this.handleChange}/>
+                  <label htmlFor="location-search" style={{fontSize: '27px', top: '-8px'}}></label>
+                </div>
 
+              </div>
             </div>
-          </div>
           </form>
         </div>
 
@@ -178,39 +184,39 @@ class DashboardHome extends React.Component {
         <section>
           <div className="container-fluid wow fadeIn" data-wow-delay="0.5s">
             <div className="row justify-content-center">
-            <div className="col-sm-3"> 
-              <div className="md-form"> Radius 
-                <div >
-                <h3 className="primary-text"> FILTER RESULTS BY: </h3>
-                <br />
-                  <div> 
-                    <h4 className="primary-text"> Sort By: </h4>
-                    <button className="btn btn-default btn-sm" onClick={ () => this.sortJobsByTime()}> Time </button>
-                    <h4 className="primary-text"> Distance: </h4>
-                    <div>
-                      <select name="radius" value={this.state.selectValue} onChange={this.handleChange}>
-                        <option value="0">Exact location only</option>
-                        <option value="5">within 5 miles</option>
-                        <option value="10">within 10 miles</option>
-                        <option value="15">within 15 miles</option>
-                        <option value="20">within 20 miles</option>
-                        <option value="50">within 50 miles</option>
-                        <option value="100">within 100 miles</option>
-                      </select>  
+              <div className="col-sm-3"> 
+                <div className="md-form"> Radius 
+                  <div>
+                    <h3 className="primary-text"> FILTER RESULTS BY: </h3>
+                    <br />
+                    <div> 
+                      <h4 className="primary-text"> Sort By: </h4>
+                      <button className="btn btn-default btn-sm" onClick={ () => this.sortJobsByTime()}> Time </button>
+                      <h4 className="primary-text"> Distance: </h4>
+                      <div>
+                        <select className="select-field primary-text" name="radius" value={this.state.selectValue} onChange={this.handleChange}>
+                          <option value="0">Exact location</option>
+                          <option value="5">within 5 miles</option>
+                          <option value="10">within 10 miles</option>
+                          <option value="15">within 15 miles</option>
+                          <option value="20">within 20 miles</option>
+                          <option value="50">within 50 miles</option>
+                          <option value="100">within 100 miles</option>
+                        </select>  
+                      </div>
                     </div>
                   </div>
+                </div>    
+                <div>
+                  <h4 className="primary-text"> Top Jobs in the US </h4>
+                  <button className="btn btn-default btn-sm" onClick= { () => { this.searchIndeed('top jobs in us'); }}> Top Jobs </button>        
                 </div>
-              </div>    
-            <div>
-              <h4 className="primary-text"> Top Jobs in the US </h4>
-              <button className="btn btn-default btn-sm" onClick= { () => { this.searchIndeed('top jobs in us'); }}> Top Jobs </button>        
-            </div>
-            </div>
+              </div>
               <div className="col-sm-7"> 
                 <div className="card">
-                  <div style={styles.cardHeader} className="text-center primary-text card-header" >
+                  {/*<div style={styles.cardHeader} className="text-center primary-text card-header" >
                       Jobs
-                  </div>
+                  </div>*/}
  
                   <div className="row justify-content-center">
                   <div className="card-block" style={styles.cardBody}>
@@ -227,7 +233,7 @@ class DashboardHome extends React.Component {
                     </div>
                   </div>
                 </div>
-                  <div className="row justify-content-center" style={{background: "#303030"}}>
+                  <div className="row justify-content-center" style={{background: '#303030'}}>
                     {this.state.pageNumber > 0 ?
                       <button className="btn btn-default btn-sm rounded" onClick={ () => this.changePage(this.state.pageNumber - 1)}> back </button>
                     : null }

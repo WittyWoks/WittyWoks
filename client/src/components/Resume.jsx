@@ -35,7 +35,7 @@ const styles = {
     height: '50px'
   },
   circular: {
-    // visibility: 'hidden',
+    visibility: 'hidden',
     top: '15px',
     left: '10px'
   }
