@@ -7,6 +7,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import {List, ListItem} from 'material-ui/List';
+import Loader from 'halogen/SkewLoader';
 
 const styles = {
   headline: {
@@ -276,12 +277,24 @@ class SmartAnalysis extends React.Component {
           <div className="card-deck">
             <div className="card wow fadeIn" style={styles.card} data-wow-delay="2s">
               <div className="card-block">
-                {this.state.donutChart ? <DonutChart ranking={this.state.keywordsRanking} /> : <p className="disabled-text">Loading...</p>}
+                {this.state.donutChart ? <DonutChart ranking={this.state.keywordsRanking} /> :
+                <div className="row">
+                  <div className="col-lg-1 load-centered">
+                    <Loader color="#26A65B" size="16px" margin="4px" position='center'/>
+                  </div>
+                </div>
+                }
               </div>
             </div>
             <div className="card wow fadeIn" style={styles.card} data-wow-delay="2s">
               <div className="card-block">
-                {this.state.donutChart && this.state.keywordBar ? <KeywordBarChart ranking={this.state.keywordsRanking}/> : <p className="disabled-text">Loading...</p>}
+                {this.state.donutChart && this.state.keywordBar ? <KeywordBarChart ranking={this.state.keywordsRanking}/> :
+                <div className="row">
+                  <div className="col-lg-1 load-centered">
+                    <Loader color="#26A65B" size="16px" margin="4px" position='center'/>
+                  </div>
+                </div>
+                }
               </div>
             </div>
           </div>
@@ -304,7 +317,11 @@ class SmartAnalysis extends React.Component {
 
           <div className="wow fadeIn secondary-text">
             {this.state.loaded === false ?
-              <p className="disabled-text">Loading...</p>
+              <div className="row">
+                <div className="col-lg-1 load-centered">
+                  <Loader color="#26A65B" size="16px" margin="4px" position='center'/>
+                </div>
+              </div>
             :
             <div>
               <p className="text-center secondary-text">{this.state.summary}</p>
@@ -344,7 +361,11 @@ class SmartAnalysis extends React.Component {
                     <div className="card-block">
                         <h4 className="card-title primary-text">Resume Tone</h4>
                         {this.state.loaded === false ?
-                          <p>Loading...</p>
+                          <div className="row">
+                            <div className="col-lg-1 load-centered">
+                              <Loader color="#26A65B" size="16px" margin="4px" position='center'/>
+                            </div>
+                          </div>
                         :
                         <div>
                           <h6 className="secondary-text"> &#60; .5 = not likely present</h6>
@@ -368,7 +389,11 @@ class SmartAnalysis extends React.Component {
                     <div className="card-block">
                         <h4 className="card-title primary-text">Language Style</h4>
                         {this.state.loaded === false ?
-                          <p>Loading...</p>
+                          <div className="row">
+                            <div className="col-lg-1 load-centered">
+                              <Loader color="#26A65B" size="16px" margin="4px" position='center'/>
+                            </div>
+                          </div>
                         :
                         <div>
                           <h6 className="secondary-text"> &#60; .5 = not likely present</h6>
@@ -392,7 +417,11 @@ class SmartAnalysis extends React.Component {
                     <div className="card-block">
                         <h4 className="card-title primary-text">Social Tendencies</h4>
                         {this.state.loaded === false ?
-                          <p>Loading...</p>
+                          <div className="row">
+                            <div className="col-lg-1 load-centered">
+                              <Loader color="#26A65B" size="16px" margin="4px" position='center'/>
+                            </div>
+                          </div>
                         :
                         <div>
                           <h6 className="secondary-text"> &#60; .5 = not likely present</h6>
