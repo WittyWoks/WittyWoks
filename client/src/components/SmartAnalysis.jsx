@@ -340,7 +340,7 @@ class SmartAnalysis extends React.Component {
             <div className="col-sm-12">
               <div className="card-deck">
                 <div className="card" style={styles.card}>
-                    <img className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%2813%29.jpg" alt="Card image cap"/>
+                    <img className="img-fluid" src="https://res.cloudinary.com/jescobedo/image/upload/v1497581584/kai-oberhauser-68896_zzaexn.jpg" alt="Card image cap" />
                     <div className="card-block">
                         <h4 className="card-title primary-text">Resume Tone</h4>
                         {this.state.loaded === false ?
@@ -364,7 +364,7 @@ class SmartAnalysis extends React.Component {
                     </div>
                 </div>
                 <div className="card" style={styles.card}>
-                    <img className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%2840%29.jpg" alt="Card image cap"/>
+                    <img className="img-fluid" src="https://res.cloudinary.com/jescobedo/image/upload/v1497581693/gonard-fluit-269139_p2kxsr.jpg" alt="Card image cap"/>
                     <div className="card-block">
                         <h4 className="card-title primary-text">Language Style</h4>
                         {this.state.loaded === false ?
