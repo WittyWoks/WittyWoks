@@ -13,6 +13,9 @@ const styles = {
   },
   card: {
     background: '#424242'
+  },
+  hero: {
+    display: 'inline'
   }
 };
 
@@ -26,6 +29,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <Navbar />
+
 
         <div className="view hm-black-strong" id="home">
           <div className="mask">
