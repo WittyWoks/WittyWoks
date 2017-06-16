@@ -176,6 +176,12 @@ li {
   margin-top: 60px;
 }
 
+.select-field {
+  background-color: #00BFA5;
+  border: 1px solid #00BFA5;
+  /*border-radius: 10px;*/
+}
+
 /* *************************
 * JOBLIST ENTRY
 ************************** */

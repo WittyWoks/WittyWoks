@@ -66,8 +66,9 @@ class Dashboard extends React.Component {
 
           {/* First row 
           <div className="card card-block" style={styles.cardHero} className="primary-text">
-            <div className="container">
-              <h2 className="card-title">{this.state.name}</h2>
+            <div className="container-fluid">
+              {/*{this.state.name}*/}
+              <p className="text-right">{this.state.name}</p>
             </div>
           </div>*/}
 
